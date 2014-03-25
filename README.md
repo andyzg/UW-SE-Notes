@@ -1,2 +1,3 @@
-UW-SE-Notes
+University of Waterloo Software Engineering Notes
 ===========
+A repository for notes written in LaTeX
