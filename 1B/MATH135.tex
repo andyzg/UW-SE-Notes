@@ -1,5 +1,6 @@
 \documentclass[12pt]{report}
 \usepackage[margin=2cm, left=5cm]{geometry}
+\usepackage{amsmath}
 
 \title{MATH 135 - Algebra for Honours Mathematics}
 \author{}
@@ -12,7 +13,7 @@
 \chapter{Injections and Bijections}
 	\section{Injective(One-to-One)}
 		\subsection{Definition}
-			Let $S$ and $T$ be two sets. A function $f: S \rightarrow T$ is \textbf{one-to-one}(or \textbf{injective}) iff for every $x_1 \in S, f(x_1) = f(x_2)$ implies that $x_1 = x_2$ and $|S| \leq |T|$. \\
+			\textbf{Injective:} Let $S$ and $T$ be two sets. A function $f: S \rightarrow T$ is \textbf{one-to-one}(or \textbf{injective}) iff for every $x_1 \in S, f(x_1) = f(x_2)$ implies that $x_1 = x_2$ and $|S| \leq |T|$. \\
 			When trying to prove that a function is one-to-one, start off with $f(x_1) = f(x_2)$ and try to use algebraic manipulation to obtain $x_1 = x_2$. 
 		\subsection{Simple Example}
 			\textbf{Proposition:} Let $m \neq 0$ and $b$ be fixed real numbers. The function $f: \Re \rightarrow \Re$ defined by $f(x) = mx + b$ is one to one\\
@@ -24,11 +25,11 @@
 			Questions to be added
 	\section{Surjective}
 		\subsection{Definition}
-			A function $f:S \rightarrow T$ is \textbf{surjective}(or \textbf{onto}) if and only if for every $y \in T$ there exists an $x \in S $ so that $f(x) = y$. This implies that $|S| \geq |T|$. \\
+			\textbf{Surjective:} A function $f:S \rightarrow T$ is \textbf{surjective}(or \textbf{onto}) if and only if for every $y \in T$ there exists an $x \in S $ so that $f(x) = y$. This implies that $|S| \geq |T|$. \\
 			When trying to prove that a function is onto, try to find a function $g(x)$ such that $f(g(x)) = y$ to prove that each $y$ in the codomain is mapped to.
 	\section{Bijections}
 		\subsection{Definition}
-			A function $f:S \rightarrow T$ is \textbf{bijective} iff $f$ is both surjective and injective.
+			\textbf{Bijection:} A function $f:S \rightarrow T$ is \textbf{bijective} iff $f$ is both surjective and injective.
 		\subsection{Simple Example}
 			We have already shown that for $m \neq 0$ and b a fixed real number, the function $f:\Re \rightarrow \Re$ defined by $f(x) = mx + b$ is both surjective and injective. Hence, $f$ is bijective.
 
@@ -40,5 +41,40 @@
 			\item $f:S \rightarrow T$ is injective iff $\forall x_1 \in S \forall x_2 \in S, f(x_1) = f(x_2) \Rightarrow x_1 = x_2$ or $x_1 \neq x_2 \Rightarrow f(x_1) \neq f(x_2)$, meaning for each element $t \in T$, there is at most one element $s \in S$ so that $f(s) = t$			
 		\end{itemize}
 \chapter{Counting}
-
+	\section{Bijection and Cardinality}
+		\subsection{Definition}
+			\textbf{Cardinality:} If there exists a bijection between the sets $S$ and $T$, we say that the sets have the same and we write $|S| = |T|$. \\
+			\textbf{Number of Elements, Finite, Infinite:} If there exists a bijection between a set $S$ and $\natural_n$, we say that the \textbf{number of elements} in $S$ is $n$ and we write $|S| = n$. Moreover, we also say that $S$ is a \textbf{finite set}. If no bijection exists between a set $S$ and $\natural_n$ for any $n$, we say that $S$ is an \textbf{infinite set}.
+		\subsection{Guidelines}
+			\textbf{Proposition:} Let $S = ...$ Let $T = ...$ Then there exists a bijection $f: S \rightarrow T$. Hence, $|S| = |T|$. \\
+			To do this, we must prove that f is both surjective and injective. \\
+			Consider the function $f:S \rightarrow T$ defined by $f(s) = ...$. We show that $f$ is surjective. Let $t \in T$. Consider $s = ...$ We show that $s \in S ...$. Now we show that $f(s) = t$.\\ We then show that $f$ is injective. Let $s_1, s_2 \in S$ and suppose that $f(s_1) = f(s_2)$. Now we show that $s_1 = s_2$.\\
+			Hence, $f:S \rightarrow T$ is a bijection and $|S| = |T|$.
+	\section{Finite Sets}
+		\subsection{Definitions}
+			\textbf{Disjoint:} Set $S$ and $T$ are \textbf{disjoint} if $S \cap T = \emptyset$
+			
+		\subsection{Propositions}
+			\textbf{Cardinality of Intersecting Sets(CIS):} If $S$ and $T$ are any finite sets, then \\
+			\centerline{$|S \cup T| = |S| + |T| - |S \cap T|$}\\
+			\textbf{Cardinality of Disjoint Sets(CDS)}: If $S$ and $T$ are disjoint finite sets, then $|S \cup T| = |S| + |T|$\\
+			
+		\subsection{Example}
+			\textbf{Proof of CDS:}
+			\begin{enumerate}
+				\item Since $S$ is a finite set, there exists a bijection $f:S \rightarrow \natural_m$ for some non negative integer $m$, and $|S| = m$
+				\item Since $T$ is a finite set, there exists a bijection $f:T \rightarrow \natural_n$ for some non negative integer $m$, and $|T| = n$
+				\item Construct function $h:S \cup T \rightarrow \natural_{m+n}$ as follows: \\
+				$h(x)$ = f(x) if $x \in S$ else $g(x) + m$ if $x \in T$
+				\item To show that $h$ is surjective, let $y \in \natural_{m+n}$. If $y \leq m$, then because $f$ is surjectivethere exists an element $x \in S$ so that $f(x) = y$, hence $h(x) = y$. If $m+1 \leq y \leq m + n$, then because $g$ is surjective, there exists an element $x \in T$ so that $g(x) = y-m$ and so $h(x) = (y-m) + m = y$.
+				\item To show that $h$ is injective, let $x_1, x_2 \in S \cup T$ and suppose that $h(x_1) = h(x_2)$. If $h(x) \leq m$ then $h(x) = f(x)$ so if $h(x_1) \leq m$ we have\\
+				\centerline{$h(x_1) = h(x_2) \Rightarrow f(x_1) = f(x_2)$} \\
+				But since $f$ is a bijection $f(x_1) = f(x_2)$ implies $x_1 = x_2$ as needed. If $h(x) > m$ then $h(x) = g(x)$ so if $h(x_1) > m$ we have \\
+				\centerline{$h(x_1) = h(x_2) \Rightarrow g(x_1) + m = g(x_2) + m \Rightarrow g(x_1) = g(x_2)$} \\
+				But since $g$ is a bijectoin $g(x_2) = g(x_2) $ implies $x_1 = x_2$ as needed. Since $h$ is a function which is both injective and surjective,$h$ is bijective.
+				\item Thus \\
+				\centerline{$|S \cup T| = |\natural_{m+n}| = m+n=|\natural_m| + |\natural_n| = |S| + |T|$}
+			\end{enumerate}
+			If it wasn't clear, f(x) is mapped to 1,2..$m$ and $g(x) + m$ is mapped to $m+1, m+2,$...$m+n$.
+			
 \end{document}
