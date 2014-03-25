@@ -2,6 +2,8 @@
 \usepackage[margin=2cm, left=5cm]{geometry}
 \usepackage{amsmath}
 
+% Compression needs to be done on the examples so that they're easier to read
+% Suggestion: Write problem and how to solve/approach
 \title{MATH 135 - Algebra for Honours Mathematics}
 \author{}
 \date{Winter 2014}
@@ -10,7 +12,7 @@
 \maketitle
 \tableofcontents
 
-\chapter{Injections and Bijections}
+\chapter{Injective, Surjective and Bijections}
 	\section{Injective(One-to-One)}
 		\subsection{Definition}
 			\textbf{Injective:} Let $S$ and $T$ be two sets. A function $f: S \rightarrow T$ is \textbf{one-to-one}(or \textbf{injective}) iff for every $x_1 \in S, f(x_1) = f(x_2)$ implies that $x_1 = x_2$ and $|S| \leq |T|$. \\
@@ -21,8 +23,7 @@
 		\subsection{Hard Example}
 			\textbf{Proposition:} Let $f: T \rightarrow U$ and $g:S \rightarrow T$ be one-to-one functions. Then $f \circ g$ is a one-to-one function.\\
 			\textbf{Proof:} Let $x_1, x_2 \in S$. Suppose that $(f \circ g)(x_1) = (f \circ g)(x_2)$. Since $(f \circ g)(x_1) = (f \circ g)(x_2)$, we know that $f(g(x_1)) = f(g(x_2))$. Since $f$ is one-to-one, we know that $g(x_1) = g(x_2)$. And since $g$ is one-to-one, $x_1 = x_2$ as required. 
-		\subsection{Frequently Asked Questions}
-			Questions to be added
+
 	\section{Surjective}
 		\subsection{Definition}
 			\textbf{Surjective:} A function $f:S \rightarrow T$ is \textbf{surjective}(or \textbf{onto}) if and only if for every $y \in T$ there exists an $x \in S $ so that $f(x) = y$. This implies that $|S| \geq |T|$. \\
@@ -40,6 +41,8 @@
 
 			\item $f:S \rightarrow T$ is injective iff $\forall x_1 \in S \forall x_2 \in S, f(x_1) = f(x_2) \Rightarrow x_1 = x_2$ or $x_1 \neq x_2 \Rightarrow f(x_1) \neq f(x_2)$, meaning for each element $t \in T$, there is at most one element $s \in S$ so that $f(s) = t$			
 		\end{itemize}
+		\subsection{Frequently Asked Questions}
+			Questions to be added
 \chapter{Counting}
 	\section{Bijection and Cardinality}
 		\subsection{Definition}
