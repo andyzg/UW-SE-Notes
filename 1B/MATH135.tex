@@ -76,5 +76,21 @@
 				\centerline{$|S \cup T| = |\natural_{m+n}| = m+n=|\natural_m| + |\natural_n| = |S| + |T|$}
 			\end{enumerate}
 			If it wasn't clear, f(x) is mapped to 1,2..$m$ and $g(x) + m$ is mapped to $m+1, m+2,$...$m+n$.
-			
+	\section{Infinite Sets}
+		\subsection{Propositions}
+			\textbf{Cardinality of Subsets of Finite Sets(CSFS):} If $S$ and $T$ are finite sets, and $S \subset T$, then $|S| < |T|$ \\
+			\textbf{$|\natural| = |2\natural|$:} Let $2\natural$ be the set of positive even natural numbers. Then $|\natural| = |2\natural|$\\
+			\textbf{$|\natural x \natural| = |\natural|$}\\
+			\textbf{Even-Odd Factorization of Natural Numbers(EOFNN):} Any natural number $n$ can be written uniquely as $n = 2^iq$ where $i$ is a non-negative integer and $q$ is an odd natural number.
+			Note: use EOFNN to prove $|\natural x \natural| = |\natural|$.\\
+			Note: Not all infinite sets have the same size
+		\subsection{Example}
+			\textbf{Proof of $|\natural| = |2\natural|$}\\
+			We want to prove that there's a bijection between both sets
+			\begin{enumerate}
+				\item Consider the function $f:\natural \rightarrow 2\natural$ defined by $f(s) = 2s$
+				\item We show that $f$ is surjective. Let $t \in 2\natural$. Consider $s = \frac{1}{2}t$. We show that $s \in \natural$ since $f(\frac{1}{2}t) = t$ and therefore is surjective
+				\item We show that $f$ is injective. Let $s_1, s_2 \in \natural$ and suppose that $f(s_1) = f(s_2)$. Now we show that $s_1 = s_2$. Since $f(s_1) = 2s_1$ and $f(s_2) = 2s_2$, $s_1 = s_2$. 
+				\item Hence, $f:\natural \rightarrow 2\natural$ is a bijection and $|\natural| = |2\natural|$.
+			\end{enumerate}
 \end{document}
