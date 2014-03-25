@@ -1,9 +1,43 @@
-\documentclass{report}
-\usepackage[margin=2cm]{geometry}
+\documentclass[12pt]{report}
+\usepackage[margin=2cm, left=5cm]{geometry}
 
 \title{MATH 135 - Algebra for Honours Mathematics}
+\author{}
 \date{Winter 2014}
 
 \begin{document}
 \maketitle
+\tableofcontents
+
+\chapter{Injections and Bijections}
+	\section{Injective(One-to-One)}
+		\subsection{Definition}
+			Let $S$ and $T$ be two sets. A function $f: S \rightarrow T$ is \textbf{one-to-one}(or \textbf{injective}) iff for every $x_1 \in S, f(x_1) = f(x_2)$ implies that $x_1 = x_2$ and $|S| \leq |T|$. \\
+			When trying to prove that a function is one-to-one, start off with $f(x_1) = f(x_2)$ and try to use algebraic manipulation to obtain $x_1 = x_2$. 
+		\subsection{Simple Example}
+			\textbf{Proposition:} Let $m \neq 0$ and $b$ be fixed real numbers. The function $f: \Re \rightarrow \Re$ defined by $f(x) = mx + b$ is one to one\\
+			\textbf{Proof}: Let $x_1, x_2 \in S$. Suppose that $f(x_1) = f(x_2)$. Now we show that $x_1 = x_2$. Since $f(x_1) = f(x_2)$, $mx_1 + b = mx_2 + b$. Subtracting $b$ from both sides and dividing by $m$ gives $x_1 = x_2$ as required.
+		\subsection{Hard Example}
+			\textbf{Proposition:} Let $f: T \rightarrow U$ and $g:S \rightarrow T$ be one-to-one functions. Then $f \circ g$ is a one-to-one function.\\
+			\textbf{Proof:} Let $x_1, x_2 \in S$. Suppose that $(f \circ g)(x_1) = (f \circ g)(x_2)$. Since $(f \circ g)(x_1) = (f \circ g)(x_2)$, we know that $f(g(x_1)) = f(g(x_2))$. Since $f$ is one-to-one, we know that $g(x_1) = g(x_2)$. And since $g$ is one-to-one, $x_1 = x_2$ as required. 
+		\subsection{Frequently Asked Questions}
+			Questions to be added
+	\section{Surjective}
+		\subsection{Definition}
+			A function $f:S \rightarrow T$ is \textbf{surjective}(or \textbf{onto}) if and only if for every $y \in T$ there exists an $x \in S $ so that $f(x) = y$. This implies that $|S| \geq |T|$. \\
+			When trying to prove that a function is onto, try to find a function $g(x)$ such that $f(g(x)) = y$ to prove that each $y$ in the codomain is mapped to.
+	\section{Bijections}
+		\subsection{Definition}
+			A function $f:S \rightarrow T$ is \textbf{bijective} iff $f$ is both surjective and injective.
+		\subsection{Simple Example}
+			We have already shown that for $m \neq 0$ and b a fixed real number, the function $f:\Re \rightarrow \Re$ defined by $f(x) = mx + b$ is both surjective and injective. Hence, $f$ is bijective.
+
+	\section{Summary}
+		\begin{itemize}
+			\item $f:S \rightarrow T$ is a function iff $\forall s \in S \exists !t \in T, f(s) = t$ where ! means unique
+			\item $f:S \rightarrow T$ is surjective iff $\forall t \in T \exists s \in S, f(s) = t$, meaning for each element $t \in T$, there is at least one element $s \in S$ so that $f(s) = t$			
+			\item $f:S \rightarrow T$ is injective iff $\forall x_1 \in S \forall x_2 \in S, f(x_1) = f(x_2) \Rightarrow x_1 = x_2$ or $x_1 \neq x_2 \Rightarrow f(x_1) \neq f(x_2)$, meaning for each element $t \in T$, there is at most one element $s \in S$ so that $f(s) = t$			
+		\end{itemize}
+\chapter{Counting}
+			
 \end{document}
