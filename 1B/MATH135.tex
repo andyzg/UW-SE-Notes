@@ -1,5 +1,6 @@
 \documentclass[12pt]{report}
 \usepackage[margin=2cm, left=5cm]{geometry}
+\usepackage{amsfonts}
 \usepackage{amsmath}
 
 % Compression needs to be done on the examples so that they're easier to read
@@ -18,7 +19,7 @@
 			\textbf{Injective:} Let $S$ and $T$ be two sets. A function $f: S \rightarrow T$ is \textbf{one-to-one}(or \textbf{injective}) iff for every $x_1 \in S, f(x_1) = f(x_2)$ implies that $x_1 = x_2$ and $|S| \leq |T|$. \\
 			When trying to prove that a function is one-to-one, start off with $f(x_1) = f(x_2)$ and try to use algebraic manipulation to obtain $x_1 = x_2$. 
 		\subsection{Simple Example}
-			\textbf{Proposition:} Let $m \neq 0$ and $b$ be fixed real numbers. The function $f: \Re \rightarrow \Re$ defined by $f(x) = mx + b$ is one to one\\
+			\textbf{Proposition:} Let $m \neq 0$ and $b$ be fixed real numbers. The function $f: \mathbb{R} \rightarrow \mathbb{R}$ defined by $f(x) = mx + b$ is one to one\\
 			\textbf{Proof}: Let $x_1, x_2 \in S$. Suppose that $f(x_1) = f(x_2)$. Now we show that $x_1 = x_2$. Since $f(x_1) = f(x_2)$, $mx_1 + b = mx_2 + b$. Subtracting $b$ from both sides and dividing by $m$ gives $x_1 = x_2$ as required.
 		\subsection{Hard Example}
 			\textbf{Proposition:} Let $f: T \rightarrow U$ and $g:S \rightarrow T$ be one-to-one functions. Then $f \circ g$ is a one-to-one function.\\
@@ -32,7 +33,7 @@
 		\subsection{Definition}
 			\textbf{Bijection:} A function $f:S \rightarrow T$ is \textbf{bijective} iff $f$ is both surjective and injective.
 		\subsection{Simple Example}
-			We have already shown that for $m \neq 0$ and b a fixed real number, the function $f:\Re \rightarrow \Re$ defined by $f(x) = mx + b$ is both surjective and injective. Hence, $f$ is bijective.
+			We have already shown that for $m \neq 0$ and b a fixed real number, the function $f:\mathbb{R} \rightarrow \mathbb{R}$ defined by $f(x) = mx + b$ is both surjective and injective. Hence, $f$ is bijective.
 
 	\section{Summary}
 		\begin{itemize}
@@ -47,8 +48,8 @@
 	\section{Bijection and Cardinality}
 		\subsection{Definition}
 			\textbf{Cardinality:} If there exists a bijection between the sets $S$ and $T$, we say that the sets have the same and we write $|S| = |T|$. \\
-			\textbf{Number of Elements, Finite, Infinite:} If there exists a bijection between a set $S$ and $\natural_n$, we say that the \textbf{number of elements} in $S$ is $n$ and we write $|S| = n$. Moreover, we also say that $S$ is a \textbf{finite set}. If no bijection exists between a set $S$ and $\natural_n$ for any $n$, we say that $S$ is an \textbf{infinite set}.\\
-			\textbf{Countable: } A set $S$ is \textbf{countable} if there exists an injective function $f$ from $S$ to the natural numbers $\natural$
+			\textbf{Number of Elements, Finite, Infinite:} If there exists a bijection between a set $S$ and $\mathbb{N}_n$, we say that the \textbf{number of elements} in $S$ is $n$ and we write $|S| = n$. Moreover, we also say that $S$ is a \textbf{finite set}. If no bijection exists between a set $S$ and $\mathbb{N}_n$ for any $n$, we say that $S$ is an \textbf{infinite set}.\\
+			\textbf{Countable: } A set $S$ is \textbf{countable} if there exists an injective function $f$ from $S$ to the natural numbers $\mathbb{N}$
 		\subsection{Guidelines}
 			\textbf{Proposition:} Let $S = ...$ Let $T = ...$ Then there exists a bijection $f: S \rightarrow T$. Hence, $|S| = |T|$. \\
 			To do this, we must prove that f is both surjective and injective. \\
@@ -66,35 +67,79 @@
 		\subsection{Example}
 			\textbf{Proof of CDS:}
 			\begin{enumerate}
-				\item Since $S$ is a finite set, there exists a bijection $f:S \rightarrow \natural_m$ for some non negative integer $m$, and $|S| = m$
-				\item Since $T$ is a finite set, there exists a bijection $f:T \rightarrow \natural_n$ for some non negative integer $m$, and $|T| = n$
-				\item Construct function $h:S \cup T \rightarrow \natural_{m+n}$ as follows: \\
+				\item Since $S$ is a finite set, there exists a bijection $f:S \rightarrow \mathbb{N}_m$ for some non negative integer $m$, and $|S| = m$
+				\item Since $T$ is a finite set, there exists a bijection $f:T \rightarrow \mathbb{N}_n$ for some non negative integer $m$, and $|T| = n$
+				\item Construct function $h:S \cup T \rightarrow \mathbb{N}_{m+n}$ as follows: \\
 				$h(x)$ = f(x) if $x \in S$ else $g(x) + m$ if $x \in T$
-				\item To show that $h$ is surjective, let $y \in \natural_{m+n}$. If $y \leq m$, then because $f$ is surjectivethere exists an element $x \in S$ so that $f(x) = y$, hence $h(x) = y$. If $m+1 \leq y \leq m + n$, then because $g$ is surjective, there exists an element $x \in T$ so that $g(x) = y-m$ and so $h(x) = (y-m) + m = y$.
+				\item To show that $h$ is surjective, let $y \in \mathbb{N}_{m+n}$. If $y \leq m$, then because $f$ is surjectivethere exists an element $x \in S$ so that $f(x) = y$, hence $h(x) = y$. If $m+1 \leq y \leq m + n$, then because $g$ is surjective, there exists an element $x \in T$ so that $g(x) = y-m$ and so $h(x) = (y-m) + m = y$.
 				\item To show that $h$ is injective, let $x_1, x_2 \in S \cup T$ and suppose that $h(x_1) = h(x_2)$. If $h(x) \leq m$ then $h(x) = f(x)$ so if $h(x_1) \leq m$ we have\\
 				\centerline{$h(x_1) = h(x_2) \Rightarrow f(x_1) = f(x_2)$} \\
 				But since $f$ is a bijection $f(x_1) = f(x_2)$ implies $x_1 = x_2$ as needed. If $h(x) > m$ then $h(x) = g(x)$ so if $h(x_1) > m$ we have \\
 				\centerline{$h(x_1) = h(x_2) \Rightarrow g(x_1) + m = g(x_2) + m \Rightarrow g(x_1) = g(x_2)$} \\
 				But since $g$ is a bijectoin $g(x_2) = g(x_2) $ implies $x_1 = x_2$ as needed. Since $h$ is a function which is both injective and surjective,$h$ is bijective.
 				\item Thus \\
-				\centerline{$|S \cup T| = |\natural_{m+n}| = m+n=|\natural_m| + |\natural_n| = |S| + |T|$}
+				\centerline{$|S \cup T| = |\mathbb{N}_{m+n}| = m+n=|\mathbb{N}_m| + |\mathbb{N}_n| = |S| + |T|$}
 			\end{enumerate}
 			If it wasn't clear, f(x) is mapped to 1,2..$m$ and $g(x) + m$ is mapped to $m+1, m+2,$...$m+n$.
 	\section{Infinite Sets}
 		\subsection{Propositions}
 			\textbf{Cardinality of Subsets of Finite Sets(CSFS):} If $S$ and $T$ are finite sets, and $S \subset T$, then $|S| < |T|$ \\
-			\textbf{$|\natural| = |2\natural|$:} Let $2\natural$ be the set of positive even natural numbers. Then $|\natural| = |2\natural|$\\
-			\textbf{$|\natural x \natural| = |\natural|$}\\
+			\textbf{$|\mathbb{N}| = |2\mathbb{N}|$:} Let $2\mathbb{N}$ be the set of positive even natural numbers. Then $|\mathbb{N}| = |2\mathbb{N}|$\\
+			\textbf{$|\mathbb{N} x \mathbb{N}| = |\mathbb{N}|$}\\
 			\textbf{Even-Odd Factorization of Natural Numbers(EOFNN):} Any natural number $n$ can be written uniquely as $n = 2^iq$ where $i$ is a non-negative integer and $q$ is an odd natural number.
-			Note: use EOFNN to prove $|\natural x \natural| = |\natural|$.\\
+			Note: use EOFNN to prove $|\mathbb{N} x \mathbb{N}| = |\mathbb{N}|$.\\
 			Note: Not all infinite sets have the same size
 		\subsection{Example}
-			\textbf{Proof of $|\natural| = |2\natural|$}\\
+			\textbf{Proof of $|\mathbb{N}| = |2\mathbb{N}|$}\\
 			We want to prove that there's a bijection between both sets
 			\begin{enumerate}
-				\item Consider the function $f:\natural \rightarrow 2\natural$ defined by $f(s) = 2s$
-				\item We show that $f$ is surjective. Let $t \in 2\natural$. Consider $s = \frac{1}{2}t$. We show that $s \in \natural$ since $f(\frac{1}{2}t) = t$ and therefore is surjective
-				\item We show that $f$ is injective. Let $s_1, s_2 \in \natural$ and suppose that $f(s_1) = f(s_2)$. Now we show that $s_1 = s_2$. Since $f(s_1) = 2s_1$ and $f(s_2) = 2s_2$, $s_1 = s_2$. 
-				\item Hence, $f:\natural \rightarrow 2\natural$ is a bijection and $|\natural| = |2\natural|$.
+				\item Consider the function $f:\mathbb{N} \rightarrow 2\mathbb{N}$ defined by $f(s) = 2s$
+				\item We show that $f$ is surjective. Let $t \in 2\mathbb{N}$. Consider $s = \frac{1}{2}t$. We show that $s \in \mathbb{N}$ since $f(\frac{1}{2}t) = t$ and therefore is surjective
+				\item We show that $f$ is injective. Let $s_1, s_2 \in \mathbb{N}$ and suppose that $f(s_1) = f(s_2)$. Now we show that $s_1 = s_2$. Since $f(s_1) = 2s_1$ and $f(s_2) = 2s_2$, $s_1 = s_2$. 
+				\item Hence, $f:\mathbb{N} \rightarrow 2\mathbb{N}$ is a bijection and $|\mathbb{N}| = |2\mathbb{N}|$.
 			\end{enumerate}
+\chapter{Complex Numbers}
+	\section{Complex Numbers}
+		\subsection{Definition}
+			\textbf{Complex Number:} A complex number $z$ in \textbf{standard form} is an expression of the form $x+yi$ where $x,y\in \mathbb{R}$. The set of all complex numbers is denoted by\\
+			\centerline{$\mathbb{C} = \{x + yi | x,y \in \mathbb{R}\}$}
+			\\
+			\textbf{Real part and Imaginary part:} For a complex number $z = x + yi$, the real number $x$ is called the \textbf{real part} and is written $\Re(z)$ and the real number y is called the \textbf{imaginary part} and is written $\Im(z)$.
+			\\
+		\subsection{Properties}
+			\textbf{Complex Conjugate:} The complex conjugate of $z = x + yi$ is \\
+			\centerline{$\bar{z} = x - yi$}
+			This implies that:
+			\begin{itemize}
+				\item $\bar{z+w} = \bar{z} + \bar{w}$
+				\item $\bar{zw} = \bar{z} \bar{w}$
+				\item $\bar{\bar{z}} = z$
+				\item $z + \bar{z} = 2\Re(z)$
+				\item $z - \bar{z} = 2\Im(z)$
+			\end{itemize}
+			\textbf{Modulus: } The modulus of the complex number $z = x + yi$ is the non-negative real number: \\
+			\centerline{$|z| = |x + yi| = \sqrt{x^2 + y^2}$}
+	\section{Polar Form}
+		\subsection{Definition}
+			\textbf{Polar Form:} The polar form of a complex number $z$ is \\
+			\centerline{$z = r(\cos \theta + i \sin \theta)$} \\
+			where $r$ is the modulus of $z$ and the angle $\theta$ is called an argument of $z$
+			\textbf{Complex Exponential:} By analogy, we define the complex exponential function by\\
+			\centerline{$e^{i\theta} = \cos \theta + i \sin \theta$}
+		\subsection{Properties}
+			\textbf{Polar Multiplication of Complex Numbers(PMCN):} If $z_1 = r_1(\cos \theta_1 + i \sin \theta_1)$ and $z_2 = r_2(\cos \theta_2 + i \sin \theta_2)$ are two complex numbers in polar form, then \\
+			\centerline{$z_1z_2 = r_1r_2(cos(\theta_1 + \theta_2) + i \sin (\theta_1 + \theta_2)$}
+		\subsection{De Moivre's Theorem}
+			\textbf{De Moivre's Theorem(DMT):} If $\theta \in \mathbb{R}$ and $n \in \mathbb{Z}$ then \\
+			\centerline{$(\cos \theta + i \sin \theta)^n = \cos n\theta + i \sin n\theta$}				
+	\section{Roots of Complex Numbers}
+		\subsection{Definition}
+			\textbf{Complex Roots: }If $a$ is a complex number, then the complex numbers that solve \\
+			\centerline{$z^n = a$} \\
+			are called the complex nth roots. De Moivre's Theorem gives us a straightforward way to find complex nth roots of $a$.
+		\subsection{Technique}
+			\textbf{Complex nth Roots Theorem(CNRT):} If $r(\cos \theta + i \sin \theta)$ is the polar form of a complex number $a$, then the solutions to $z^n = a$ are:\\
+			\centerline{$\sqrt[n]{r}(\cos (\frac{\theta + 2k\pi}{n}) + i \sin (\frac{\theta + 2k\pi}{n}))$}
+			where $k = 0,1,2,3,...$
+			
 \end{document}
