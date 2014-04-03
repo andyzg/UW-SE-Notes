@@ -12,7 +12,35 @@
 \begin{document}
 \maketitle
 \tableofcontents
-
+\chapter{The RSA Scheme}
+	\section{RSA}
+		\subsection{Setting up RSA}
+			\begin{enumerate}
+				\item Choose two large, distinct primes $p$ and $q$ and let $n = pq$.
+				\item Select an integer $e$ so that $gcd(e, (p-1)(q-1)) = 1$ and $1 < e < (p-1)(q-1)$. 
+				\item Solve\\
+				\centerline{$ed \equiv 1 (mod (p-1)(q-1))$}\\
+				for an integer $d$ where $1 < e < (p-1)(q-1)$.
+				\item Publish the public encryption key $(e,n)$.
+				\item Keep the private decryption key secure $(d,n)$.
+			\end{enumerate}
+		\subsection{Sending a Message}
+			To send a message:
+			\begin{enumerate}
+				\item Look up the recipient's public key $(e, n)$.
+				\item Generate the integer message $M$ so that $0 \leq M < n$.
+				\item Compute the ciphertext $C$ as follows:\\
+					\centerline{$M^e\equiv C (mod n)$ where $0 \leq C < n$}
+				\item Send $C$
+			\end{enumerate}
+		\subsection{Receiving a Message}
+			To decrypt a message:
+			\begin{enumerate}
+				\item Use your private key $(d,n)$. 
+				\item Compute the message text $R$ from the ciphertext $C$ as follows:\\
+					\centerline{$C^d \equiv R (mod n)$ where $0 \leq R < n$}
+				\item $R$ is the original message.
+			\end{enumerate}
 \chapter{Injective, Surjective and Bijections}
 	\section{Injective(One-to-One)}
 		\subsection{Definition}
@@ -169,5 +197,7 @@
 			\textbf{Rational Roots Theorem(RRT):} Let $f(x)$ be a polynomial of degree $n$. If $\frac{p}{q}$ is a rational root with $gcd(p,q) = 1$, then $p|a_0$ and $q|a_n$. \\
 			Note: If asked for a rational root, find all divisors of $a_n$ and $a_0$ and find all different combinations and evaluate whether they're roots. \\
 			\textbf{Conjugate Roots Theorem(CJRT):} Let $f(x)$ be a polynomial of degree $n$ with real coefficients. If $c \in \mathbb{C}$ is a root of $f(x)$, then $\bar{c} \in \mathbb{C}$ is a root of $f(x)$. \\
-			\textbf{Real Quadtratic Factors(RQF):} Let $f(x)$ be a polynomial of degree $n$ with real coefficients. If $c \in \mathbb{C}$, $\Im(c) \neq 0$, is a root of $f(x)$, then there exists a real quadratic factor of $f(x)$ with $c$ as a root.
+			\textbf{Real Quadtratic Factors(RQF):} Let $f(x)$ be a polynomial of degree $n$ with real coefficients. If $c \in \mathbb{C}$, $\Im(c) \neq 0$, is a root of $f(x)$, then there exists a real quadratic factor of $f(x)$ with $c$ as a root.\\
+			\textbf{Real Factors of Real Polynomials(RFRP):} Let $f(x)$ be a polynomial of degree $n$ with real coefficients. Then $f(x)$ can be written as a product of real linear and real quadratic factors. 
+			
 \end{document}
