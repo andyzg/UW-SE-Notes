@@ -2,6 +2,7 @@
 \usepackage[margin=2cm, left=5cm]{geometry}
 \usepackage{amsfonts}
 \usepackage{amsmath}
+\usepackage{amssymb}
 
 % Compression needs to be done on the examples so that they're easier to read
 % Suggestion: Write problem and how to solve/approach
@@ -12,6 +13,55 @@
 \begin{document}
 \maketitle
 \tableofcontents
+\chapter{Congruence and Modular Arithmetic}
+	\section{Congruence}
+		\subsection{Definition}
+			\textbf{Congruence:} Let $m$ be a fixed positive integer. If $a, b \in \mathbb{Z}$ we say that $a$ is congruent to $b$ modulo $m$, and write \\
+			\centerline{$a \equiv b$ (mod m)}\\
+			if $m|(a-b)$. If $m \nmid (a-b)$, we write $a \not \equiv b$ (mod $m$)
+		\subsection{Propositions}
+			\textbf{Propoerties of Congruence(PC):} Let $a, a', b, b' \in \mathbb{Z}$. If $a \equiv a'$(mod $m$) and $b \equiv b' $(mod $m$), then:
+			\begin{enumerate}
+				\item $a+b \equiv a' + b'$(mod $m$)
+				\item $a-b \equiv a' - b'$(mod $m$)
+				\item $ab \equiv a'b'$(mod $m$)
+			\end{enumerate}
+			\textbf{Congruences and Division(CD):} If $ac \equiv bc$(mod $m$) and $gcd(c,m)=1$, then $a \equiv b$(mod $m$)
+	\section{Modular Arithmetic}
+		\subsection{Definition}
+			\textbf{Congruence Class:} The congruence class modulo m of the integer $a$ is the set of integers \\
+			\centerline{$[a] = \{x \in \mathbb{Z} | x \equiv a$(mod $m$)$\}$}
+			\textbf{$\mathbb{Z}_m$:} We define $\mathbb{Z}_m$ to be the set of $m$ congruence classes\\
+			\centerline{$\mathbb{Z}_m = \{[0],[1],[2],...[m-1]\}$} \\
+			and we define addition/subtraction and multiplication/division as follows:\\
+			\centerline{$[a] + [b] = [a+b]$}\\
+			\centerline{$[a]\cdot[b] = [a\cdot b]$}
+		\subsection{Identities and Inverses in $\mathbb{Z}_m$}
+			\textbf{Identity:} Given a set $S$ and an operation designated by $\circ$, an identity is an element $e \in S$ so that \\
+			\centerline{$\forall a \in S, a \circ e = a$}\\
+			\textbf{Inverse:} The element $b \in S$ is an inverse of $a \in S$ if $a \circ b = b \circ a = e$
+	\section{Fermat's Little Theorem}
+		\subsection{Theorem}
+			\textbf{Fermat's Little Theorem(FLT):} If $p$ is a prime number that does not divide the integer $a$, then \\
+			\centerline{$a^{p-1} \equiv 1$(mod $p$)}\\
+			\textbf{Corollary:} For any integer $a$ and any prime $p$, \\
+			\centerline{$a^p \equiv a$(mod $p$)}\\
+			\textbf{Existence of Inverses in $\mathbb{Z}_p$ (INV $\mathbb{Z}_p$):} Let $p$ be a prime number. If $[a]$ is any non-zero element in $\mathbb{Z}_p$, then there exists an element $[b] \in \mathbb{Z}_p$ so that $[a] \cdot [b] = 1$
+		\subsection{Proof}
+			\begin{enumerate}
+				\item If $p \nmid a$, we first show that all of the integers \\
+				\centerline{$a, 2a, 3a, ... (p-1)a$}\\
+				are all distinct modulo $p$
+				\item Suppose that $ra \equiv sa$(mod $p$) where $1 \leq r < s \leq p-1$
+				\item Since $gcd(a,p) = 1$, Congruences and Division tells us that $r \equiv s$(mod $p$), but this is not possible when $1 \leq r < s \leq p-1$.
+				\item Because $a, 2a, 3a... (p-1)a$ are all distinct mod $p$, it must be the case that these integers are equivalent to the integers $1,2,3... p-1$ in some order.
+				\item Multiplying these integers together gives\\
+				\centerline{$a\cdot 2a \cdot 3a ... (p-1)a \equiv 1 \cdot 2 \cdot 3 ... (p-1)$(mod $p$)}\\
+				\centerline{$(p-1)!a^{p-1} \equiv (p-1)!$(mod $p$)}
+				\item Since $gcd(p,p-1)!) = 1$, Congruences and Division tells us that \\
+				\centerline{$a^{p-1} \equiv 1$(mod $p$)}
+			\end{enumerate}
+	\section{Linear Congruences}
 \chapter{The RSA Scheme}
 	\section{RSA}
 		\subsection{Setting up RSA}
