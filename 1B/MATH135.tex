@@ -136,10 +136,38 @@
 		\subsection{Definition}
 			\textbf{Complex Roots: }If $a$ is a complex number, then the complex numbers that solve \\
 			\centerline{$z^n = a$} \\
-			are called the complex nth roots. De Moivre's Theorem gives us a straightforward way to find complex nth roots of $a$.
+			are called the complex nth roots. De Moivre's Theorem gives us a straightforward way to find complex nth roots of $a$.\\
+			\textbf{Nth root of unity:} $z$ is an nth root of unity if $z^n = 1$.
 		\subsection{Technique}
 			\textbf{Complex nth Roots Theorem(CNRT):} If $r(\cos \theta + i \sin \theta)$ is the polar form of a complex number $a$, then the solutions to $z^n = a$ are:\\
 			\centerline{$\sqrt[n]{r}(\cos (\frac{\theta + 2k\pi}{n}) + i \sin (\frac{\theta + 2k\pi}{n}))$}
-			where $k = 0,1,2,3,...$
+			where $k = 0,1,2,3,...$\\
+			\textbf{Finding coefficients of all $x^nk$ for $k \in \mathbb{N}$}: \\
+			\centerline{$1, w = e^{i\frac{2\pi}{n}}, w = e^{i\frac{4\pi}{n}}$}
+			Let's let n = 3. $1 + w + w^2 = 0$. $\frac{f(1) + f(w) + f(w^2)}{3}$ is the sum we want.
 			
+\chapter{Polynomials}
+	\section{Polynomials}
+		\subsection{Definition}
+			\textbf{Polynomial:} A polynomial in $x$ over a field $\mathbb{F}$ (eg $\mathbb{R}, \mathbb{C}, \mathbb{Q}, \mathbb{Z}_p$ for prime $p$, any number system that is closed under $+-*/$) has the form \\
+			\centerline{$a_nx^n + a_{n-1}x^{n-1} + ... + a_1x + a_0$} where $n \geq 0$ is an integer and $a_i \in \mathbb{F}$ for each $i$. The set of all polynomials in $x$ over $\mathbb{F}$ is denoted $\mathbb{F}[x]$	
+		\subsection{Proposition}
+			\textbf{Division Algorithm for Polynomials(DAP):} If $f(x)$ and $g(x)$ are polynomials in $\mathbb{F}[x]$ and $g(x)$ is not the zero polynomial, then there exist unique polynomials $q(x)$ and $r(x)$ in $\mathbb{F}[x]$ such that \\
+			\centerline{$f(x) = q(x)g(x) + r(x)$}\\
+			where deg$r(x) < $ deg$g(x)$ or $r(x) = 0$\\
+			$q(x)$ is the quotient polynomial and $r(x)$ is called the remainder polynomial. If $r(x)=0$, then $g(x)|f(x)$
+	\section{Factoring Polynomials}
+		\subsection{Definition}
+			\textbf{Root:} An element $c \in \mathbb{F}$ is called a root or zero of the polynomial $f(x)$ if $f(c) = 0$. 
+			\\
+		\subsection{Theorems}
+			\textbf{Fundamental Theorem of Algebra(FTA):} For all complex polynomials $f(z)$ with deg$(f(z)) \geq 1$, there exists a $z_0 \in \mathbb{C}$ so that $f(z_0) = 0$. \\
+			\textbf{Remainder Theorem:} The remainder when the polynomial $f(x)$ is divided by $(x-c)$ is $f(c)$. \\
+			\textbf{Factor Theorem 1(FT 1):} The linear polynomial $(x-c)$ is a factor of the polynomial $f(x)$ iff $f(c)=0$.\\
+			\textbf{Factor Theorem 2(FT 2):} The linear polynomial $(x-c)$ is a factor of the polynomial $f(x)$ iff $c$ is a root of the polynomial $f(x)$.\\
+			\textbf{Complex Polynomials of Degree $n$ Have $n$ Roots(CPN):} If $f(x)$ is a complex polynomial of degree $n \geq 1$, then $f(x)$ has $n$ roots and can be written as the products of $n$ linear factors. The $n$ roots and factors may not be distinct. \\
+			\textbf{Rational Roots Theorem(RRT):} Let $f(x)$ be a polynomial of degree $n$. If $\frac{p}{q}$ is a rational root with $gcd(p,q) = 1$, then $p|a_0$ and $q|a_n$. \\
+			Note: If asked for a rational root, find all divisors of $a_n$ and $a_0$ and find all different combinations and evaluate whether they're roots. \\
+			\textbf{Conjugate Roots Theorem(CJRT):} Let $f(x)$ be a polynomial of degree $n$ with real coefficients. If $c \in \mathbb{C}$ is a root of $f(x)$, then $\bar{c} \in \mathbb{C}$ is a root of $f(x)$. \\
+			\textbf{Real Quadtratic Factors(RQF):} Let $f(x)$ be a polynomial of degree $n$ with real coefficients. If $c \in \mathbb{C}$, $\Im(c) \neq 0$, is a root of $f(x)$, then there exists a real quadratic factor of $f(x)$ with $c$ as a root.
 \end{document}
