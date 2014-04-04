@@ -7,7 +7,7 @@
 % Compression needs to be done on the examples so that they're easier to read
 % Suggestion: Write problem and how to solve/approach
 \title{MATH 135 - Algebra for Honours Mathematics}
-\author{}
+\author{Andy Zhang}
 \date{Winter 2014}
 
 \begin{document}
@@ -62,6 +62,29 @@
 				\centerline{$a^{p-1} \equiv 1$(mod $p$)}
 			\end{enumerate}
 	\section{Linear Congruences}
+		\subsection{Definition}
+			\textbf{Linear Congruence:} A relation of the form\\
+			\centerline{$ax \equiv c$(mod $m$)}\\
+			is called a linear congruence in the variable $x$. A solution to such a linear congruence is an integer $x_0$ so that \\
+			\centerline{$ax_0 \equiv c$(mod $m$)}
+		\subsection{Theorems}
+			\textbf{Linear Diophantine Equation Theorem, Part 2(LDET 2):} Let $gcd(a,m)=d\neq 0$. \\
+			If $x = x_0$ and $y = y_0$ is one particular integer solution to the linear Diophantine equation $ax + my = c$, then the complete integer solution is \\
+			\centerline{$x = x_0 + \frac{m}{d}n, y=y_0 - \frac{a}{d}n, \forall n \in \mathbb{Z}$}
+			The complete solution if $x_0$ is a solution is \\
+			\centerline{$x \equiv x_0$ (mod $\frac{m}{d}$) where $d = gcd(a,m)$}\\
+			\textbf{Linear Congruence Theorem, Version 1(LCT 1):} Let $gcd(a,m) = d \neq 0$.\\
+			The linear congruence $ax \equiv c$(mod $m$) has a solution iff $d|c$.\\
+	\section{Chinese Remainder Theorem}
+		\subsection{Definition}
+			\textbf{Chinese Remainder Theorem(CRT):} Let $a_1, a_2 \in \mathbb{Z}$. If $gcd(m_1, m_2)=1$, then the simultaneous linear congruences \\
+			\centerline{$n \equiv a_1$(mod $m_1$)}\\
+			\centerline{$n \equiv a_2$(mod $m_2$)}\\
+			has a unique solution modulo $m_1m_2$. Thus if $n = n_0$ is one integer solution, then the complete solution is \\
+			\centerline{$n \equiv n_0$(mod $m_1m_2$)}\\
+			Moreover, this could be generalized with many congruences. If $n = n_0$ is a solution, then the complete solution would be \\
+			\centerline{$n \equiv n_0$ (mod $m_1m_2...m_k$)}
+			
 \chapter{The RSA Scheme}
 	\section{RSA}
 		\subsection{Setting up RSA}
