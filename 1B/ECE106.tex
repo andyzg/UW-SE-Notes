@@ -158,4 +158,85 @@
 			\item The electric force acts on a chraged particle regardless of whether the particle is moving, whereas the magnetic force acts on a charged particle only when the particle is in motion
 			\item The electric force does work in displacing a charged particle, whereas the magnetic force associated with a steady magnetic field does no work when a particle is displaced because the force is perpendicular to the displacement of its point of application
 		\end{itemize}
+	\section{Motion of a Charged Particle in a Uniform Magnetic Field}
+		We denote $\cdot$ as a magnetic field coming out of the paper and $\times$ when the magnetic field is going into the paper. If a charge has a velocity perpendicular in a uniform magnetic field, it will move in a circular path. We can then define several properties of its path:\\
+		\centerline{$ r = \frac{mv}{qB}$}
+		\centerline{$ \omega = \frac{v}{r} = \frac{qB}{m}$}
+		\centerline{$ T = \frac{2\pi r}{v} = \frac{2\pi}{\omega} = \frac{2\pi m}{qB}$}
+	\section{Magnetic Force Acting on a Current Carrying Conductor}
+		Rather than applying a magnetic force on a charge, what if we wanted to apply it on a current? We'd need to redefine our formula:\\
+		\centerline{$\vec{F_B} = (q\vec{v}_d \times \vec{B})nAL$}
+		where $n$ is defined as the number of charge per unit volume. Hence, we define the magnetic for a current as:\\
+		\centerline{$\vec{F}_B = I\vec{L} \times \vec{B}$}
+		where $\vec{L}$ is a vector that points in the direction of the current I. As the path of the current may vary, we can generalize this formula as:\\
+		\centerline{$\vec{F}_B = I\int_{a}^{b} d\vec{s} \times \vec{B}$}
+	\section{Torque on a Current Loop in a Uniform Magnetic Field}
+		Imagine a square loop with current flowing through it and a magnetic field going across it, parallel to 2 of its sides. The 2 sides which are perpendicular would then have a force but since the current is flowing in the opposite direction, the square loop would feel a torque:\\
+		\centerline{$F_2 = F_4 = IaB$ where $a$ is the length of the side}
+		\centerline{$\tau_{max} = F_2 \frac{b}{2} + F_4 \frac{b}{2} = (IaB) \frac{b}{2} + (IaB)\frac{b}{2} = IabB$ where b is the length of the other side}
+		\centerline{$\tau_{max} = IAB$}
+		With incline, we would define the torque as:\\
+		\centerline{$\tau = IAB\sin \theta$}
+		We redefine $I\vec{A} = \vec{\mu}$ as the magnetic dipole moment so that:\\
+		\centerline{$\tau = \vec{\mu} \times \theta$}
+		\\
+		In the previous section, we defined the potential energy to be $U_E = -\vec{p} \cdot \vec{E}$. We can define the magnetic potential energy as:\\
+		\centerline{$U_B = -\vec{\mu} \cdot \vec{B}$}
+		This is the basis of how a motor works.
+	\section{The Hall Effect}
+		When a current carrying conductor is placed in a magnetic field, a force pushes the current towards a direction, causing there to be a potential difference in a direction perpendicular to the magnetic field.\\
+		We can measure this potential difference through:\\
+		\centerline{$E_H = v_dB$}
+		\centerline{$\Delta V_H = E_Hd = v_dBd$}
+\chapter{Sources of the Magnetic Field}
+	\section{Biot-Savart Law}
+		The equation speaks for itself:\\
+		\centerline{$\vec{B} = \frac{\mu_0}{4\pi} \int_{}^{}\frac{Id\vec{s} \times \hat{r}}{r^2}$}
+		where $\mu_0$ is the permeability(not permitivity) of free space:\\
+		\centerline{$\mu_0 = 4\pi \times 10^{-7} T \cdot m/A$}
+		\\
+		Common Conductors:\\
+		\begin{itemize}
+			\item Thin Straight Conductor: $B = \frac{\mu_0 I}{2\pi a}$
+			\item Circular Current Loop: $B = \frac{\mu_0 Ia^2}{2(a^2+x^2)^{3/2}}$
+		\end{itemize}
+	\section{The Magnetic Force Between Two Parallel Conductors}
+		Just draw it, draw the forces and you'll see that if there are 2 conductors with current flowing in the same direction, then they'll be attracted with a force of :\\
+		\centerline{$F_1 = I_1lB_2 = I_1l(\frac{\mu_0I_2}{2\pi a}) = \frac{\mu_0I_1I_2}{2\pi a}l$}
+		and if the current flows in opposite directions, then the force would repel both conductors.
+	\section{Amphere's Law}
+		Ampere's Law is extremely similar to Gauss's Law in terms of approaching the problem. We define Ampere's Law as follows:\\
+		The line integral of $\vec{B} \cdot d\vec{s}$ around any closed path equals $\mu_0I$, where $I$ is the total steady current passing through any surface bounded by the closed path\\
+		\centerline{$\oint \vec{B} \cdot d\vec{s} = \mu_0 I$}
+		\\
+		Ampere's Law describes the creation of magnetic fields by all continuous current configurations and is mainly useful for calculating the magnetic field with configurations that have symmetry.\\
+		Ampere's Law makes it simpler to solve for the magnetic field of conductors like an infinitely long conductor with current\\
+		Note: If there are several loops such as a solenoid, note that Ampere's Law becomes:\\
+		\centerline{$\oint B \cdot d\vec{s} = \mu_0NI$}
+		where $N$ is the amount of loops.
+	\section{The Magnetic Filed of a Solenoid}
+		We find that the magnetic field of a solenoid is \\
+		\centerline{$B = \mu_0 \frac{N}{l}I = \mu_0 nI$}
+		where n is the number of loops per unit length
+	\section{Gauss's Law in Magnetism}
+		The flux associated with magnetic field is similar to that of the electric flux. We define the magnetic flux as:\\
+		\centerline{$\Phi_B \equiv \int \vec{B} \cdot d\vec{A}$}
+		Like the electric flux, if the magnetic field is parallel with the surface, the magnetic field is zero and if it's not perpendicular, it's $BA\cos \theta$. Additionally, for all magnetic flux going through a closed surface:\\
+		\centerline{$\int \vec{B} \cdot d\vec{A} = 0$}
+	\section{Magnetism in Matter}
+\chapter{Faraday's Law}
+	\section{Faraday's Law of Induction}
+		Based on experiments done by Michael Faraday, an emf is induced in a loop when the magnetic flux trough the loop changes with time. This statement can be written as:\\
+		\centerline{$\varepsilon = -N\frac{d\Phi_B}{dt}$}
+		where $N$ is the amount of loops and $\varepsilon$ has $V$ as units. This implies that an induced emf is created to resist the change in magnetic flux.
+	\section{Motional emf}
+		When a moving bar is a part of a closed conducting path with a resistor, free charges in the bar move due to the field, causing an induced current. If we define the position of the bar as $x$, we can define the magnetic flux as:\\
+		\centerline{$\Phi_B = Blx$}
+		Using Faraday's Law, we find that the induced motional emf is:\\
+		\centerline{$\varepsilon = -\frac{d\Phi_B}{dt} = -Bl\frac{dx}{dt} = -Blv$}
+		\centerline{Induced Current:$I = \frac{Blv}{R}$}
+		Since the bar is undergoing constant velocity, we can define the magnetic force as:\\
+		\centerline{$P = F_{app}v = (IlB)v = \frac{B^2l^2v^2}{R} = \frac{\varepsilon^2}{R}$}
+	\section{Lenz's Law}
+			
 \end{document}
