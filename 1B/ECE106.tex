@@ -116,5 +116,46 @@
 		\\
 		Wtf is a Electrostatic Precipitator???! It's a device that removes particulate matter from combustion gases, thereby reducing air pollution. The device has a wire with a negative electric potential relative to the walls to create an electric field towards the wire. The electric field becomes high enough to cause a corona discharge, causing electrons and negative ions to charge dirt during collisions which then become attracted by the outer walls that are positively charged. Das cool..
 \chapter{Current and Resistance}
-		
+	\section{Electric Current}
+		Let's say charges are moving through a cross section of surface area A. Current is defined as how many charge flows through this surface in terms of time. We define instantaneous current $I$ as:\\
+		\centerline{$I \equiv \frac{dQ}{dt}$ where $1A = 1C/s$}
+	\section{Resistance}
+		We define the current density as\\
+		\centerline{$J \equiv \frac{I}{A} = \sigma E$}
+		where $\sigma$ is defined as conductivity.\\
+		As previously defined, $\Delta V = El$. We can redefine the current density as \\
+		\centerline{$J = \sigma \frac{\Delta V}{l}$}
+		Using this and $\Delta V = El$, we find that \\
+		\centerline{$J = \sigma \frac{\Delta V}{l}$}
+		We can rearrange this to obtain \\
+		\centerline{$\Delta V = \frac{l}{\sigma} J = (\frac{l}{\sigma A}) I = RI$}
+		which we define as Ohm's law($1 \Omega \equiv 1 V/A$).
+		We also define the resistivity as $\rho = \frac{1}{\sigma}$, meaning the resistivity is inversely proportional to the conductivity. We can sum this up as:\\
+		\centerline{$R = \rho \frac{l}{A}$}
+		where $\rho$ also depends on temperature:\\
+		\centerline{$\rho = \rho_0 [1 + \alpha(T - T_0)]$} 
+	\section{Electrical Power}
+		The equations speak for themselves:\\
+		\centerline{$\frac{dU}{dt} = \frac{d}{dt}(Q\Delta V) = \frac{dQ}{dt}\Delta V = I\Delta V = P$}
+\chapter{Magnetic Fields}
+	\section{Analysis Model: Particle in a Field(Magnetic)}
+		\begin{itemize}
+			\item The magnetic force is proportional to the charge $q$ of the particle
+			\item The magnetic force on a negative charge is directed opposite to the force on a positive charge moving in the same direction
+			\item The magnetic force is proportional to the magnitude of the magnetic filed vector \textbf{$\vec{B}$}
+			\item The magnetic force is proportional to the speed $v$ of the particle
+			\item If the velocity vector makes an angle $\theta$ with the magnetic filed, the magnitude of the magnetic force is proportional to $\sin \theta$
+			\item When a charged particle moves \textit{parallel} to the magnetic field vector, the magnetic force on the charge is zero
+			\item When a charged particle moves in a direction not parallel to the magnetic field vector, the magnetic force acts in a direction perpendicular to both \textbf{$\vec{v}$} and \textbf{$\vec{B}$}(use right hand rule)
+		\end{itemize}
+		We define the magnetic force as:\\
+		\centerline{$\vec{F_B} = q\vec{v} \times \vec{B}$}
+		Note: It's important to know how to use the right hand rule. Seriously. We can calculate a numerical value of the force with:\\
+		\centerline{$F_B = |q| vB \sin \theta$}
+		Differences to electric field:
+		\begin{itemize}
+			\item The electric force vector is along the direction of the electric field, whereas the magnetic force vector is perpendicular to the magnetic field
+			\item The electric force acts on a chraged particle regardless of whether the particle is moving, whereas the magnetic force acts on a charged particle only when the particle is in motion
+			\item The electric force does work in displacing a charged particle, whereas the magnetic force associated with a steady magnetic field does no work when a particle is displaced because the force is perpendicular to the displacement of its point of application
+		\end{itemize}
 \end{document}
