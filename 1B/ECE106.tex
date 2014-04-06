@@ -238,5 +238,49 @@
 		Since the bar is undergoing constant velocity, we can define the magnetic force as:\\
 		\centerline{$P = F_{app}v = (IlB)v = \frac{B^2l^2v^2}{R} = \frac{\varepsilon^2}{R}$}
 	\section{Lenz's Law}
-			
+		The induced current in a loop is in the direction that creates a magnetic field that opposes the change in magnetic flux through the area enclosed by the loop.\\
+		This can further be explained with the example mentioned in the previous section where a bar was moving in a closed conductor loop. As the area increases, an induced current tries to decrease the magnetic flux and vice versa.
+	\section{Induced emf and Electric Fields}
+		Even without the presence of a conducting loop, a changing magnetic field generates an electric field in empty space, a field that is nonconservative. To illustrate this, consider a conducting loop of radius $r$ situated in a uniform magnetic field that is perpendicular to the plane $\varepsilon = -\frac{d\Phi_B}{dt}$. An induction of a current in the loop implies the presence of an induced electric field which must be tangent to the loop. The work done by the electric field in moving a charge is equal to $q\varepsilon$ and the electric force is $q\vec{E}$. This implies:\\
+		\centerline{$q\varepsilon = qE(2\pi r)$}
+		\centerline{$E = \frac{\varepsilon}{2\pi r}$}
+		Using this result and that $\Phi_B = BA = B\pi r^2$ for a circular loop, the induced electric field can be expressed as:\\
+		\centerline{$E = -\frac{1}{2\pi r} \frac{d\Phi_B}{dt} = - \frac{r}{2} \frac{dB}{dt}$}
+		\\
+		\\
+		We can generalize Faraday's Law for all shapes as:\\
+		\centerline{$\oint \vec{E} \cdot d\vec{s} = - \frac{d\Phi_B}{dt}$}
+	\section{Generators and Motors}
+		Imagine a closed loop between 2 magnets, north and south. Due to the magnetic flux through the loop, an induced force causes a torque on the loop, leading to a rotational oscillation of the loop which leads to an oscillating induced emf:\\
+		\centerline{$\Phi_B = BA \cos \theta = BA\cos \omega t$}
+		\centerline{$\varepsilon_{max} = NBA\omega$}
+		Depending on how the ends of the loop are received, the generator could be AC or DC. If the ends loop are constantly connected to the same end of the external circuit, then it's AC. If it depends on the angle of the end of the loop, then it is DC. Both emf graphs are similar except DC remains positive.
+	\section{Eddy Currents}
+		Due to a change of magnetic flux on a conducting surface, circulating currents called eddy currents are induced to oppose the change in magnetic flux as stated by Lenz's Law. This often happens when a conducting surface is moved into a magnetic field. Because the induced eddy current always produces a magnetic retarding force when the plate enters or leaves the field.
+\chapter{Inductace}
+	\section{Self-Inductance and Inductance}
+		Note:We use the adjective induced when a current is caused by a change of magnetic field.\\
+		\\
+		Imagine a regular circuit, a resistor, a voltage source and a switch. As the switch is closed, the current is not maximized immediately. Due to the voltage difference, the current increases, causing a magnetic field which goes through the loop. As a result, an induced current opposes the change and this current prevents the current to change immediately.\\
+		\\
+		To quantify this:\\
+		\centerline{$\varepsilon_L = -L\frac{di}{dt}$}
+		Combining the idea of magnetic flux, we obtain:\\
+		\centerline{$L = \frac{N\Phi_B}{i}$}
+		We can then define the inductance as the ratio:\\
+		\centerline{$L = -\frac{\varepsilon_L}{di/dt}$}
+	\section{RL Circuits}
+		We define a circuit with a large inductance as an inductor. Given a circuit with a resistor, battery and an inductor, we define KVL as:\\
+		\centerline{$\varepsilon - iR - L\frac{di}{dt} = 0$}
+		By applying some differential equation methods, we can isolate the current as:\\
+		\centerline{$ i = \frac{\varepsilon}{R} (1 - e^{-Rt/L})$}
+		By graphing this, it can be seen that the current slowly increases and converges to a value over time. Assuming this current still exists, if the circuit element is changed to an inductor and a resistor, it can be seen that the KVL is:\\
+		\centerline{$iR + L\frac{di}{dt}$}
+		By applying some differential equation methods again, we obtain:\\
+		\centerline{$i = \frac{\varepsilon}{R}e^{-t/\tau} = I_ie^{-t/\tau}$}
+		In this case, the equation shows that as time passes by, the current slowly converges to 0.
+	\section{Energy in a Magnetic Field}
+		By multiplying the KVL equation previously used by $i$, we obtain\\
+		\centerline{$i\varepsilon = i^2R + Li\frac{di}{dt}$}
+		We know that $i\varepsilon$ is the rate at which energy is delivered to the resistor.
 \end{document}
