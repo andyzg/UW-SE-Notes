@@ -17,3 +17,7 @@ Guideline for each chapter:
     * List all of the frequently asked questions by students, ex: hard concept to grasp, tricks
   - Potential Exam Questions
     * Good exam questions pertaining to this chapter
+
+##License
+Distributed under the MIT License.
+See the LICENCE file for more details.
