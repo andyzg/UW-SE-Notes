@@ -282,5 +282,14 @@
 	\section{Energy in a Magnetic Field}
 		By multiplying the KVL equation previously used by $i$, we obtain\\
 		\centerline{$i\varepsilon = i^2R + Li\frac{di}{dt}$}
-		We know that $i\varepsilon$ is the rate at which energy is delivered to the resistor.
+		We know that $i\varepsilon$ is the rate at which energy is delivered to the resistor. We can then redefine it and obtain\\
+		\centerline{$\frac{dU_B}{dt} = Li\frac{di}{dt}$}
+		Solving this differential equation, we obtain\\
+		\centerline{$U_B = \frac{1}{2} Li^2$}
+	\section{Mutual Inductance}
+		Two closely wound coils have $N_1$ and $N_2$ number of coils.The magnetic flux induced by the first coil passes through coil 2 is defined as $\Phi_{12}$. We can identity the mutual inductance $M_{12}$ of coil 2 with respect to coil 1 as:\\
+		\centerline{$M_{12} = \frac{N_{2}\Phi_{12}}{i_1}$}
+		We can then define the induced emf from coil 2 as:\\
+		\centerline{$\varepsilon_2 = -N_2 \frac{d\Phi_{12}}{dt} = -N_2 \frac{d}{dt} (\frac{(M_{12}i_1)}{N_2}) = -M_{12} \frac{di_1}{dt}$}
+
 \end{document}
