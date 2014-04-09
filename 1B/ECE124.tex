@@ -135,5 +135,128 @@
 	 		Breaking a function down for a MUX implementation is called \textbf{Shannon Decomposition}\\
 	 		This works because given a boolean function $f = f(x_0, x_1...x_n)$, we can split the function into to as the following:\\
 	 		\centerline{$f = f(x_0, x_1...x_n) = x_0'f(0, x_1, x_2 ... x_n) + x_0f(1, x_1, x_2...x_n)$}
-	 		
+	 \section{Sequential Circuits}
+	 	Unlike combinatorial circuits, the output of a sequential circuit also depends on the current state of the circuit. We define two types of sequential circuits:
+	 	\begin{itemize}
+		 	\item Asynchronous Circuits: circuit behaviour is determined by signals at \textbf{any instant in time and the order in which input signals change}
+		 	\item Synchronous Circuits: circuit behaviour is determined from the knowledge of signal values at \textbf{discrete instances of time}
+	 	\end{itemize}
+	 	\subsection{Clock Signals}
+	 		A \textbf{clock signal} is used to control the behaviour of a circuit at discrete instances in time. They are periodic signals. \\
+	 		When the signal transitions from $0 \rightarrow 1$, we call it a rising edge. If it's $1 \rightarrow 0$, we call it a falling edge.
+	 \section{Latches}
+	 	Latches are a storage element. They perform when a control signal is at $0$ or $1$ and not at any changing edge. This element is extremely useful to understand flip flops.\\
+	 	There exists several types of latches(\url{http://en.wikipedia.org/wiki/Flip-flop_(electronics)} for more detail and images)
+	 	\subsection{SR Latch}
+			\begin{tabular}{ l | c || r | r }
+				S & R & $Q$ & $\bar{Q}$\\
+				\hline
+				1 & 0 & 0 & 1 \\
+				1 & 1 & 0 & 1 \\
+				0 & 1 & 1 & 0 \\
+				1 & 1 & 1 & 0 \\
+				0 & 0 & 1 & 1 \\
+			\end{tabular}
+			\\
+			\begin{itemize}
+			\item When $S = 0$, $R=1$, the output is $Q = 1$, and the circuit is in the \textbf{set state}
+			\item When $S = 1$, $R=0$, the output is $Q = 0$, and the circuit is in the \textbf{reset state}
+			\item When $S = 1$, $R = 1$, it implies the reset state
+			\item When $S = 0$, $R = 0$, the output holds at its previous value(storage)
+			\end{itemize}
+	 	\subsection{SR Latch}
+			\begin{tabular}{ l | c || r | r }
+				S & R & $Q$ & $\bar{Q}$\\
+				\hline
+				1 & 0 & 0 & 1 \\
+				1 & 1 & 0 & 1 \\
+				0 & 1 & 1 & 0 \\
+				1 & 1 & 1 & 0 \\
+				0 & 0 & 1 & 1 \\
+			\end{tabular}
+			\\
+			\begin{itemize}
+			\item When $S = 1$, $R=0$, the output is $Q = 1$, and the circuit is in the \textbf{set state}
+			\item When $S = 0$, $R=1$, the output is $Q = 0$, and the circuit is in the \textbf{reset state}
+			\item When $S = 0$, $R = 0$, it implies the reset state
+			\item When $S = 1$, $R = 1$, the output holds at its previous value(storage)
+			\end{itemize}
+	 	\subsection{SR Latch}
+			\begin{tabular}{ l | c | c || r }
+				C & S & R & next value of Q\\
+				\hline
+				0 & X & X & hold \\
+				1 & 0 & 0 & hold \\
+				1 & 0 & 1 & 0(reset) \\
+				1 & 1 & 0 & 1(set) \\
+				1 & 1 & 1 & undefined \\
+			\end{tabular}
+			\\
+			\begin{itemize}
+				\item When the control input $C = 0$, both latches are in hold state
+				\item When the control input $C = 1$, the latch acts like an SR Latch(active high)
+			\end{itemize}
+	 	\subsection{SR Latch}
+			\begin{tabular}{ l | c || r }
+				C & D & next value of Q\\
+				\hline
+				0 & X & hold \\
+				1 & 0 & 0 \\
+				1 & 1 & 1 \\
+			\end{tabular}
+			\\
+			In previous latches, we had the undesirable situation where the output was undefined due to both outputs being the same. To avoid this, we construct a latch where S and R can never be the same where $S = R'$
+		\subsection{Issues}Latches don't allow precise control since they're only level sensitive. This creates an interval in time where the output can change rather than an instant. It would be better if the output can only change at an instant for more precise control.
+	\section{Flip Flops}
+		Unlike latches, flip flops allow more precise control on the output by letting the output change only during triggering i.e. changing edges.
+		\subsection{DFF}
+			Refer to \url{http://en.wikipedia.org/wiki/Flip-flop_(electronics)#D_flip-flop} for a much better explanation of how DFF works.
+			Here's a rough explanation:\\
+			A DFF consists of 2 D Latches connected in series where the output of the first is the D input of the second. The clock input of each are inverses of the other.\\
+			While $CLK = 1$, the output of the first latch will follow the D input. When $CLK = 0$, the output will be disconnected from the first latch and connected to the second since $CLK = 1$ for the second(since the clocks are inverses of each other). The output of the second is then changed when the clock is triggered.\\
+			\\
+			Depending on the type of trigger the flip flop depends on, we can position the inverter of the clocks on different inputs i.e. either the first or the second latch.
+		\subsection{Sets, Resets and Enables}
+			Flip flops can have additional control signals that will force Q to a known value.
+			\begin{itemize}
+				\item An asynchronous signal that forces $Q = 1$ is called an asynchronous \textbf{set} and remain that way if $Q$ stays $1$
+				\item An asynchronous signal that forces $Q = 0$ is called an asynchronous \textbf{reset} and remain that way if $Q$ stays $0$
+				\item A signal that prevents the clock from causing changes in Q according to D is called a clock enable
+			\end{itemize}
+		\subsection{Characteristic Tables of Flip Flops}
+			\begin{tabular}{ c | c }
+				\multicolumn{2}{c}{DFF}\\
+				D & $Q(t+1)$\\
+				\hline
+				0 & 0 \\
+				1 & 1 \\
+				\multicolumn{2}{c}{$Q(t+1) = D$}
+			\end{tabular}
+			\vline \hfill
+			\begin{tabular}{ c | c }
+				\multicolumn{2}{c}{TFF}\\
+				T & $Q(t+1)$\\
+				\hline
+				0 & $Q(t)$ \\
+				1 & $Q'(t)$ \\
+				\multicolumn{2}{c}{$Q(t+1) = TQ'(t) + T'Q(t) = T \oplus Q(t)$}
+			\end{tabular}
+			\vline \hfill
+			\begin{tabular}{ c | c | c }
+				\multicolumn{3}{c}{JKFF}\\
+				J & K & $Q(t+1)$\\
+				\hline
+				0 & 0 & $Q(t)$ \\
+				0 & 1 & 0 \\
+				1 & 0 & 1 \\
+				1 & 1 & $Q'(t)$ \\				
+				\multicolumn{3}{c}{$Q(t+1) = JQ'(t) + K'Q(t)$}
+			\end{tabular}									
+		\subsection{Timing Analysis}
+			In reality, it takes time for gates to change their outputs. There exist 3 timing parameters that are especially important:\\
+			\begin{itemize}
+				\item Setup Time(TSU): time it takes for data inputs to be stable prior to arrival of an active clock edge
+				\item Hold Time(TH): time it takes for the data inputs need to be held stable after the arrival of the active clock edge
+				\item Clock-To-Output Time(TCO): time it takes for the output to become stable after the arrival of the active clock edge
+			\end{itemize}
 \end{document}
