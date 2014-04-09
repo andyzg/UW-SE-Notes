@@ -1,9 +1,139 @@
-\documentclass{report}
+\documentclass[12pt]{report}
 \usepackage[margin=2cm]{geometry}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage[hidelinks]{hyperref}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+ 
 \title{ECE 124 - Digital Circuits and Systems}
+\author{Andy Zhang}
 \date{Winter 2014}
 
 \begin{document}
 \maketitle
+\tableofcontents
+
+\chapter{Binary Logic}
+	\section{Introduction}
+			Despite being able to count in base 10, computers aren't cool enough to do that. They only count in base 2. Consequently, to communicate with computers, we need to understand how base 2 works.
+	\section{Converting from One Base to Another}
+		The best way to explain this is through pseudocode:
+			\begin{algorithmic}
+				\STATE $size \gets \lceil \log_2 number \rceil$
+				\STATE $binary[size]$
+				\STATE $A \gets -1$
+				\STATE $index \gets size-1$
+				\WHILE{$A \neq 0$}
+					\STATE $binary[index] \gets number \% 2$
+					\STATE $index \gets index + 1$ 
+					\STATE $A \gets number / 2$
+				\ENDWHILE
+			\end{algorithmic}
+		Example: $53 = (110101)_2$
+	\section{Truth Tables}
+		We define a logic function as a truth table. We exhaust all the different combinations of the input along with their output.\\
+		\begin{tabular}{ l | c || r }
+			x & y & f \\
+			\hline
+			0 & 0 & $f_0$ \\
+			0 & 1 & $f_1$ \\
+			1 & 0 & $f_2$ \\
+			1 & 1 & $f_3$ \\
+		\end{tabular}
+	\section{Basic Logical Operations}
+		Here's a table of all the logic functions\\
+		\begin{tabular}{ l | c || r }
+			\hline
+			Logic Operator & Symbol & Example \\
+			\hline
+			AND & $\cdot$, nothing 			& $f_0$ \\
+			OR 	& + 						& $f_1$ \\
+			NOT & !,$'$,$\neg$, $\bar{a}$	& $f_2$ \\
+		\end{tabular}
+		\\
+		Please refer to \url{http://en.wikipedia.org/wiki/Logic_gate} for an image of each gate and their respective logic tables.
+	\section{Properties of Boolean Algebra}
+		\begin{itemize}
+			\item $x + 0 = x$, $x \cdot 1 = x$
+			\item $x + x' = 1$, $x \cdot x' = 0$
+			\item $x + x = =$, $x \cdot x = x$
+			\item $x + 1 = 1$, $x \cdot 0 = 0$
+			\item $(x')' = x$
+			\item $x + y = y + x$, $x \cdot y = y \cdot x$
+			\item $(x + y) + z = x + (y + z)$, $(x\cdot y)\cdot z = x \cdot (y \cdot z)$
+			\item $x\cdot (y + z) = x\cdot y + x\cdot z$, $x + y\cdot z = (x+y)\cdot(x+z)$
+			\item $(x + y)' = x' \cdot y'$, $(x\cdot y)' = x' + y'$
+			\item $x + x\cdot y = x$, $ x\cdot (x + y) = x$
+		\end{itemize}
+	\section{Circuit Costs}
+		NOT's are ignored, each gate costs 1 and each input costs 1
+	\section{Minterms and Maxterms}
+		\textbf{Minterm}:\\
+		For each row of the truth table, create an AND of the literals according to the following rule: If a variable has value 1 in the row, include its \textbf{+ve iteral}. If a variable x has a value 0 in the row, include its -ve literal.
+		\textbf{Maxterm}:\\
+		For each row of the truth table, create an OR of the literals according to the following rule: If a variable x has the value 0 in the row, include its +ve literal. If a variable x has value 1 in the row, include its -ve literal. 
+		\\
+		\\
+		We can then define a function as $f = m_am_bm_c = m_d + m_e + m_f$
+	\section{Karnaugh Maps}
+		A Karnaugh Map contains all of the same information as a truth table but in a different form. The coordinates of each square determine the its value.\\
+		While labeling the rows and columns, it's important that only 1 value changes between adjacent rows and columns.\\
+		\\
+		We can encompass groups of minterms via rectangles that are sizes of powers of 2(i.e. 1,2,4,8...). We can then represent that rectangle based on its coordinates that don't change. As a result, enclosing larger rectangles leaves less literals which is better.
+		\\
+		Note that we can enclose minterms via the rectangles, from one side to another or adjacent.
+		\\
+		\\
+		Above 4 variables, we require more than 1 Karnaugh Map since we can only fit 4 variables in 1.
+		\\
+		\\
+		The same can be done with maxterms where you may enclose all of the 0s and create a Product of Sums.
+		\\
+		\\
+		Don't cares(X) are useful as they can be any value which can make minimizing a function simpler.
+	\section{Karnaugh Map Elements}
+		\begin{itemize}
+			\item A product term is called an \textbf{Implicant} if the logic function outputs a 1 for all minterms in the product term.
+			\item An Implicant is called a \textbf{Prime Implicant} if the removal of any literal from the implicant results in a new product term that is not an implicant.
+			\item A prime implicant is called an \textbf{Essential Prime Implicant} if it includes a minterm that is not found in any other implicant. 
+		\end{itemize}
+	\section{NAND NOR}
+		\textbf{OR Gate via NAND:} $f = (x' \cdot y') = x+y$\\
+		\textbf{NAND Gate via OR:} $f = x' + y' + z' = \bar{xyz}$\\
+		\\
+		When changing a circuit, a NOT on all inputs leads to a toggle between AND/OR and a NOT at the output. Ex: OR with all NOT input = NAND and vice versa.
+	\section{XOR Gate}
+		XOR gates are often hidden and can save a lot in terms of circuit costs.\\
+		$f_{XOR} = x_1 \oplus x_2 = \bar{x_1}x_2 + x_1\bar{x_2}$\\
+		$f_{XNOR} = \bar{x_1 \oplus x_2} = \bar{x_1} \cdot \bar{x_2} + x_1 \cdot x_2$
+\chapter{Circuits}
+	\section{Combinational Circuit}
+		A combinatorial circuit is one that consists of logic gates with outputs that are determined entirely by the present value of the inputs.\\
+		Two operations we may perform:\\
+		\begin{itemize}
+			\item Analysis: given what is in the box, what function does it perform? We analyze by determining a function for the output starting from the input.
+			\item Given functions to perform, what do we need in the box? We derive a truth table based on specification followed by simplifying it and implementing a circuit.
+		\end{itemize}
+	\section{Comparator Algorithms}
+		Equality: It's pretty straight forward. $A_i = B_i$ for any i. This can be done by letting $e_i = a_ib_i + a_i'b_i'$. If $e_ie_{i-1}...e_2e_1 = 1$, then $A = B$.\\
+		What if they weren't equal? We let $i=n$, the most significant bit(MSB). If $a_i > b_i$, then $A>B$ and we stop and vice versa. Otherwise, let $i = i-1$. Stop once i=0 and all bits are considered.\\
+		\\
+		$(A > B) = a_nb_n' + (e_n)(a_{n-1}b_{n-1}') + (e_ne_{n-1})(a_{n-2}b_{n-2}')+ ... + (e_ne_{n-1}...e_2e_1e_0)(a_0b_0')$\\
+		$(A < B) = a_n'b_n + (e_n)(a_{n-1}'b_{n-1}) + (e_ne_{n-1})(a_{n-2}'b_{n-2})+ ... + (e_ne_{n-1}...e_2e_1e_0)(a_0'b_0) = (A > B)'$\\
+	\section{Decoders}
+		When we have $n$ bits, we can represent $2^n$ distinct patterns. We have \textbf{n-to-m decoders} with $m = 2^n$.\\
+		Often, some decoders have an enable signal. When enable = 1, then the decoder functions as desired, otherwise, all outputs = 0. For an image or more details, refer to \url{http://en.wikipedia.org/wiki/Decoder}\\
+		Smaller decoders become useful to implement larger ones.
+	\section{Encoders}
+	 	Encoders perform the inverse of a decoder. They have $2^n$ or fewer input and $n$ output. If there are more than 1 high input, then there's an undefined output which leads to priority encoders which gives priority to higher numbered inputs.
+	 \section{Multiplexers}
+	 	Multiplexers have data inputs, select inputs and single data outputs. The output data is based on the select input and the input data. Refer to \url{http://en.wikipedia.org/wiki/Multiplexer} for images and more detailed explanation.\\
+	 	Multiplexers are useful in many ways and can also be used to implement a $n$ input function using a $n-1$ input multiplexer. Based on each pair of output, we can determine the input for the multiplexer. 
+	 	\subsection{Shannon Decomposition}
+	 		Breaking a function down for a MUX implementation is called \textbf{Shannon Decomposition}\\
+	 		This works because given a boolean function $f = f(x_0, x_1...x_n)$, we can split the function into to as the following:\\
+	 		\centerline{$f = f(x_0, x_1...x_n) = x_0'f(0, x_1, x_2 ... x_n) + x_0f(1, x_1, x_2...x_n)$}
+	 		
 \end{document}

@@ -138,6 +138,11 @@
 		\centerline{$R = \rho \frac{l}{A}$}
 		where $\rho$ also depends on temperature:\\
 		\centerline{$\rho = \rho_0 [1 + \alpha(T - T_0)]$} 
+		Within a resistor, we define the drift velocity as\\
+		\centerline{$\vec{v}_d = \frac{q\vec{E}}{m_e}\tau$}
+		With a current, we can define the velocity as:\\
+		\centerline{$\vec{v}_d = \frac{I}{nqA}$}
+		where $n$ is the number of charge per unit volume and $q$ is the magnitude of the charge.
 	\section{Electrical Power}
 		The equations speak for themselves:\\
 		\centerline{$\frac{dU}{dt} = \frac{d}{dt}(Q\Delta V) = \frac{dQ}{dt}\Delta V = I\Delta V = P$}
@@ -203,6 +208,7 @@
 		\begin{itemize}
 			\item Thin Straight Conductor: $B = \frac{\mu_0 I}{2\pi a}$
 			\item Circular Current Loop: $B = \frac{\mu_0 Ia^2}{2(a^2+x^2)^{3/2}}$
+			\item Finite length Conductor: $B = \frac{\mu_0I}{4\pi a}(\sin \theta_1 - \sin \theta_2)$
 		\end{itemize}
 	\section{The Magnetic Force Between Two Parallel Conductors}
 		Just draw it, draw the forces and you'll see that if there are 2 conductors with current flowing in the same direction, then they'll be attracted with a force of :\\
@@ -295,5 +301,5 @@
 		\centerline{$M_{12} = \frac{N_{2}\Phi_{12}}{i_1}$}
 		We can then define the induced emf from coil 2 as:\\
 		\centerline{$\varepsilon_2 = -N_2 \frac{d\Phi_{12}}{dt} = -N_2 \frac{d}{dt} (\frac{(M_{12}i_1)}{N_2}) = -M_{12} \frac{di_1}{dt}$}
-
+		
 \end{document}
