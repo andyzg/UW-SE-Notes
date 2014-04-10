@@ -259,4 +259,118 @@
 				\item Hold Time(TH): time it takes for the data inputs need to be held stable after the arrival of the active clock edge
 				\item Clock-To-Output Time(TCO): time it takes for the output to become stable after the arrival of the active clock edge
 			\end{itemize}
+	\section{Registers}
+		A group of n flip flops store n bits and is called an n-bit register. Each flip flop has a clear input and are connected to the same clear input. If clear = 0, all outputs are forced to 0.\\
+		\\
+		\subsection{Parallel Load}
+			If load=1, the input data gets loaded into the input of the latch. Otherwise, the data output is fed back into the input.
+		\subsection{Universal Shift Registers}
+			Shift registers are able to shift data in a direction. As the active clock edge arrives, the data gets shifted to the next flip flop, resulting in a shifted data.\\
+			\\
+			If we wanted a Universal Shift Register, we use multiplexers to perform multiple operations such as clear, load, shift left/right.\\
+			Universal Shift Registers have:
+			\begin{itemize}
+				\item an asynchronous clear signal
+				\item a clock signal
+				\item data inputs for parallel load
+				\item data inputs for both left and right shifts
+				\item two control inputs that determine the behaviour of the multiplexers
+			\end{itemize}
+	\section{Counters}
+		A counter is a register whose outputs go through a prescribed sequence of states upon the arrival of the \textbf{active edge of some triggering signal}(like a clock)\\
+		They can be either \textbf{asynchronous} or \textbf{synchronous}
+		\subsection{Ripple Counters}
+			Ripple counters consist of a series of of flip flops where the output Q of one flip flop is used as the clock of the next flip flop. Due to the lack of a common clock signal, this counter is asynchronous.\\
+			\\
+			A binary ripple counter for example can be implemented easily using TFFs. For an up counter, Each bit depends on the falling edge of the previous bit where the first bit is always toggling.
+			\\
+			\\
+			The problem with feeding the output as a clock is that the counter is asynchronous which leads to timing issues. This is why we'd prefer synchronous counters by feeding the output to an AND gate with the previous input and all TFFs have a common clock signal.
+		\subsection{Modulo Counters}
+			If we don't want to count through all of the numbers but rather between an interval of numbers. We can use additional circuitry to detect the maximum count number and use a parallel load to restart the counting.
+\chapter{States}
+	\section{Moore Machine}
+		If the circuit output only depends on the current state, we call it a Moore Machine. It's important to note that in a Moore Machine, \textbf{outputs change synchronously} with the clock. The state also changes synchronously with the clock. This means the output changes at \textbf{predictable times}
+	\section{Mealy Machine}
+		If the circuit output depends on the current state and the current input values, we call it a Mealy Machine. In a Mealy Machine, outputs change asynchronously with respect to the clock since inputs can change at any time. This means the output can change at \textbf{unpredictable times}
+	\section{State Diagrams}
+		Sequential circuits are often depicted via a state diagram. These diagrams include:\\
+		\begin{itemize}
+			\item Possible states of the circuit
+			\item Possible transition between states which depends on inputs
+			\item Circuit output values
+		\end{itemize}
+		In a Moore Machine,	recall that the circuit outputs are a function of the current state only. Consequently, the circuit output can be labeled in the state bubble.\\
+		In a Mealy Machine, the circuit outputs are a function of both the current state and the circuit inputs. Consequently, the circuit outputs are labeled along the edges of the state diagrams.
+		\\
+		We identify the reset state by labeling the state with =0.
+	\section{State Tables}
+		State tables describes the behaviour of a sequential circuit in tabular form. We label the columns as current state, next state and output. Based on the inputs, the next state and output may vary.
+\chapter{State Analysis and Design}
+	\section{State Analysis Procedure}
+		\begin{itemize}
+			\item Identify the flip flops used to hold the current state information
+			\item Identify the outputs of the circuit
+			\item Write down the logic equations for the circuit outputs and the flip flop inputs(next state equations)
+			\item Use logic equations to derive a state table which describes the next state and circuit outputs
+			\item Obtain a state diagram from the state table
+		\end{itemize}
+		Refer to the notes for a good example
+	\section{State Design Procedure}
+		\begin{itemize}
+			\item Understand the verbal description of the problem
+			\item Create a state diagram/table
+			\item Try to reduce the number of states/flip flops
+			\item Assign binary values to each state
+			\item Select a FF type to store binary values
+			\item Derive simplified output equation
+			\item Derive the next-state/flip flop equations
+			\item Draw a schematic of the resulting circuit
+		\end{itemize}
+		Refer to the notes for a good example
+	\section{FF Impact on Design}
+		\subsection{DFF}
+			Look at the state table and derive equations for the next state given the current state and the circuit inputs. Apply the next state logic directly to the DFF inputs
+		\subsection{TFF and JKFF}
+			\begin{enumerate}
+				\item Look at stable table to see how the current state changes to the next state for a given current state and inputs
+				\item Determine how FF input must be set to get desired change from the current state to the next
+				\item Derive logic equations for the FF inputs given the current state and inputs and apply these connections directly to FF inputs
+			\end{enumerate}
+			\textbf{IMPORTANT}: The logic applied to the FF inputs are NOT the next state equations but will generate the correct next state in conjunction with the FF behaviour
+	\section{Excitation Tables}
+		Changes in flip flop outputs depending on flip flop inputs is done via an \textbf{excitation table}\\
+		\begin{tabular}{ c | c c}
+			\multicolumn{3}{c}{DFF}\\
+			D & $Q(t)$ & $Q(t+1)$\\
+			\hline
+			0 & 0 & 1 \\
+			1 & 0 & 1 \\
+			0 & 1 & 0 \\
+			1 & 1 & 1 \\
+		\end{tabular}
+		 \hfill
+		\begin{tabular}{ c | c c}
+			\multicolumn{3}{c}{TFF}\\
+			D & $Q(t)$ & $Q(t+1)$\\
+			\hline
+			0 & 0 & 0 \\
+			1 & 0 & 1 \\
+			0 & 1 & 1 \\
+			1 & 1 & 0 \\
+		\end{tabular} 
+		\hfill
+		\begin{tabular}{ c  c | c c}
+			\multicolumn{4}{c}{JKFF}\\
+			J & K & $Q(t)$ & $Q(t+1)$\\
+			\hline
+			0 & 0 & 0 & 0 \\
+			0 & 1 & 0 & 0 \\
+			1 & 0 & 0 & 1 \\
+			1 & 1 & 0 & 1 \\
+			0 & 0 & 1 & 1 \\
+			1 & 0 & 1 & 1 \\
+			0 & 1 & 1 & 0 \\
+			1 & 1 & 1 & 0 \\
+		\end{tabular}									
 \end{document}
