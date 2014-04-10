@@ -372,5 +372,51 @@
 			1 & 0 & 1 & 1 \\
 			0 & 1 & 1 & 0 \\
 			1 & 1 & 1 & 0 \\
-		\end{tabular}									
+		\end{tabular}
+	\section{State Assignment}
+		Assigning binary patterns to the symbolic states is known as the state assignment problem.
+		\subsection{Encoding}
+			Let's use an example for this:\\
+			Assume we have a circuit with 7 states and 3 inputs and 4 outputs. With n bits, we can have $2^n$ different states. As a result, we'd need 3 flip flops for this example. \\
+			\\
+			However, we can encode the states such that the outputs of the flip-flops are also the output of the circuit(ex: counters). Let's assume that for each state, the outputs are unique(Note: if there were identical outputs, we can add additional bits to distinguish those states). We would use 4 flip flops so that the outputs are the output of the flip flops.\\
+			\\
+			If there were 2 identical outputs, we'd need a 5th flip flop to distinguish both states. The benefit of having more flip flops is that we won't need any output equations.
+			\\
+			\\
+			Therefore, output encoding uses more than the minimum number of flip flops to avoid any output equations.
+	\section{State Reduction}
+		Sometimes, we can get more states than required. It's reasonable to attempt to simplify the diagram by removing redundant states. This is the case for states that are equivalent to each other and can be combined.\\
+		Two states are \textbf{equivalent} if:\\
+		\begin{itemize}
+			\item For each input, the state gives the exact same outputs
+			\item For each circuit input, the states give the same next state or an equivalent next state 
+		\end{itemize}
+		There are two different methods to reduce:\\
+		\begin{itemize}
+			\item Implication charts and merger diagrams
+			\item Partitioning
+		\end{itemize}
+		
+		\subsection{Implication Charts and Merger Diagrams}
+			Given a state table containing current state, next state and outputs, we can tabulate equivalencies in an implication chart. It resembles the lower left side of a matrix where the rows and columns are the states(1 to $n$ for rows, 0 to $n-1$ for columns) and each entry tells us under which condition two states are equivalent. \\
+			\\
+			\begin{enumerate}
+				\item If two states have different outputs, we set the entry as X
+				\item Mark entries that are definitely equivalent and mark entries that are equivalent under implied decisions.
+				\item We perform passes iteratively over the entries from top left to bottom right trying to cross out states that cannot be equivalent due to implied decisions
+			\end{enumerate}
+			Based off of the completed implication chart, we can build a  a merger diagram i.e. a graph that show merges.\\
+			We need to make sure that each state is included and the implied decisions hold.\\
+			\\
+			We can then draw the state table for the new reduced states.
+		\subsection{Partitioning}
+			We can divide the states into partitions of equivalent states. \\
+			Procedure:\\
+			\begin{enumerate}
+				\item Group states according to circuit outputs produced
+				\item For each group, consider each input pattern. If for any input pattern, different states in a group result in a transition to a different group, then those states are not equivalent so we separate them into 2 smaller groups.
+				\item This results in fewer states and a smaller state diagram/table
+				
+			\end{enumerate}
 \end{document}
