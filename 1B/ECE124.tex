@@ -416,7 +416,74 @@
 			\begin{enumerate}
 				\item Group states according to circuit outputs produced
 				\item For each group, consider each input pattern. If for any input pattern, different states in a group result in a transition to a different group, then those states are not equivalent so we separate them into 2 smaller groups.
-				\item This results in fewer states and a smaller state diagram/table
-				
+				\item This results in fewer states and a smaller state diagram/table				
 			\end{enumerate}
+	\section{Algorithmic State Machine}
+		An alternative to a state diagram to implement an algorithm. It is closely tied with hardware implementation and consists of 3 elements:\\
+		\begin{itemize}
+			\item \textbf{State Box}: Equivalent to state bubble. Has name and binary encoding and Moore Machine outputs(rectangle)
+			\item \textbf{Decision Box}: Represents a choice that depends on the inputs(diamond)
+			\item \textbf{Conditional Output Box}: Allows specifying outputs that depends both the current state and the inputs, i.e. Mealy outputs (circular)
+		\end{itemize}
+		Note: No output means 0.
+		\subsection{Design Steps}
+			We generate a state table by:
+			\begin{enumerate}
+				\item Determining the number of states from the number of ASM state boxes
+				\item State assignment for the ASM state boxes
+				\item Use ASM conditional output boxes, state boxes and decision boxes to determine output values
+				\item Use decision boxes to determine the next state from the current state
+			\end{enumerate}
+		\subsection{One-Hot Encoding}
+			If we use DFFs and One-Hot Encoding, we can go directly from a ASM diagram to a circuit.
+			\begin{itemize}
+				\item A state box(Moore Machine) would become a DFF
+				\item A decision box consists of 2 AND gates and 1 inverter along with the 2 inputs: the input data and the decision value
+				\item A conditional output box would tap off the circuitry to generate its output
+				\item Joined edges become an OR gate
+			\end{itemize}
+			The ASM PDF provided gives detailed explanation and examples which explain these concepts better.
+	\section{Asynchronous Sequential Circuits}
+		A type of circuit without clocks(therefore NO flip flops) but with the concept of memory using latches and combinational circuits. Due to the absence of clocks, there's a lot of delay due to gate delays. \\
+		\\
+		We may identify asynchronous circuits by the presence of latches and combinational feedback paths(output is fed back into input). \\
+		Analysis involves obtaining a table/diagram that describes the sequence of internal states and outputs as a function of changes in 	circuit inputs.\\
+		We will try to obtain transition tables and flow tables to explain asynchronous circuits.
+		\subsection{Definitions}
+			\textbf{Stability}: For a given set of inputs, the system is \textbf{stable} if the circuit eventually reaches steady state and the excitation variables and secondary variables are equal and unchanging, otherwise, the circuit is unstable. \\
+			\\
+			\textbf{Fundamental Mode Operation}: A circuit is operating in fundamental mode if we assume/force the following restrictions on how the inputs can change:
+			\\
+			\textbf{Primitive flow table}: Flow table with only one stable state per row is called a primitive flow table.
+			\begin{itemize}
+				\item Only one input is allowed to change at a time
+				\item The input changes only after the circuit is stable
+			\end{itemize}
+		\subsection{Analysis}
+			\begin{enumerate}
+				\item Write logic equations for the excitation variables in terms of the circuit inputs and secondary variables
+				\item Write logic equations for circuit outputs in terms of the circuit inputs and secondary variables
+				\item \textbf{Transition Table:} Using these equations, we can write a transition table that shows excitation variables and outputs as a function of inputs and secondary variables. 3 Columns: Current state, next state and output
+				\item \textbf{Flow Table}: A transition table with binary numbers replaced with symbols(e.g. a = 00, b = 01 etc.) Same 3 columns as Transition Table
+				\item Circle stable states where excitation variables are equal to secondary variables
+			\end{enumerate}
+			When analyzing circuits with latches that are present, we follow these procedures to analyze the latch:
+			\begin{enumerate}
+				\item Label each output with $Y_i$ and its feedback path as $y_i$
+				\item Derive logic equations for latch inputs $S_i$ and $R_j$
+				\item Check if SR=0 for NOR latches and S'R'=0 for NAND latches. If not satisfied, the circuit may not work properly
+				\item Create logic equations for latch outputs $Y_i$ using known behavior of a latch(Y=S+R'y for NOR Latches and Y=S'+Ry for NAND latches)
+				\item Construct a transition table using the logic equations for the latch outputs and circuit stable states
+				\item Obtain a flow table if desired 
+			\end{enumerate}
+		\subsection{Design}
+			Very similar to synchronous circuit design:\\
+			\begin{enumerate}
+				\item Obtain a primitive flow table from problem description
+				\item Reduce the flow table to get a smaller flow table with less states
+				\item Perform state assignment to obtain transition table
+				\item Obtain next state and output equations(need to avoid hazards and glitches)
+				\item Draw circuit(with or without latches)
+			\end{enumerate}
+			
 \end{document}
