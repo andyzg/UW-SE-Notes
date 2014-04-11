@@ -14,7 +14,12 @@
 \begin{document}
 \maketitle
 \tableofcontents
-
+\chapter{Important Note}
+	The content you will find in this review package contains mainly procedures on how to approach problems and theory. In order to fully understand the course content, it's highly recommended to do the practice problems. Many of the content here is taken from the slides of Andrew Kennings, some which are word for word, others which are summarized. \\
+	\\
+	This document is better understood if the reader already has a general idea of what the course is about and it is not recommended to read this to learn the course content without prior knowledge. \\
+	\\
+	Happy reading!
 \chapter{Binary Logic}
 	\section{Introduction}
 			Despite being able to count in base 10, computers aren't cool enough to do that. They only count in base 2. Consequently, to communicate with computers, we need to understand how base 2 works.
@@ -485,5 +490,77 @@
 				\item Obtain next state and output equations(need to avoid hazards and glitches)
 				\item Draw circuit(with or without latches)
 			\end{enumerate}
-			
+		\subsection{Reduction}
+			Very similar to synchronous circuit reduction:\\
+			\begin{itemize}
+				\item Lots of don't care outputs for unstable states
+				\item Don't care next state information if we assume fundamental mode operation
+			\end{itemize}
+			With don't cares, equivalency is replaced with compatibility. Two states A and B are compatible if for every input combination we find:
+			\begin{itemize}
+				\item A and B produce the same outputs
+				\item A and B have compatible next states where specified
+			\end{itemize}
+			Just like synchronous circuits, we build implication charts, associate compatible states together and build a merger diagram.\\
+			It's important to check that each state is included at least once and that any implied compatibilities are true
+	\section{Races}
+		\subsection{Race Condition}
+			A \textbf{race condition} occurs in an \textbf{asynchronous} when 2 or more state variables change in response to a change in the value of a circuit input.\\
+			Unequal circuit delays may imply that the 2 or more state variables may not change simultaneously - this may cause a problem.\\
+			\\
+			Assume 2 state variables change:
+			\begin{itemize}
+				\item If the circuit reaches the same final, stable state regardless of the order the state variables change, then the race is \textbf{non-critical}
+				\item If the circuit reaches a different final, stable state depending on the order in which the state variables change, then the race is \textbf{critical}
+			\end{itemize}	
+			\textbf{We need to avoid critical races for predictability and to ensure our circuit does the intended function}
+		\subsection{Stability}
+			Assume we start at a 00 state. We need to be careful that our circuit does not become unstable, meaning its state oscillates from a few different states without stabilizing onto one.
+		\subsection{Race Free State Assignment}
+			We can prevent races by performing state assignments such that transitions from one stable state to another require only 1 state variable to change at a time
+			Techniques include:
+			\begin{itemize}
+				\item Build a transition diagram based on a flow table where each is a transition and each node is a state. Embed the symbolic states into the coordinates of a n dimensional cube such that the path from stable state to another is:\\
+					- Along a single edge of a cube\\
+					- Through \textbf{}along edges of the cube
+				\item Replace a state with multiple equivalent states with equivalent outputs. That way, when building a transition diagram, there'll always be 1 of the 2 equivalent states directly adjacent to every other state
+				\item Using the idea of one-hot encoding, given n states, let 00..1..0 where 1 is the ith state. Each transition to a different state, we introduce an unstable state from i to j such that 00..$1_i$...$1_j$..00 
+			\end{itemize}
+	\section{Hazard and Output Glitches}
+		\subsection{Definition}
+			A \textbf{hazard} is a momentary unwanted switching transient at a logic function's output due to unequal propagation delays along different paths in a combinational circuit.\\
+			\\
+			There are 2 types of hazards:\textbf{static} and \textbf{dynamic}\\
+			For asynchronous circuits in particular, hazards can cause problems in addition to other issues like races and non-fundamental mode operation. Momentary false logic function values in an asynchronous circuit can cause a transition to an incorrect stable state.
+		\subsection{Static Hazards}
+			\textbf{Static-0}: Occurs when the output should remain 0 but temporarily switches to 1 due to a change in input.\\
+			\textbf{Static-1}: Occurs when the output should remain 1 ut temporarily switches to 0 due to a change in input.
+		\subsection{Dynamic Hazard}
+			Occurs when an input changes and a circuit output should change but temporarily flips between values. Ex: 0->1->0->1 or 1->0->1->0
+		\subsection{Fixing Hazards}
+			When circuits are implemented as 2 level SOP, we can detect hazards by inspecting K-Maps and adding redundant product terms. As an input changes, there's a possibility that we jump from one product term to another(one rectangle to another). If adjacent minterms are not covered by the same product term, then a \textbf{hazard exists}. To fix this, we add a redundant product term connecting both product terms.\\
+			\\
+			Fixing this guarantees that there will be no static or dynamic hazards. The same can be applied with POS by adding redundant sum terms
+		\subsection{Hazards in Asynchronous Circuits}
+			Draw a timing diagram to visualize the delay. To draw it, make vertical slices of width $\Delta t$ where $\Delta t$ is the delay for each gate and then trace through the whole circuit based on the input switch.\\
+			\\
+			To fix it, we can use latches. If we're trying to fix a static-1 hazard, we need to be able to tolerate momentary 0 $\Leftarrow$ Use a \textbf{SR Latch(NOR Latch)}\\
+			We can then draw the K-Maps for both S and R inputs for the circuit.\\
+			This is because:
+			\begin{itemize}
+				\item An SR(NOR) latch can tolerate momentary 0s appearing at its input(since we momentarily move from a set or reset to a hold and then back).
+				\item An S'R'(NAND) latch can tolerate momentary 1s appearing at its input(since we momentarily move from a set or reset to a hold and then back).
+			\end{itemize}
+		\subsection{Output Assignment in Asynchronous Circuits}
+			If a flow/transition table has unspecified entries for circuit outputs, it may be due to the fundamental mode assumption or unstable states(stable states always have specified outputs).\\
+			\\
+			Unspecified outputs can lead to don't care which helps during minimization of logic equations(we may pass through these values from state to state).\\
+			Our circuit may have glitches due to our derived equations however.\\
+			\\
+			To avoid output glitches, consider transitions between two states:
+			\begin{itemize}
+				\item If both stable states produce a 0 output, make output 0 instead of a don't care.
+				\item If both stable states produce a 1 output, make output 1 instead of a don't care.
+				\item If stable states produce different outputs, the output can remain a don't care and be used to find a smaller output circuit.
+			\end{itemize}
 \end{document}
