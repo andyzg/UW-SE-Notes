@@ -57,4 +57,207 @@
 			\centerline{$|R_n(x)| \leq K \frac{|x-x_0|^{n+1}}{(n+1)!}$}\\
 			where $|f^{n+1}(t) \leq K$ for all values of $t$ between $x_0$ and $x$
 			This allows us to find the error margin of the Taylor Polynomial when estimating values. 
+		\subsection{Infinite Series}
+			We can generalize some popular functions into infinite series due to a recurring pattern in their respective Taylor Polynomial:
+			\begin{itemize}
+				\item $\frac{1}{1-x} = \sum_{n=0}^{\infty} x^n$ (converges for $|x| < 1$)
+				\item $e^x = \sum_{n=0}^{\infty} \frac{x^n}{n!}$ (converges for all $x$)
+				\item $\sin x = \sum_{n=0}^{\infty} \frac{(-1)^nx^{2n+1}}{(2n+1)!}$ (converges for all $x$)
+				\item $\cos x = \sum_{n=0}^{\infty} \frac{(-1)^nx^{2n}}{(2n)!}$ (converges for all $x$)
+			\end{itemize}
+\chapter{Convergence}
+	\section{Convergence Tests}
+		\subsection{Geometric Series}
+			A geometric series has the form\\
+			\centerline{$\sum_{k=0}^{\infty} ar^k = a + ar + ar^2 + ...$}
+			This is equivalent to\\
+			\centerline{$\sum_{k=0}^{\infty} ar^k = \lim\limits_{n\rightarrow \infty} \frac{a(1-r^n)}{1-r}$}
+			\begin{itemize}
+				\item If $|r| < 1$, the sequence $r^n$ approaches zero, and so the above equality works\\
+				\item If $|r| > 1$, the sequence $r^n$ diverges, and so the series diverges as well.
+				\item If $r = 1$, our series diverges since all of the $r^n = 1$ so the series becomes $a + a + a + ...$
+				\item If $r = -1$, then the series $r^n = (-1)^n$ diverges, and so does the series.
+			\end{itemize}
+		\subsection{The Test for Divergence}
+			If $\lim\limits_{k\rightarrow} \infty a_k \neq 0$, then $\sum a_k$ diverges
+		\subsection{The Integral Test}
+			$\sum_{k = k_0}^{\infty} a_k$ converges iff $\int_{k_0}^{\infty} f(x)dx$ converges, where $f(k) = a_k$
+		\subsection{P-Series}
+			$\sum \frac{1}{k^p}$ converges if $p > 1$, and diverges if $p \leq 1$
+		\subsection{The Comparison Test}
+			Suppose we are given a series $\sum a_k$ (with all terms positive). If we can identify a second series $\sum b_k$ such that $a_k \leq b_k$ for all $k$, and $\sum b_k$ converges, then $\sum a_k$ also converges. Similarly, $a_k \geq b_k$, and $\sum b_k$ diverges, then $\sum a_k$ also diverges
+		\subsection{The Limit Comparison Test}
+			If $\lim\limits_{k\rightarrow \infty} \frac{a_k}{b_k} = L$, where $L$ is a non zero constant($0 < L < \infty$), then $\sum a_k$ and $\sum b_k$ either both converge or diverge.
+		\subsection{The Alternating Series Test}
+			Consider the series $a_0 - a_1 + a_2 -... = \sum_{k=0}^{\infty} (-1)^k a_k$ where $a_k > 0$ for every $k$. If $\lim\limits_{k \rightarrow \infty} a_k = 0$ and the sequence $\{a_k\}$ is decreasing, then the series converges
+		\subsection{The Alternating Series Estimation Theorem}
+			Consider a convergent alternating series $\sum (-1)^k a_k$. If we use the $n^{th}$ partial sum $s_n$ as an estimate of the sum, then the error satisfies the inequality $|s - s_n| \leq a_{n+1}$. That is, the truncation error is less than the first term omitted
+		\subsection{Absolute Convergence vs Conditional Convergence}
+			A series $\sum a_k$ is said to be absolutely convergent if the series $\sum |a_k|$ is convergent.\\
+			\\
+			A series $\sum a_k$ is said to be conditionally convergent if it is convergent but the series $\sum |a_k|$ is divergent
+		\subsection{Ratio Test}
+			Suppose $\lim\limits_{k\rightarrow \infty} |\frac{a_{k+1}}{a_k}| = L$
+			\begin{itemize}
+				\item If $L < 1$, then the series $\sum a_k$ is absolutely convergent
+				\item If $L > 1$, then the series $\sum a_k$ is divergent
+				\item If $L = 1$, then the test fails, could be anything
+			\end{itemize}
+	\section{Radius of Convergence}
+		A series converges absolutely if \\
+		\centerline{$\lim\limits_{k\rightarrow \infty} |\frac{a_{k+1}}{a_k} = |x-x_0| \lim\limits_{k\rightarrow \infty} |\frac{c_{k+1}}{c_k}| < 1$}
+		By letting $R = \lim\limits_{k\rightarrow \infty} |\frac{c_k}{c_{k+1}}$, we can establish that the series converges if $|x - x_0| < R$. We can state the following:
+		\begin{itemize}
+			\item If $R = 0$, then the series converges only at $x = x_0$
+			\item If $R = \infty$ the the series converges for all x
+			\item If $0 < R < \infty$, then the series converges absolutely for $x \in (x_0 - R, x_0 + R)$ and diverges for $x < x_0 - R$ and for $x > x_0 + R$. At the two points $x = x_0 \pm R$ gives no conclusion so we need to test them individually
+		\end{itemize}
+		We refer to $R$ as the radius of convergence
+	\section{Power Series Manipulation}
+		If the series $\sum c_k (x - x_0)^k$ has radius of convergence $R$, then we can
+		\begin{itemize}
+			\item differentiate it(term by term)
+			\item integrate it(term by term)
+			\item multiply through by a constant(term by term)
+			\item add it(term by term) to another series of radius of convergence $\geq R$
+		\end{itemize}
+		and the result will also have radius of convergence $R$. Note that to add, both series must have the same starting value for the index
+	\section{Big-O Notation}
+		\subsection{Theorem}
+			Given two functions $f$ and $g$, we say that "$f$ is of order $g$ as $x \rightarrow x_0$" and write \\
+			\centerline{$f(x) = \mathcal{O}(g(x)) as x \rightarrow x_0$}
+			if there exists a constant $A$($> 0$) such that \\
+			\centerline{$|f(x)| \leq A|g(x)|$}
+			on some interval around $x_0$(although the point $x_0$ itself may be excluded from the interval, since the idea is to describe the behaviour of $f$ in the limit as we approach $x_0$)
+			\\
+			\\
+			This serves a purpose with Taylor's Inequality. Rather than calculating the estimated remainder, we can define an expression:\\
+			\centerline{$R_n(x) = \mathcal{O} ((x-x_0)^{n+1})$ as $x \rightarrow x_0$}\\
+			This serves a huge purpose when manipulating taylor polynomials using addition, subtraction and especially multiplication where many expressions get absorbed by the Big O expression.
+		\subsection{Evaluation of Limits using Taylor Polynomials and the Order Symbol}
+			By replacing complex elements in a limit with taylor polynomials with a Big-O expression as a remainder, it simplifies the calculation without affecting the answer.
+\chapter{Multivariable Calculus}
+	\section{Multivariable Functions}
+		Basically Calculus but with more than 2 variables. To visualize these functions, we will use level curves. We can set $z=0,1,2,3,..$ and draw a graph for each value.\\
+		\\
+		When checking for the origin, we can test the function with different values. Say we're checking for the origin. If $x=0$, then we determine the limit as $y \rightarrow 0$ and vice versa. We also need to check if this limit corresponds to the same when we let $y = x$. We can also let $y = f(x)$ where $f(x)$ is an arbitrary function and let it approach the origin.\\
+		\\
+		In order to prove that a limit exists, we need to prove that it exists along every conceivable route towards the point in question. The best tool would be Squeeze Theorem.
+	\section{Partial Derivatives}
+		The partial derivative of $f(x,y)$ with respect to $x$ at the point $(a,b)$ is\\
+		\centerline{$f_x(a,b) = \lim\limits_{h\rightarrow 0} \frac{f(a+h, b) - f(a,b)}{h}$}
+		if this limit exists(otherwise $f$ is not differentiable). Similarly, the partial derivative of $f(x,y)$ with respect to y at the point $(a,b)$ is \\
+		\centerline{$f_y(a,b) = \lim\limits_{h\rightarrow 0} \frac{f(a, b+h) - f(a,b)}{h}$}
+		providing that this limit exists\\
+		While differentiating, we essentially treat one of the variables as a constant
+		\subsection{Clairaut's Theorem}
+			Clairaut's Theorem states that if $f_x, f_y$ and $f_{xy}$ exist near $(a,b)$ and if $f_{xy}$ is continuous at $(a,b)$, then $f_{xy}(a,b)$ also exists, and in fact $f_{xy}(a,b) = f_{yx}(a,b)$
+			\\
+			\\
+	\section{Taylor Series: the Two-Variable Case}
+		Equation explains itself:\\
+		\centerline{$f(x,y) = f(x_0, y_0)$}\\
+		\centerline{$+ f_x(x_0,y_0)(x-x_0) + f_y(x_0,y_0)(y-y_0)$}\\
+		\centerline{$+ \frac{1}{2!}f_{xx}(x_0,y_0)(x-x_0)^2 + f_{xy}(x_0, y_0)(x-x_0)(y-y_0) + \frac{1}{2!}f_{yy}(x_0,y_0)(y-y_0)^2$}
+		\centerline{$...$}
+		\subsection{Tangent Plane and Differentials}
+			If all we need is a linear approximation, then we just need the first order polynomial:\\
+			\centerline{$f(x,y) \approx f(P_0) + f_x(P_0)(x-x_0) + f_y(P_0)(y-y_0)$}\\
+			This can be summarized as:\\
+			\centerline{$df = f_xdx + f_ydy$}
+	\section{Parametric Representation of Curves}
+		A parametric equation of a curve is its representation through equations which express the coordinates of the points of the curve as functions of a variable called a parameter. For example:\\
+		\centerline{$x = \cos t$}
+		\centerline{$y = \sin t$}
+		This can also be defined as \\
+		\centerline{$\vec{r}(t) = <x(t), y(t)>$}
+		\centerline{$\vec{r}'(t) = <x'(t), y'(t)>$}
+	\section{Chain Rule}
+		In the case where $f$ depends on more than 1 variable. As a result, we need to differentiate in terms of each of them as the following:\\
+		\centerline{$\frac{dz}{dt} = \frac{\partial z}{\partial x}\frac{dx}{dt} + \frac{\partial z}{\partial y}{dt}$}
+		We cannot differentiate $z$ in terms of $t$ which is why we can split $\frac{dz}{dt}$ into $\frac{\partial z}{\partial x}\frac{dx}{dt}$ and the same for $y$
+	\section{The Gradient Vector}
+		We define the gradient vector as:\\
+		\centerline{$\nabla f = (\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y})$}
+		Using this, we can redefine the chain rule as:\\
+		\centerline{$\frac{dz}{dt} = \frac{\partial z}{\partial x}\frac{dx}{dt} + \frac{\partial z}{\partial y}{dt}$}
+		\centerline{$= (\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}) \cdot (\frac{dx}{dt}, \frac{dy}{dt})$}
+		\centerline{$= \nabla f(\vec{r}(t))\cdot \vec{r}'(t)$}
+	\section{Directional Derivatives}
+		The directional derivative of $f(x,y)$ in the direction of a unit vector $\vec{u} = (u_1,u_2)$ at the point $\vec{a} = (a,b)$ is denoted by $D_{\vec{u}} f(a,b)$ and defined as:\\
+		\centerline{$D_{\vec{u}} f(a,b) = \nabla (a,b) \cdot \vec{u}$}
+		\\
+		\\
+		Since $\vec{u}$ is a unit vector, this means that \\
+		\centerline{$\nabla f \cdot \vec{u} = ||\nabla f || \cos \theta$}
+		This means that $D_{\vec{u}}f$ has maximum value when $\theta = 0$, meaning it is parallel with $\vec{u}$
+	\section{Even Nastier Chain Rule}
+		Let's say that $f$ is a function of $x$ and $y$. But what if $x$ and $y$ are in terms of $s$ and $t$? When differentiating in terms of $s$, we can just treat $t$ as a constant and vice versa.\\
+		\\
+		But what if we need the 2nd derivative? This gets pretty nasty though. We would essentially redifferentiate it and get something huge...(I'm not LaTeXing that..)\\
+		\\
+		Essentially, keep differentiating until for each derivative you have to do, the function is in terms of whatever you're deriving it in terms of, i.e. if you're deriving $f$ in terms of $s$ but $f$ is in terms of $x$ and $x$ is in terms of $s$, then derive $f$ in terms of $x$ multiplied by $x$ derived in terms of $s$
+\chapter{Optimization Techniques}
+	\section{Unconstrained Optimization}
+		A function $f(x,y)$ has a local maximum at $(x_0, y_0)$ if $f(x_0, y_0) \geq f(x,y)$ for all $(x,y)$ in some disk centered at $(x_0, y_0)$
+		\\
+		It's worth noting that a critical point is not necessarily an extremum unlike in single variable functions. If it's neither a maximum or minimum, we call this point a \textbf{saddle point}. We can check this point using the following test:\\
+		\\
+		\textbf{The Second Derivative Test for Local Extrema}: Suppose $P_0$ is a critical point of an infinitely differentiable function $f(x,y)$. Let $D(x,y) = f_{xx}f_{yy} - (f_{xy})^2$
+		\begin{itemize}
+			\item If $D(P_0) > 0$, then $f$ has an extremum at $P_0$. If so, if $f_{xx}(P_0) < 0$, then this extremum is a maximum and vice versa
+			\item If $D(P_0) < 0$, then this point does not have ann extremum at $P_0$(that is, it has a saddle point instead)
+			\item If $D(P_0) = 0$, then the test gives no conclusion
+		\end{itemize}
+	\section{Constrained Optimization}
+		We follow these guidelines to find extremums:
+		\begin{itemize}
+			\item We know that $\nabla f$ is always orthogonal to the level of curves of $f$
+			\item If we view the constraint curve as being one particular level curve of a function $g(x,y)$, then $\nabla g$ will be orthogonal to the constraint curve
+			\item Therefore, any point where the constraint curve touches a level curve of $f$ tangentially, it must be that $\nabla g$ is parallel to $\nabla f$
+		\end{itemize}
+		This is the motivation of Lagrange:\\
+		To find the critical points of $f(x,y)$ subject to a constraint $g(x,y) = K$(where $K$ is a constant), find the values of $x$ and $y$ for which\\
+		\centerline{$\nabla f = \lambda \nabla g$ and $g(x,y) = K$}
+		Notes:
+		\begin{enumerate}
+			\item If the constraint is not given in the form $g(x,y) = K$, then we must rewrite it
+			\item The proportionality constant $\lambda$ is called the \textit{Lagrange Multiplier}. We normally don't care what the value of this is, unless we calculate it in order to solve for $x$ and $y$. However, it does have an interesting interpretation; it can be shown that $\lambda$ represents the rate of change of $f$ with respect to the constrained value.
+		\end{enumerate}
+	\section{Identifying Absolute Extrema under Constraints}
+		Lagrange's method only locates critical points without telling us whether they're local maxima, minima or inflection points. \\
+		In order to determine whether they're absolute maxima or minima, we'd follow these steps:
+		\begin{itemize}
+			\item If the constraint curve is closed and smooth, then one might think that we would simply have to compare the values of $f(x,y)$ at each of the points we've found by solving the equation in Lagrange's Method. The extrema could also occur at points where $\nabla g = \vec{0}$ and so we must determine if there are any such points, evaluate $f$ at each one, and include those values in our list of values to compare
+			\item If the curve has endpoints, then we must calculate the values of $f(x,y)$ at those points as well, and include them in the comparison
+			\item If the curve is not closed, and has no endpoints, then $f(x,y)$ may not even be bounded. We'll need to consider the limits of $f(x,y)$ in the two directions along the curve to determine whether we have any absolute extrema at all
+		\end{itemize}
+		These methods do work for more than 2 variables as well. We'd let $g_1(x,y,z) = K_1$ and $g_2(x,y,z) = K_2$ and set $\nabla f = \lambda_1\nabla g_1 + \lambda_2 \nabla g_2$
+	\section{Integration of Scalar Fields}
+		It seems intuitive to see that since there's a partial derivative, there's partial integration. When integrating, we predefine the variable we're integrating the function in terms of. The only twist is that the constant of integration is in terms of the variable we set as constant.\\
+		\\
+		When integrating over a scalar field, we partition the field in many tiny rectangles. Based on this, we define the double integral over a continuous function $f(x,y)$ over a rectangular region as \\
+		\centerline{$\int_{R}^{max} f(x,y) dA = \lim\limits_{m,n\rightarrow 0} \sum_{i=1}^{m} \sum_{j=1}^{n} f(x_i^*, y_j^*)\Delta A$}
+		This can be simplified as:\\
+		\centerline{$\int\int f(x,y) dxdy$}
+		Integrating over rectangular fields should be straight forward
+		\subsection{Evaluation of Double Integrals over Non-Rectangular Fields}
+			We redefine the double integral as:\\
+			\centerline{$\int_{R}^{}f(x,y)dA = \int_{a}^{b} \int_{g(x)}^{h(x)} f(x,y) dydx$}
+			Since the limits of integrations are now functions, it's not possible to just switch the order of integration.
+		\subsection{Evaluation of Double Integrals in Polar Coordinates}
+			When the domain is circular, it is extremely useful to convert the coordinates to polar. An easy to identify a situation would be to see an expression with $x^2+y^2$ of some sort.\\
+			We would be integrating the function $f(r \cos \theta, r \sin \theta)$. However, we do need to change our differentials from $dxdy$ to $drd\theta$. Through a bit of math, we see that:\\
+			\centerline{$\int \int_{R_{xy}}^{} f(x,y)dxdy = \int \int_{R_{r\theta}}^{} f(r \cos \theta, r \sin \theta)rdrd\theta$}
+			How did this happen? We use the \textbf{Change-Of-Variable} Formula, which is defined as the following:\\
+			Suppose that the variable $x$ and $y$ are related to the variables $u$ and $v$ by the equations $x = x(u,v)$ and $y = y(u,v)$. Then:\\
+			\centerline{$\int \int_{R_{xy}}^{} f(x,y) dxdy = \int \int_{R_{uv}}^{} f[x(u,v), y(u,v)] | \frac{ \partial (x,y)}{\partial (u,v)} |dudv $}
+			where \\
+			\centerline{$\frac{\partial (x,y)}{\partial (u,v)} = | \begin{matrix}
+				\frac{\partial x}{\partial u} & \frac{\partial x}{\partial v} \\
+				\frac{\partial y}{\partial u} & \frac{\partial y}{\partial v}
+			\end{matrix}|$}
+			This function is called the \textit{Jacobian} of the transformation and is denoted by $J$. Note that it's the absolute value of the matrix of partial derivates and $J\neq 0$
+	\section{Interpretation of Integrals}
+		
 \end{document}
