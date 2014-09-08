@@ -1,0 +1,277 @@
+\documentclass[12pt]{report}
+\usepackage[margin=2cm]{geometry}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+
+% Compression needs to be done on the examples so that they're easier to read
+% Suggestion: Write problem and how to solve/approach
+\title{MATH 135 - Algebra for Honours Mathematics}
+\author{Andy Zhang}
+\date{Winter 2014}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\chapter{Congruence and Modular Arithmetic}
+	\section{Congruence}
+		\subsection{Definition}
+			\textbf{Congruence:} Let $m$ be a fixed positive integer. If $a, b \in \mathbb{Z}$ we say that $a$ is congruent to $b$ modulo $m$, and write \\
+			\centerline{$a \equiv b$ (mod m)}\\
+			if $m|(a-b)$. If $m \nmid (a-b)$, we write $a \not \equiv b$ (mod $m$)
+		\subsection{Propositions}
+			\textbf{Propoerties of Congruence(PC):} Let $a, a', b, b' \in \mathbb{Z}$. If $a \equiv a'$(mod $m$) and $b \equiv b' $(mod $m$), then:
+			\begin{enumerate}
+				\item $a+b \equiv a' + b'$(mod $m$)
+				\item $a-b \equiv a' - b'$(mod $m$)
+				\item $ab \equiv a'b'$(mod $m$)
+			\end{enumerate}
+			\textbf{Congruences and Division(CD):} If $ac \equiv bc$(mod $m$) and $gcd(c,m)=1$, then $a \equiv b$(mod $m$)
+	\section{Modular Arithmetic}
+		\subsection{Definition}
+			\textbf{Congruence Class:} The congruence class modulo m of the integer $a$ is the set of integers \\
+			\centerline{$[a] = \{x \in \mathbb{Z} | x \equiv a$(mod $m$)$\}$}
+			\textbf{$\mathbb{Z}_m$:} We define $\mathbb{Z}_m$ to be the set of $m$ congruence classes\\
+			\centerline{$\mathbb{Z}_m = \{[0],[1],[2],...[m-1]\}$} \\
+			and we define addition/subtraction and multiplication/division as follows:\\
+			\centerline{$[a] + [b] = [a+b]$}\\
+			\centerline{$[a]\cdot[b] = [a\cdot b]$}
+		\subsection{Identities and Inverses in $\mathbb{Z}_m$}
+			\textbf{Identity:} Given a set $S$ and an operation designated by $\circ$, an identity is an element $e \in S$ so that \\
+			\centerline{$\forall a \in S, a \circ e = a$}\\
+			\textbf{Inverse:} The element $b \in S$ is an inverse of $a \in S$ if $a \circ b = b \circ a = e$
+	\section{Fermat's Little Theorem}
+		\subsection{Theorem}
+			\textbf{Fermat's Little Theorem(FLT):} If $p$ is a prime number that does not divide the integer $a$, then \\
+			\centerline{$a^{p-1} \equiv 1$(mod $p$)}\\
+			\textbf{Corollary:} For any integer $a$ and any prime $p$, \\
+			\centerline{$a^p \equiv a$(mod $p$)}\\
+			\textbf{Existence of Inverses in $\mathbb{Z}_p$ (INV $\mathbb{Z}_p$):} Let $p$ be a prime number. If $[a]$ is any non-zero element in $\mathbb{Z}_p$, then there exists an element $[b] \in \mathbb{Z}_p$ so that $[a] \cdot [b] = 1$
+		\subsection{Proof}
+			\begin{enumerate}
+				\item If $p \nmid a$, we first show that all of the integers \\
+				\centerline{$a, 2a, 3a, ... (p-1)a$}\\
+				are all distinct modulo $p$
+				\item Suppose that $ra \equiv sa$(mod $p$) where $1 \leq r < s \leq p-1$
+				\item Since $gcd(a,p) = 1$, Congruences and Division tells us that $r \equiv s$(mod $p$), but this is not possible when $1 \leq r < s \leq p-1$.
+				\item Because $a, 2a, 3a... (p-1)a$ are all distinct mod $p$, it must be the case that these integers are equivalent to the integers $1,2,3... p-1$ in some order.
+				\item Multiplying these integers together gives\\
+				\centerline{$a\cdot 2a \cdot 3a ... (p-1)a \equiv 1 \cdot 2 \cdot 3 ... (p-1)$(mod $p$)}\\
+				\centerline{$(p-1)!a^{p-1} \equiv (p-1)!$(mod $p$)}
+				\item Since $gcd(p,p-1)!) = 1$, Congruences and Division tells us that \\
+				\centerline{$a^{p-1} \equiv 1$(mod $p$)}
+			\end{enumerate}
+	\section{Linear Congruences}
+		\subsection{Definition}
+			\textbf{Linear Congruence:} A relation of the form\\
+			\centerline{$ax \equiv c$(mod $m$)}\\
+			is called a linear congruence in the variable $x$. A solution to such a linear congruence is an integer $x_0$ so that \\
+			\centerline{$ax_0 \equiv c$(mod $m$)}
+		\subsection{Theorems}
+			\textbf{Linear Diophantine Equation Theorem, Part 2(LDET 2):} Let $gcd(a,m)=d\neq 0$. \\
+			If $x = x_0$ and $y = y_0$ is one particular integer solution to the linear Diophantine equation $ax + my = c$, then the complete integer solution is \\
+			\centerline{$x = x_0 + \frac{m}{d}n, y=y_0 - \frac{a}{d}n, \forall n \in \mathbb{Z}$}
+			The complete solution if $x_0$ is a solution is \\
+			\centerline{$x \equiv x_0$ (mod $\frac{m}{d}$) where $d = gcd(a,m)$}\\
+			\textbf{Linear Congruence Theorem, Version 1(LCT 1):} Let $gcd(a,m) = d \neq 0$.\\
+			The linear congruence $ax \equiv c$(mod $m$) has a solution iff $d|c$.\\
+	\section{Chinese Remainder Theorem}
+		\subsection{Definition}
+			\textbf{Chinese Remainder Theorem(CRT):} Let $a_1, a_2 \in \mathbb{Z}$. If $gcd(m_1, m_2)=1$, then the simultaneous linear congruences \\
+			\centerline{$n \equiv a_1$(mod $m_1$)}\\
+			\centerline{$n \equiv a_2$(mod $m_2$)}\\
+			has a unique solution modulo $m_1m_2$. Thus if $n = n_0$ is one integer solution, then the complete solution is \\
+			\centerline{$n \equiv n_0$(mod $m_1m_2$)}\\
+			Moreover, this could be generalized with many congruences. If $n = n_0$ is a solution, then the complete solution would be \\
+			\centerline{$n \equiv n_0$ (mod $m_1m_2...m_k$)}
+			
+\chapter{The RSA Scheme}
+	\section{RSA}
+		\subsection{Setting up RSA}
+			\begin{enumerate}
+				\item Choose two large, distinct primes $p$ and $q$ and let $n = pq$.
+				\item Select an integer $e$ so that $gcd(e, (p-1)(q-1)) = 1$ and $1 < e < (p-1)(q-1)$. 
+				\item Solve\\
+				\centerline{$ed \equiv 1 (mod (p-1)(q-1))$}\\
+				for an integer $d$ where $1 < e < (p-1)(q-1)$.
+				\item Publish the public encryption key $(e,n)$.
+				\item Keep the private decryption key secure $(d,n)$.
+			\end{enumerate}
+		\subsection{Sending a Message}
+			To send a message:
+			\begin{enumerate}
+				\item Look up the recipient's public key $(e, n)$.
+				\item Generate the integer message $M$ so that $0 \leq M < n$.
+				\item Compute the ciphertext $C$ as follows:\\
+					\centerline{$M^e\equiv C (mod n)$ where $0 \leq C < n$}
+				\item Send $C$
+			\end{enumerate}
+		\subsection{Receiving a Message}
+			To decrypt a message:
+			\begin{enumerate}
+				\item Use your private key $(d,n)$. 
+				\item Compute the message text $R$ from the ciphertext $C$ as follows:\\
+					\centerline{$C^d \equiv R (mod n)$ where $0 \leq R < n$}
+				\item $R$ is the original message.
+			\end{enumerate}
+\chapter{Injective, Surjective and Bijections}
+	\section{Injective(One-to-One)}
+		\subsection{Definition}
+			\textbf{Injective:} Let $S$ and $T$ be two sets. A function $f: S \rightarrow T$ is \textbf{one-to-one}(or \textbf{injective}) iff for every $x_1 \in S, f(x_1) = f(x_2)$ implies that $x_1 = x_2$ and $|S| \leq |T|$. \\
+			When trying to prove that a function is one-to-one, start off with $f(x_1) = f(x_2)$ and try to use algebraic manipulation to obtain $x_1 = x_2$. 
+		\subsection{Simple Example}
+			\textbf{Proposition:} Let $m \neq 0$ and $b$ be fixed real numbers. The function $f: \mathbb{R} \rightarrow \mathbb{R}$ defined by $f(x) = mx + b$ is one to one\\
+			\textbf{Proof}: Let $x_1, x_2 \in S$. Suppose that $f(x_1) = f(x_2)$. Now we show that $x_1 = x_2$. Since $f(x_1) = f(x_2)$, $mx_1 + b = mx_2 + b$. Subtracting $b$ from both sides and dividing by $m$ gives $x_1 = x_2$ as required.
+		\subsection{Hard Example}
+			\textbf{Proposition:} Let $f: T \rightarrow U$ and $g:S \rightarrow T$ be one-to-one functions. Then $f \circ g$ is a one-to-one function.\\
+			\textbf{Proof:} Let $x_1, x_2 \in S$. Suppose that $(f \circ g)(x_1) = (f \circ g)(x_2)$. Since $(f \circ g)(x_1) = (f \circ g)(x_2)$, we know that $f(g(x_1)) = f(g(x_2))$. Since $f$ is one-to-one, we know that $g(x_1) = g(x_2)$. And since $g$ is one-to-one, $x_1 = x_2$ as required. 
+
+	\section{Surjective}
+		\subsection{Definition}
+			\textbf{Surjective:} A function $f:S \rightarrow T$ is \textbf{surjective}(or \textbf{onto}) if and only if for every $y \in T$ there exists an $x \in S $ so that $f(x) = y$. This implies that $|S| \geq |T|$. \\
+			When trying to prove that a function is onto, try to find a function $g(x)$ such that $f(g(x)) = y$ to prove that each $y$ in the codomain is mapped to.
+	\section{Bijections}
+		\subsection{Definition}
+			\textbf{Bijection:} A function $f:S \rightarrow T$ is \textbf{bijective} iff $f$ is both surjective and injective.
+		\subsection{Simple Example}
+			We have already shown that for $m \neq 0$ and b a fixed real number, the function $f:\mathbb{R} \rightarrow \mathbb{R}$ defined by $f(x) = mx + b$ is both surjective and injective. Hence, $f$ is bijective.
+
+	\section{Summary}
+		\begin{itemize}
+			\item $f:S \rightarrow T$ is a function iff $\forall s \in S \exists !t \in T, f(s) = t$ where ! means unique
+			\item $f:S \rightarrow T$ is surjective iff $\forall t \in T \exists s \in S, f(s) = t$, meaning for each element $t \in T$, there is at least one element $s \in S$ so that $f(s) = t$			
+
+			\item $f:S \rightarrow T$ is injective iff $\forall x_1 \in S \forall x_2 \in S, f(x_1) = f(x_2) \Rightarrow x_1 = x_2$ or $x_1 \neq x_2 \Rightarrow f(x_1) \neq f(x_2)$, meaning for each element $t \in T$, there is at most one element $s \in S$ so that $f(s) = t$			
+		\end{itemize}
+		\subsection{Frequently Asked Questions}
+			Questions to be added
+\chapter{Counting}
+	\section{Bijection and Cardinality}
+		\subsection{Definition}
+			\textbf{Cardinality:} If there exists a bijection between the sets $S$ and $T$, we say that the sets have the same and we write $|S| = |T|$. \\
+			\textbf{Number of Elements, Finite, Infinite:} If there exists a bijection between a set $S$ and $\mathbb{N}_n$, we say that the \textbf{number of elements} in $S$ is $n$ and we write $|S| = n$. Moreover, we also say that $S$ is a \textbf{finite set}. If no bijection exists between a set $S$ and $\mathbb{N}_n$ for any $n$, we say that $S$ is an \textbf{infinite set}.\\
+			\textbf{Countable: } A set $S$ is \textbf{countable} if there exists an injective function $f$ from $S$ to the natural numbers $\mathbb{N}$
+		\subsection{Guidelines}
+			\textbf{Proposition:} Let $S = ...$ Let $T = ...$ Then there exists a bijection $f: S \rightarrow T$. Hence, $|S| = |T|$. \\
+			To do this, we must prove that f is both surjective and injective. \\
+			Consider the function $f:S \rightarrow T$ defined by $f(s) = ...$. We show that $f$ is surjective. Let $t \in T$. Consider $s = ...$ We show that $s \in S ...$. Now we show that $f(s) = t$.\\ We then show that $f$ is injective. Let $s_1, s_2 \in S$ and suppose that $f(s_1) = f(s_2)$. Now we show that $s_1 = s_2$.\\
+			Hence, $f:S \rightarrow T$ is a bijection and $|S| = |T|$.
+	\section{Finite Sets}
+		\subsection{Definitions}
+			\textbf{Disjoint:} Set $S$ and $T$ are \textbf{disjoint} if $S \cap T = \emptyset$
+			
+		\subsection{Propositions}
+			\textbf{Cardinality of Intersecting Sets(CIS):} If $S$ and $T$ are any finite sets, then \\
+			\centerline{$|S \cup T| = |S| + |T| - |S \cap T|$}\\
+			\textbf{Cardinality of Disjoint Sets(CDS)}: If $S$ and $T$ are disjoint finite sets, then $|S \cup T| = |S| + |T|$\\
+			
+		\subsection{Example}
+			\textbf{Proof of CDS:}
+			\begin{enumerate}
+				\item Since $S$ is a finite set, there exists a bijection $f:S \rightarrow \mathbb{N}_m$ for some non negative integer $m$, and $|S| = m$
+				\item Since $T$ is a finite set, there exists a bijection $f:T \rightarrow \mathbb{N}_n$ for some non negative integer $m$, and $|T| = n$
+				\item Construct function $h:S \cup T \rightarrow \mathbb{N}_{m+n}$ as follows: \\
+				$h(x)$ = f(x) if $x \in S$ else $g(x) + m$ if $x \in T$
+				\item To show that $h$ is surjective, let $y \in \mathbb{N}_{m+n}$. If $y \leq m$, then because $f$ is surjectivethere exists an element $x \in S$ so that $f(x) = y$, hence $h(x) = y$. If $m+1 \leq y \leq m + n$, then because $g$ is surjective, there exists an element $x \in T$ so that $g(x) = y-m$ and so $h(x) = (y-m) + m = y$.
+				\item To show that $h$ is injective, let $x_1, x_2 \in S \cup T$ and suppose that $h(x_1) = h(x_2)$. If $h(x) \leq m$ then $h(x) = f(x)$ so if $h(x_1) \leq m$ we have\\
+				\centerline{$h(x_1) = h(x_2) \Rightarrow f(x_1) = f(x_2)$} \\
+				But since $f$ is a bijection $f(x_1) = f(x_2)$ implies $x_1 = x_2$ as needed. If $h(x) > m$ then $h(x) = g(x)$ so if $h(x_1) > m$ we have \\
+				\centerline{$h(x_1) = h(x_2) \Rightarrow g(x_1) + m = g(x_2) + m \Rightarrow g(x_1) = g(x_2)$} \\
+				But since $g$ is a bijectoin $g(x_2) = g(x_2) $ implies $x_1 = x_2$ as needed. Since $h$ is a function which is both injective and surjective,$h$ is bijective.
+				\item Thus \\
+				\centerline{$|S \cup T| = |\mathbb{N}_{m+n}| = m+n=|\mathbb{N}_m| + |\mathbb{N}_n| = |S| + |T|$}
+			\end{enumerate}
+			If it wasn't clear, f(x) is mapped to 1,2..$m$ and $g(x) + m$ is mapped to $m+1, m+2,$...$m+n$.
+	\section{Infinite Sets}
+		\subsection{Propositions}
+			\textbf{Cardinality of Subsets of Finite Sets(CSFS):} If $S$ and $T$ are finite sets, and $S \subset T$, then $|S| < |T|$ \\
+			\textbf{$|\mathbb{N}| = |2\mathbb{N}|$:} Let $2\mathbb{N}$ be the set of positive even natural numbers. Then $|\mathbb{N}| = |2\mathbb{N}|$\\
+			\textbf{$|\mathbb{N} x \mathbb{N}| = |\mathbb{N}|$}\\
+			\textbf{Even-Odd Factorization of Natural Numbers(EOFNN):} Any natural number $n$ can be written uniquely as $n = 2^iq$ where $i$ is a non-negative integer and $q$ is an odd natural number.
+			Note: use EOFNN to prove $|\mathbb{N} x \mathbb{N}| = |\mathbb{N}|$.\\
+			Note: Not all infinite sets have the same size
+		\subsection{Example}
+			\textbf{Proof of $|\mathbb{N}| = |2\mathbb{N}|$}\\
+			We want to prove that there's a bijection between both sets
+			\begin{enumerate}
+				\item Consider the function $f:\mathbb{N} \rightarrow 2\mathbb{N}$ defined by $f(s) = 2s$
+				\item We show that $f$ is surjective. Let $t \in 2\mathbb{N}$. Consider $s = \frac{1}{2}t$. We show that $s \in \mathbb{N}$ since $f(\frac{1}{2}t) = t$ and therefore is surjective
+				\item We show that $f$ is injective. Let $s_1, s_2 \in \mathbb{N}$ and suppose that $f(s_1) = f(s_2)$. Now we show that $s_1 = s_2$. Since $f(s_1) = 2s_1$ and $f(s_2) = 2s_2$, $s_1 = s_2$. 
+				\item Hence, $f:\mathbb{N} \rightarrow 2\mathbb{N}$ is a bijection and $|\mathbb{N}| = |2\mathbb{N}|$.
+			\end{enumerate}
+\chapter{Complex Numbers}
+	\section{Complex Numbers}
+		\subsection{Definition}
+			\textbf{Complex Number:} A complex number $z$ in \textbf{standard form} is an expression of the form $x+yi$ where $x,y\in \mathbb{R}$. The set of all complex numbers is denoted by\\
+			\centerline{$\mathbb{C} = \{x + yi | x,y \in \mathbb{R}\}$}
+			\\
+			\textbf{Real part and Imaginary part:} For a complex number $z = x + yi$, the real number $x$ is called the \textbf{real part} and is written $\Re(z)$ and the real number y is called the \textbf{imaginary part} and is written $\Im(z)$.
+			\\
+		\subsection{Properties}
+			\textbf{Complex Conjugate:} The complex conjugate of $z = x + yi$ is \\
+			\centerline{$\bar{z} = x - yi$}
+			This implies that:
+			\begin{itemize}
+				\item $\bar{z+w} = \bar{z} + \bar{w}$
+				\item $\bar{zw} = \bar{z} \bar{w}$
+				\item $\bar{\bar{z}} = z$
+				\item $z + \bar{z} = 2\Re(z)$
+				\item $z - \bar{z} = 2\Im(z)$
+			\end{itemize}
+			\textbf{Modulus: } The modulus of the complex number $z = x + yi$ is the non-negative real number: \\
+			\centerline{$|z| = |x + yi| = \sqrt{x^2 + y^2}$}
+	\section{Polar Form}
+		\subsection{Definition}
+			\textbf{Polar Form:} The polar form of a complex number $z$ is \\
+			\centerline{$z = r(\cos \theta + i \sin \theta)$} \\
+			where $r$ is the modulus of $z$ and the angle $\theta$ is called an argument of $z$
+			\textbf{Complex Exponential:} By analogy, we define the complex exponential function by\\
+			\centerline{$e^{i\theta} = \cos \theta + i \sin \theta$}
+		\subsection{Properties}
+			\textbf{Polar Multiplication of Complex Numbers(PMCN):} If $z_1 = r_1(\cos \theta_1 + i \sin \theta_1)$ and $z_2 = r_2(\cos \theta_2 + i \sin \theta_2)$ are two complex numbers in polar form, then \\
+			\centerline{$z_1z_2 = r_1r_2(cos(\theta_1 + \theta_2) + i \sin (\theta_1 + \theta_2)$}
+		\subsection{De Moivre's Theorem}
+			\textbf{De Moivre's Theorem(DMT):} If $\theta \in \mathbb{R}$ and $n \in \mathbb{Z}$ then \\
+			\centerline{$(\cos \theta + i \sin \theta)^n = \cos n\theta + i \sin n\theta$}				
+	\section{Roots of Complex Numbers}
+		\subsection{Definition}
+			\textbf{Complex Roots: }If $a$ is a complex number, then the complex numbers that solve \\
+			\centerline{$z^n = a$} \\
+			are called the complex nth roots. De Moivre's Theorem gives us a straightforward way to find complex nth roots of $a$.\\
+			\textbf{Nth root of unity:} $z$ is an nth root of unity if $z^n = 1$.
+		\subsection{Technique}
+			\textbf{Complex nth Roots Theorem(CNRT):} If $r(\cos \theta + i \sin \theta)$ is the polar form of a complex number $a$, then the solutions to $z^n = a$ are:\\
+			\centerline{$\sqrt[n]{r}(\cos (\frac{\theta + 2k\pi}{n}) + i \sin (\frac{\theta + 2k\pi}{n}))$}
+			where $k = 0,1,2,3,...$\\
+			\textbf{Finding coefficients of all $x^nk$ for $k \in \mathbb{N}$}: \\
+			\centerline{$1, w = e^{i\frac{2\pi}{n}}, w = e^{i\frac{4\pi}{n}}$}
+			Let's let n = 3. $1 + w + w^2 = 0$. $\frac{f(1) + f(w) + f(w^2)}{3}$ is the sum we want.
+			
+\chapter{Polynomials}
+	\section{Polynomials}
+		\subsection{Definition}
+			\textbf{Polynomial:} A polynomial in $x$ over a field $\mathbb{F}$ (eg $\mathbb{R}, \mathbb{C}, \mathbb{Q}, \mathbb{Z}_p$ for prime $p$, any number system that is closed under $+-*/$) has the form \\
+			\centerline{$a_nx^n + a_{n-1}x^{n-1} + ... + a_1x + a_0$} where $n \geq 0$ is an integer and $a_i \in \mathbb{F}$ for each $i$. The set of all polynomials in $x$ over $\mathbb{F}$ is denoted $\mathbb{F}[x]$	
+		\subsection{Proposition}
+			\textbf{Division Algorithm for Polynomials(DAP):} If $f(x)$ and $g(x)$ are polynomials in $\mathbb{F}[x]$ and $g(x)$ is not the zero polynomial, then there exist unique polynomials $q(x)$ and $r(x)$ in $\mathbb{F}[x]$ such that \\
+			\centerline{$f(x) = q(x)g(x) + r(x)$}\\
+			where deg$r(x) < $ deg$g(x)$ or $r(x) = 0$\\
+			$q(x)$ is the quotient polynomial and $r(x)$ is called the remainder polynomial. If $r(x)=0$, then $g(x)|f(x)$
+	\section{Factoring Polynomials}
+		\subsection{Definition}
+			\textbf{Root:} An element $c \in \mathbb{F}$ is called a root or zero of the polynomial $f(x)$ if $f(c) = 0$. 
+			\\
+		\subsection{Theorems}
+			\textbf{Fundamental Theorem of Algebra(FTA):} For all complex polynomials $f(z)$ with deg$(f(z)) \geq 1$, there exists a $z_0 \in \mathbb{C}$ so that $f(z_0) = 0$. \\
+			\textbf{Remainder Theorem:} The remainder when the polynomial $f(x)$ is divided by $(x-c)$ is $f(c)$. \\
+			\textbf{Factor Theorem 1(FT 1):} The linear polynomial $(x-c)$ is a factor of the polynomial $f(x)$ iff $f(c)=0$.\\
+			\textbf{Factor Theorem 2(FT 2):} The linear polynomial $(x-c)$ is a factor of the polynomial $f(x)$ iff $c$ is a root of the polynomial $f(x)$.\\
+			\textbf{Complex Polynomials of Degree $n$ Have $n$ Roots(CPN):} If $f(x)$ is a complex polynomial of degree $n \geq 1$, then $f(x)$ has $n$ roots and can be written as the products of $n$ linear factors. The $n$ roots and factors may not be distinct. \\
+			\textbf{Rational Roots Theorem(RRT):} Let $f(x)$ be a polynomial of degree $n$. If $\frac{p}{q}$ is a rational root with $gcd(p,q) = 1$, then $p|a_0$ and $q|a_n$. \\
+			Note: If asked for a rational root, find all divisors of $a_n$ and $a_0$ and find all different combinations and evaluate whether they're roots. \\
+			\textbf{Conjugate Roots Theorem(CJRT):} Let $f(x)$ be a polynomial of degree $n$ with real coefficients. If $c \in \mathbb{C}$ is a root of $f(x)$, then $\bar{c} \in \mathbb{C}$ is a root of $f(x)$. \\
+			\textbf{Real Quadtratic Factors(RQF):} Let $f(x)$ be a polynomial of degree $n$ with real coefficients. If $c \in \mathbb{C}$, $\Im(c) \neq 0$, is a root of $f(x)$, then there exists a real quadratic factor of $f(x)$ with $c$ as a root.\\
+			\textbf{Real Factors of Real Polynomials(RFRP):} Let $f(x)$ be a polynomial of degree $n$ with real coefficients. Then $f(x)$ can be written as a product of real linear and real quadratic factors. 
+			
+\end{document}

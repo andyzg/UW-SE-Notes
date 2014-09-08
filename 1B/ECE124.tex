@@ -1,0 +1,566 @@
+\documentclass[12pt]{report}
+\usepackage[margin=2cm]{geometry}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+ 
+\title{ECE 124 - Digital Circuits and Systems}
+\author{Andy Zhang}
+\date{Winter 2014}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\chapter{Important Note}
+	The content you will find in this review package contains mainly procedures on how to approach problems and theory. In order to fully understand the course content, it's highly recommended to do the practice problems. Many of the content here is taken from the slides of Andrew Kennings, some which are word for word, others which are summarized. \\
+	\\
+	This document is better understood if the reader already has a general idea of what the course is about and it is not recommended to read this to learn the course content without prior knowledge. \\
+	\\
+	Happy reading!
+\chapter{Binary Logic}
+	\section{Introduction}
+			Despite being able to count in base 10, computers aren't cool enough to do that. They only count in base 2. Consequently, to communicate with computers, we need to understand how base 2 works.
+	\section{Converting from One Base to Another}
+		The best way to explain this is through pseudocode:
+			\begin{algorithmic}
+				\STATE $size \gets \lceil \log_2 number \rceil$
+				\STATE $binary[size]$
+				\STATE $A \gets -1$
+				\STATE $index \gets size-1$
+				\WHILE{$A \neq 0$}
+					\STATE $binary[index] \gets number \% 2$
+					\STATE $index \gets index + 1$ 
+					\STATE $A \gets number / 2$
+				\ENDWHILE
+			\end{algorithmic}
+		Example: $53 = (110101)_2$
+	\section{Truth Tables}
+		We define a logic function as a truth table. We exhaust all the different combinations of the input along with their output.\\
+		\begin{tabular}{ l | c || r }
+			x & y & f \\
+			\hline
+			0 & 0 & $f_0$ \\
+			0 & 1 & $f_1$ \\
+			1 & 0 & $f_2$ \\
+			1 & 1 & $f_3$ \\
+		\end{tabular}
+	\section{Basic Logical Operations}
+		Here's a table of all the logic functions\\
+		\begin{tabular}{ l | c || r }
+			\hline
+			Logic Operator & Symbol & Example \\
+			\hline
+			AND & $\cdot$, nothing 			& $f_0$ \\
+			OR 	& + 						& $f_1$ \\
+			NOT & !,$'$,$\neg$, $\bar{a}$	& $f_2$ \\
+		\end{tabular}
+		\\
+		Please refer to \url{http://en.wikipedia.org/wiki/Logic_gate} for an image of each gate and their respective logic tables.
+	\section{Properties of Boolean Algebra}
+		\begin{itemize}
+			\item $x + 0 = x$, $x \cdot 1 = x$
+			\item $x + x' = 1$, $x \cdot x' = 0$
+			\item $x + x = =$, $x \cdot x = x$
+			\item $x + 1 = 1$, $x \cdot 0 = 0$
+			\item $(x')' = x$
+			\item $x + y = y + x$, $x \cdot y = y \cdot x$
+			\item $(x + y) + z = x + (y + z)$, $(x\cdot y)\cdot z = x \cdot (y \cdot z)$
+			\item $x\cdot (y + z) = x\cdot y + x\cdot z$, $x + y\cdot z = (x+y)\cdot(x+z)$
+			\item $(x + y)' = x' \cdot y'$, $(x\cdot y)' = x' + y'$
+			\item $x + x\cdot y = x$, $ x\cdot (x + y) = x$
+		\end{itemize}
+	\section{Circuit Costs}
+		NOT's are ignored, each gate costs 1 and each input costs 1
+	\section{Minterms and Maxterms}
+		\textbf{Minterm}:\\
+		For each row of the truth table, create an AND of the literals according to the following rule: If a variable has value 1 in the row, include its \textbf{+ve iteral}. If a variable x has a value 0 in the row, include its -ve literal.
+		\textbf{Maxterm}:\\
+		For each row of the truth table, create an OR of the literals according to the following rule: If a variable x has the value 0 in the row, include its +ve literal. If a variable x has value 1 in the row, include its -ve literal. 
+		\\
+		\\
+		We can then define a function as $f = m_am_bm_c = m_d + m_e + m_f$
+	\section{Karnaugh Maps}
+		A Karnaugh Map contains all of the same information as a truth table but in a different form. The coordinates of each square determine the its value.\\
+		While labeling the rows and columns, it's important that only 1 value changes between adjacent rows and columns.\\
+		\\
+		We can encompass groups of minterms via rectangles that are sizes of powers of 2(i.e. 1,2,4,8...). We can then represent that rectangle based on its coordinates that don't change. As a result, enclosing larger rectangles leaves less literals which is better.
+		\\
+		Note that we can enclose minterms via the rectangles, from one side to another or adjacent.
+		\\
+		\\
+		Above 4 variables, we require more than 1 Karnaugh Map since we can only fit 4 variables in 1.
+		\\
+		\\
+		The same can be done with maxterms where you may enclose all of the 0s and create a Product of Sums.
+		\\
+		\\
+		Don't cares(X) are useful as they can be any value which can make minimizing a function simpler.
+	\section{Karnaugh Map Elements}
+		\begin{itemize}
+			\item A product term is called an \textbf{Implicant} if the logic function outputs a 1 for all minterms in the product term.
+			\item An Implicant is called a \textbf{Prime Implicant} if the removal of any literal from the implicant results in a new product term that is not an implicant.
+			\item A prime implicant is called an \textbf{Essential Prime Implicant} if it includes a minterm that is not found in any other implicant. 
+		\end{itemize}
+	\section{NAND NOR}
+		\textbf{OR Gate via NAND:} $f = (x' \cdot y') = x+y$\\
+		\textbf{NAND Gate via OR:} $f = x' + y' + z' = \bar{xyz}$\\
+		\\
+		When changing a circuit, a NOT on all inputs leads to a toggle between AND/OR and a NOT at the output. Ex: OR with all NOT input = NAND and vice versa.
+	\section{XOR Gate}
+		XOR gates are often hidden and can save a lot in terms of circuit costs.\\
+		$f_{XOR} = x_1 \oplus x_2 = \bar{x_1}x_2 + x_1\bar{x_2}$\\
+		$f_{XNOR} = \bar{x_1 \oplus x_2} = \bar{x_1} \cdot \bar{x_2} + x_1 \cdot x_2$
+\chapter{Circuits}
+	\section{Combinational Circuit}
+		A combinatorial circuit is one that consists of logic gates with outputs that are determined entirely by the present value of the inputs.\\
+		Two operations we may perform:\\
+		\begin{itemize}
+			\item Analysis: given what is in the box, what function does it perform? We analyze by determining a function for the output starting from the input.
+			\item Given functions to perform, what do we need in the box? We derive a truth table based on specification followed by simplifying it and implementing a circuit.
+		\end{itemize}
+	\section{Comparator Algorithms}
+		Equality: It's pretty straight forward. $A_i = B_i$ for any i. This can be done by letting $e_i = a_ib_i + a_i'b_i'$. If $e_ie_{i-1}...e_2e_1 = 1$, then $A = B$.\\
+		What if they weren't equal? We let $i=n$, the most significant bit(MSB). If $a_i > b_i$, then $A>B$ and we stop and vice versa. Otherwise, let $i = i-1$. Stop once i=0 and all bits are considered.\\
+		\\
+		$(A > B) = a_nb_n' + (e_n)(a_{n-1}b_{n-1}') + (e_ne_{n-1})(a_{n-2}b_{n-2}')+ ... + (e_ne_{n-1}...e_2e_1e_0)(a_0b_0')$\\
+		$(A < B) = a_n'b_n + (e_n)(a_{n-1}'b_{n-1}) + (e_ne_{n-1})(a_{n-2}'b_{n-2})+ ... + (e_ne_{n-1}...e_2e_1e_0)(a_0'b_0) = (A > B)'$\\
+	\section{Decoders}
+		When we have $n$ bits, we can represent $2^n$ distinct patterns. We have \textbf{n-to-m decoders} with $m = 2^n$.\\
+		Often, some decoders have an enable signal. When enable = 1, then the decoder functions as desired, otherwise, all outputs = 0. For an image or more details, refer to \url{http://en.wikipedia.org/wiki/Decoder}\\
+		Smaller decoders become useful to implement larger ones.
+	\section{Encoders}
+	 	Encoders perform the inverse of a decoder. They have $2^n$ or fewer input and $n$ output. If there are more than 1 high input, then there's an undefined output which leads to priority encoders which gives priority to higher numbered inputs.
+	 \section{Multiplexers}
+	 	Multiplexers have data inputs, select inputs and single data outputs. The output data is based on the select input and the input data. Refer to \url{http://en.wikipedia.org/wiki/Multiplexer} for images and more detailed explanation.\\
+	 	Multiplexers are useful in many ways and can also be used to implement a $n$ input function using a $n-1$ input multiplexer. Based on each pair of output, we can determine the input for the multiplexer. 
+	 	\subsection{Shannon Decomposition}
+	 		Breaking a function down for a MUX implementation is called \textbf{Shannon Decomposition}\\
+	 		This works because given a boolean function $f = f(x_0, x_1...x_n)$, we can split the function into to as the following:\\
+	 		\centerline{$f = f(x_0, x_1...x_n) = x_0'f(0, x_1, x_2 ... x_n) + x_0f(1, x_1, x_2...x_n)$}
+	 \section{Sequential Circuits}
+	 	Unlike combinatorial circuits, the output of a sequential circuit also depends on the current state of the circuit. We define two types of sequential circuits:
+	 	\begin{itemize}
+		 	\item Asynchronous Circuits: circuit behaviour is determined by signals at \textbf{any instant in time and the order in which input signals change}
+		 	\item Synchronous Circuits: circuit behaviour is determined from the knowledge of signal values at \textbf{discrete instances of time}
+	 	\end{itemize}
+	 	\subsection{Clock Signals}
+	 		A \textbf{clock signal} is used to control the behaviour of a circuit at discrete instances in time. They are periodic signals. \\
+	 		When the signal transitions from $0 \rightarrow 1$, we call it a rising edge. If it's $1 \rightarrow 0$, we call it a falling edge.
+	 \section{Latches}
+	 	Latches are a storage element. They perform when a control signal is at $0$ or $1$ and not at any changing edge. This element is extremely useful to understand flip flops.\\
+	 	There exists several types of latches(\url{http://en.wikipedia.org/wiki/Flip-flop_(electronics)} for more detail and images)
+	 	\subsection{SR Latch}
+			\begin{tabular}{ l | c || r | r }
+				S & R & $Q$ & $\bar{Q}$\\
+				\hline
+				1 & 0 & 0 & 1 \\
+				1 & 1 & 0 & 1 \\
+				0 & 1 & 1 & 0 \\
+				1 & 1 & 1 & 0 \\
+				0 & 0 & 1 & 1 \\
+			\end{tabular}
+			\\
+			\begin{itemize}
+			\item When $S = 0$, $R=1$, the output is $Q = 1$, and the circuit is in the \textbf{set state}
+			\item When $S = 1$, $R=0$, the output is $Q = 0$, and the circuit is in the \textbf{reset state}
+			\item When $S = 1$, $R = 1$, it implies the reset state
+			\item When $S = 0$, $R = 0$, the output holds at its previous value(storage)
+			\end{itemize}
+	 	\subsection{SR Latch}
+			\begin{tabular}{ l | c || r | r }
+				S & R & $Q$ & $\bar{Q}$\\
+				\hline
+				1 & 0 & 0 & 1 \\
+				1 & 1 & 0 & 1 \\
+				0 & 1 & 1 & 0 \\
+				1 & 1 & 1 & 0 \\
+				0 & 0 & 1 & 1 \\
+			\end{tabular}
+			\\
+			\begin{itemize}
+			\item When $S = 1$, $R=0$, the output is $Q = 1$, and the circuit is in the \textbf{set state}
+			\item When $S = 0$, $R=1$, the output is $Q = 0$, and the circuit is in the \textbf{reset state}
+			\item When $S = 0$, $R = 0$, it implies the reset state
+			\item When $S = 1$, $R = 1$, the output holds at its previous value(storage)
+			\end{itemize}
+	 	\subsection{SR Latch}
+			\begin{tabular}{ l | c | c || r }
+				C & S & R & next value of Q\\
+				\hline
+				0 & X & X & hold \\
+				1 & 0 & 0 & hold \\
+				1 & 0 & 1 & 0(reset) \\
+				1 & 1 & 0 & 1(set) \\
+				1 & 1 & 1 & undefined \\
+			\end{tabular}
+			\\
+			\begin{itemize}
+				\item When the control input $C = 0$, both latches are in hold state
+				\item When the control input $C = 1$, the latch acts like an SR Latch(active high)
+			\end{itemize}
+	 	\subsection{SR Latch}
+			\begin{tabular}{ l | c || r }
+				C & D & next value of Q\\
+				\hline
+				0 & X & hold \\
+				1 & 0 & 0 \\
+				1 & 1 & 1 \\
+			\end{tabular}
+			\\
+			In previous latches, we had the undesirable situation where the output was undefined due to both outputs being the same. To avoid this, we construct a latch where S and R can never be the same where $S = R'$
+		\subsection{Issues}Latches don't allow precise control since they're only level sensitive. This creates an interval in time where the output can change rather than an instant. It would be better if the output can only change at an instant for more precise control.
+	\section{Flip Flops}
+		Unlike latches, flip flops allow more precise control on the output by letting the output change only during triggering i.e. changing edges.
+		\subsection{DFF}
+			Refer to \url{http://en.wikipedia.org/wiki/Flip-flop_(electronics)#D_flip-flop} for a much better explanation of how DFF works.
+			Here's a rough explanation:\\
+			A DFF consists of 2 D Latches connected in series where the output of the first is the D input of the second. The clock input of each are inverses of the other.\\
+			While $CLK = 1$, the output of the first latch will follow the D input. When $CLK = 0$, the output will be disconnected from the first latch and connected to the second since $CLK = 1$ for the second(since the clocks are inverses of each other). The output of the second is then changed when the clock is triggered.\\
+			\\
+			Depending on the type of trigger the flip flop depends on, we can position the inverter of the clocks on different inputs i.e. either the first or the second latch.
+		\subsection{Sets, Resets and Enables}
+			Flip flops can have additional control signals that will force Q to a known value.
+			\begin{itemize}
+				\item An asynchronous signal that forces $Q = 1$ is called an asynchronous \textbf{set} and remain that way if $Q$ stays $1$
+				\item An asynchronous signal that forces $Q = 0$ is called an asynchronous \textbf{reset} and remain that way if $Q$ stays $0$
+				\item A signal that prevents the clock from causing changes in Q according to D is called a clock enable
+			\end{itemize}
+		\subsection{Characteristic Tables of Flip Flops}
+			\begin{tabular}{ c | c }
+				\multicolumn{2}{c}{DFF}\\
+				D & $Q(t+1)$\\
+				\hline
+				0 & 0 \\
+				1 & 1 \\
+				\multicolumn{2}{c}{$Q(t+1) = D$}
+			\end{tabular}
+			\vline \hfill
+			\begin{tabular}{ c | c }
+				\multicolumn{2}{c}{TFF}\\
+				T & $Q(t+1)$\\
+				\hline
+				0 & $Q(t)$ \\
+				1 & $Q'(t)$ \\
+				\multicolumn{2}{c}{$Q(t+1) = TQ'(t) + T'Q(t) = T \oplus Q(t)$}
+			\end{tabular}
+			\vline \hfill
+			\begin{tabular}{ c | c | c }
+				\multicolumn{3}{c}{JKFF}\\
+				J & K & $Q(t+1)$\\
+				\hline
+				0 & 0 & $Q(t)$ \\
+				0 & 1 & 0 \\
+				1 & 0 & 1 \\
+				1 & 1 & $Q'(t)$ \\				
+				\multicolumn{3}{c}{$Q(t+1) = JQ'(t) + K'Q(t)$}
+			\end{tabular}									
+		\subsection{Timing Analysis}
+			In reality, it takes time for gates to change their outputs. There exist 3 timing parameters that are especially important:\\
+			\begin{itemize}
+				\item Setup Time(TSU): time it takes for data inputs to be stable prior to arrival of an active clock edge
+				\item Hold Time(TH): time it takes for the data inputs need to be held stable after the arrival of the active clock edge
+				\item Clock-To-Output Time(TCO): time it takes for the output to become stable after the arrival of the active clock edge
+			\end{itemize}
+	\section{Registers}
+		A group of n flip flops store n bits and is called an n-bit register. Each flip flop has a clear input and are connected to the same clear input. If clear = 0, all outputs are forced to 0.\\
+		\\
+		\subsection{Parallel Load}
+			If load=1, the input data gets loaded into the input of the latch. Otherwise, the data output is fed back into the input.
+		\subsection{Universal Shift Registers}
+			Shift registers are able to shift data in a direction. As the active clock edge arrives, the data gets shifted to the next flip flop, resulting in a shifted data.\\
+			\\
+			If we wanted a Universal Shift Register, we use multiplexers to perform multiple operations such as clear, load, shift left/right.\\
+			Universal Shift Registers have:
+			\begin{itemize}
+				\item an asynchronous clear signal
+				\item a clock signal
+				\item data inputs for parallel load
+				\item data inputs for both left and right shifts
+				\item two control inputs that determine the behaviour of the multiplexers
+			\end{itemize}
+	\section{Counters}
+		A counter is a register whose outputs go through a prescribed sequence of states upon the arrival of the \textbf{active edge of some triggering signal}(like a clock)\\
+		They can be either \textbf{asynchronous} or \textbf{synchronous}
+		\subsection{Ripple Counters}
+			Ripple counters consist of a series of of flip flops where the output Q of one flip flop is used as the clock of the next flip flop. Due to the lack of a common clock signal, this counter is asynchronous.\\
+			\\
+			A binary ripple counter for example can be implemented easily using TFFs. For an up counter, Each bit depends on the falling edge of the previous bit where the first bit is always toggling.
+			\\
+			\\
+			The problem with feeding the output as a clock is that the counter is asynchronous which leads to timing issues. This is why we'd prefer synchronous counters by feeding the output to an AND gate with the previous input and all TFFs have a common clock signal.
+		\subsection{Modulo Counters}
+			If we don't want to count through all of the numbers but rather between an interval of numbers. We can use additional circuitry to detect the maximum count number and use a parallel load to restart the counting.
+\chapter{States}
+	\section{Moore Machine}
+		If the circuit output only depends on the current state, we call it a Moore Machine. It's important to note that in a Moore Machine, \textbf{outputs change synchronously} with the clock. The state also changes synchronously with the clock. This means the output changes at \textbf{predictable times}
+	\section{Mealy Machine}
+		If the circuit output depends on the current state and the current input values, we call it a Mealy Machine. In a Mealy Machine, outputs change asynchronously with respect to the clock since inputs can change at any time. This means the output can change at \textbf{unpredictable times}
+	\section{State Diagrams}
+		Sequential circuits are often depicted via a state diagram. These diagrams include:\\
+		\begin{itemize}
+			\item Possible states of the circuit
+			\item Possible transition between states which depends on inputs
+			\item Circuit output values
+		\end{itemize}
+		In a Moore Machine,	recall that the circuit outputs are a function of the current state only. Consequently, the circuit output can be labeled in the state bubble.\\
+		In a Mealy Machine, the circuit outputs are a function of both the current state and the circuit inputs. Consequently, the circuit outputs are labeled along the edges of the state diagrams.
+		\\
+		We identify the reset state by labeling the state with =0.
+	\section{State Tables}
+		State tables describes the behaviour of a sequential circuit in tabular form. We label the columns as current state, next state and output. Based on the inputs, the next state and output may vary.
+\chapter{State Analysis and Design}
+	\section{State Analysis Procedure}
+		\begin{itemize}
+			\item Identify the flip flops used to hold the current state information
+			\item Identify the outputs of the circuit
+			\item Write down the logic equations for the circuit outputs and the flip flop inputs(next state equations)
+			\item Use logic equations to derive a state table which describes the next state and circuit outputs
+			\item Obtain a state diagram from the state table
+		\end{itemize}
+		Refer to the notes for a good example
+	\section{State Design Procedure}
+		\begin{itemize}
+			\item Understand the verbal description of the problem
+			\item Create a state diagram/table
+			\item Try to reduce the number of states/flip flops
+			\item Assign binary values to each state
+			\item Select a FF type to store binary values
+			\item Derive simplified output equation
+			\item Derive the next-state/flip flop equations
+			\item Draw a schematic of the resulting circuit
+		\end{itemize}
+		Refer to the notes for a good example
+	\section{FF Impact on Design}
+		\subsection{DFF}
+			Look at the state table and derive equations for the next state given the current state and the circuit inputs. Apply the next state logic directly to the DFF inputs
+		\subsection{TFF and JKFF}
+			\begin{enumerate}
+				\item Look at stable table to see how the current state changes to the next state for a given current state and inputs
+				\item Determine how FF input must be set to get desired change from the current state to the next
+				\item Derive logic equations for the FF inputs given the current state and inputs and apply these connections directly to FF inputs
+			\end{enumerate}
+			\textbf{IMPORTANT}: The logic applied to the FF inputs are NOT the next state equations but will generate the correct next state in conjunction with the FF behaviour
+	\section{Excitation Tables}
+		Changes in flip flop outputs depending on flip flop inputs is done via an \textbf{excitation table}\\
+		\begin{tabular}{ c | c c}
+			\multicolumn{3}{c}{DFF}\\
+			D & $Q(t)$ & $Q(t+1)$\\
+			\hline
+			0 & 0 & 1 \\
+			1 & 0 & 1 \\
+			0 & 1 & 0 \\
+			1 & 1 & 1 \\
+		\end{tabular}
+		 \hfill
+		\begin{tabular}{ c | c c}
+			\multicolumn{3}{c}{TFF}\\
+			D & $Q(t)$ & $Q(t+1)$\\
+			\hline
+			0 & 0 & 0 \\
+			1 & 0 & 1 \\
+			0 & 1 & 1 \\
+			1 & 1 & 0 \\
+		\end{tabular} 
+		\hfill
+		\begin{tabular}{ c  c | c c}
+			\multicolumn{4}{c}{JKFF}\\
+			J & K & $Q(t)$ & $Q(t+1)$\\
+			\hline
+			0 & 0 & 0 & 0 \\
+			0 & 1 & 0 & 0 \\
+			1 & 0 & 0 & 1 \\
+			1 & 1 & 0 & 1 \\
+			0 & 0 & 1 & 1 \\
+			1 & 0 & 1 & 1 \\
+			0 & 1 & 1 & 0 \\
+			1 & 1 & 1 & 0 \\
+		\end{tabular}
+	\section{State Assignment}
+		Assigning binary patterns to the symbolic states is known as the state assignment problem.
+		\subsection{Encoding}
+			Let's use an example for this:\\
+			Assume we have a circuit with 7 states and 3 inputs and 4 outputs. With n bits, we can have $2^n$ different states. As a result, we'd need 3 flip flops for this example. \\
+			\\
+			However, we can encode the states such that the outputs of the flip-flops are also the output of the circuit(ex: counters). Let's assume that for each state, the outputs are unique(Note: if there were identical outputs, we can add additional bits to distinguish those states). We would use 4 flip flops so that the outputs are the output of the flip flops.\\
+			\\
+			If there were 2 identical outputs, we'd need a 5th flip flop to distinguish both states. The benefit of having more flip flops is that we won't need any output equations.
+			\\
+			\\
+			Therefore, output encoding uses more than the minimum number of flip flops to avoid any output equations.
+	\section{State Reduction}
+		Sometimes, we can get more states than required. It's reasonable to attempt to simplify the diagram by removing redundant states. This is the case for states that are equivalent to each other and can be combined.\\
+		Two states are \textbf{equivalent} if:\\
+		\begin{itemize}
+			\item For each input, the state gives the exact same outputs
+			\item For each circuit input, the states give the same next state or an equivalent next state 
+		\end{itemize}
+		There are two different methods to reduce:\\
+		\begin{itemize}
+			\item Implication charts and merger diagrams
+			\item Partitioning
+		\end{itemize}
+		
+		\subsection{Implication Charts and Merger Diagrams}
+			Given a state table containing current state, next state and outputs, we can tabulate equivalencies in an implication chart. It resembles the lower left side of a matrix where the rows and columns are the states(1 to $n$ for rows, 0 to $n-1$ for columns) and each entry tells us under which condition two states are equivalent. \\
+			\\
+			\begin{enumerate}
+				\item If two states have different outputs, we set the entry as X
+				\item Mark entries that are definitely equivalent and mark entries that are equivalent under implied decisions.
+				\item We perform passes iteratively over the entries from top left to bottom right trying to cross out states that cannot be equivalent due to implied decisions
+			\end{enumerate}
+			Based off of the completed implication chart, we can build a  a merger diagram i.e. a graph that show merges.\\
+			We need to make sure that each state is included and the implied decisions hold.\\
+			\\
+			We can then draw the state table for the new reduced states.
+		\subsection{Partitioning}
+			We can divide the states into partitions of equivalent states. \\
+			Procedure:\\
+			\begin{enumerate}
+				\item Group states according to circuit outputs produced
+				\item For each group, consider each input pattern. If for any input pattern, different states in a group result in a transition to a different group, then those states are not equivalent so we separate them into 2 smaller groups.
+				\item This results in fewer states and a smaller state diagram/table				
+			\end{enumerate}
+	\section{Algorithmic State Machine}
+		An alternative to a state diagram to implement an algorithm. It is closely tied with hardware implementation and consists of 3 elements:\\
+		\begin{itemize}
+			\item \textbf{State Box}: Equivalent to state bubble. Has name and binary encoding and Moore Machine outputs(rectangle)
+			\item \textbf{Decision Box}: Represents a choice that depends on the inputs(diamond)
+			\item \textbf{Conditional Output Box}: Allows specifying outputs that depends both the current state and the inputs, i.e. Mealy outputs (circular)
+		\end{itemize}
+		Note: No output means 0.
+		\subsection{Design Steps}
+			We generate a state table by:
+			\begin{enumerate}
+				\item Determining the number of states from the number of ASM state boxes
+				\item State assignment for the ASM state boxes
+				\item Use ASM conditional output boxes, state boxes and decision boxes to determine output values
+				\item Use decision boxes to determine the next state from the current state
+			\end{enumerate}
+		\subsection{One-Hot Encoding}
+			If we use DFFs and One-Hot Encoding, we can go directly from a ASM diagram to a circuit.
+			\begin{itemize}
+				\item A state box(Moore Machine) would become a DFF
+				\item A decision box consists of 2 AND gates and 1 inverter along with the 2 inputs: the input data and the decision value
+				\item A conditional output box would tap off the circuitry to generate its output
+				\item Joined edges become an OR gate
+			\end{itemize}
+			The ASM PDF provided gives detailed explanation and examples which explain these concepts better.
+	\section{Asynchronous Sequential Circuits}
+		A type of circuit without clocks(therefore NO flip flops) but with the concept of memory using latches and combinational circuits. Due to the absence of clocks, there's a lot of delay due to gate delays. \\
+		\\
+		We may identify asynchronous circuits by the presence of latches and combinational feedback paths(output is fed back into input). \\
+		Analysis involves obtaining a table/diagram that describes the sequence of internal states and outputs as a function of changes in 	circuit inputs.\\
+		We will try to obtain transition tables and flow tables to explain asynchronous circuits.
+		\subsection{Definitions}
+			\textbf{Stability}: For a given set of inputs, the system is \textbf{stable} if the circuit eventually reaches steady state and the excitation variables and secondary variables are equal and unchanging, otherwise, the circuit is unstable. \\
+			\\
+			\textbf{Fundamental Mode Operation}: A circuit is operating in fundamental mode if we assume/force the following restrictions on how the inputs can change:
+			\\
+			\textbf{Primitive flow table}: Flow table with only one stable state per row is called a primitive flow table.
+			\begin{itemize}
+				\item Only one input is allowed to change at a time
+				\item The input changes only after the circuit is stable
+			\end{itemize}
+		\subsection{Analysis}
+			\begin{enumerate}
+				\item Write logic equations for the excitation variables in terms of the circuit inputs and secondary variables
+				\item Write logic equations for circuit outputs in terms of the circuit inputs and secondary variables
+				\item \textbf{Transition Table:} Using these equations, we can write a transition table that shows excitation variables and outputs as a function of inputs and secondary variables. 3 Columns: Current state, next state and output
+				\item \textbf{Flow Table}: A transition table with binary numbers replaced with symbols(e.g. a = 00, b = 01 etc.) Same 3 columns as Transition Table
+				\item Circle stable states where excitation variables are equal to secondary variables
+			\end{enumerate}
+			When analyzing circuits with latches that are present, we follow these procedures to analyze the latch:
+			\begin{enumerate}
+				\item Label each output with $Y_i$ and its feedback path as $y_i$
+				\item Derive logic equations for latch inputs $S_i$ and $R_j$
+				\item Check if SR=0 for NOR latches and S'R'=0 for NAND latches. If not satisfied, the circuit may not work properly
+				\item Create logic equations for latch outputs $Y_i$ using known behavior of a latch(Y=S+R'y for NOR Latches and Y=S'+Ry for NAND latches)
+				\item Construct a transition table using the logic equations for the latch outputs and circuit stable states
+				\item Obtain a flow table if desired 
+			\end{enumerate}
+		\subsection{Design}
+			Very similar to synchronous circuit design:\\
+			\begin{enumerate}
+				\item Obtain a primitive flow table from problem description
+				\item Reduce the flow table to get a smaller flow table with less states
+				\item Perform state assignment to obtain transition table
+				\item Obtain next state and output equations(need to avoid hazards and glitches)
+				\item Draw circuit(with or without latches)
+			\end{enumerate}
+		\subsection{Reduction}
+			Very similar to synchronous circuit reduction:\\
+			\begin{itemize}
+				\item Lots of don't care outputs for unstable states
+				\item Don't care next state information if we assume fundamental mode operation
+			\end{itemize}
+			With don't cares, equivalency is replaced with compatibility. Two states A and B are compatible if for every input combination we find:
+			\begin{itemize}
+				\item A and B produce the same outputs
+				\item A and B have compatible next states where specified
+			\end{itemize}
+			Just like synchronous circuits, we build implication charts, associate compatible states together and build a merger diagram.\\
+			It's important to check that each state is included at least once and that any implied compatibilities are true
+	\section{Races}
+		\subsection{Race Condition}
+			A \textbf{race condition} occurs in an \textbf{asynchronous} when 2 or more state variables change in response to a change in the value of a circuit input.\\
+			Unequal circuit delays may imply that the 2 or more state variables may not change simultaneously - this may cause a problem.\\
+			\\
+			Assume 2 state variables change:
+			\begin{itemize}
+				\item If the circuit reaches the same final, stable state regardless of the order the state variables change, then the race is \textbf{non-critical}
+				\item If the circuit reaches a different final, stable state depending on the order in which the state variables change, then the race is \textbf{critical}
+			\end{itemize}	
+			\textbf{We need to avoid critical races for predictability and to ensure our circuit does the intended function}
+		\subsection{Stability}
+			Assume we start at a 00 state. We need to be careful that our circuit does not become unstable, meaning its state oscillates from a few different states without stabilizing onto one.
+		\subsection{Race Free State Assignment}
+			We can prevent races by performing state assignments such that transitions from one stable state to another require only 1 state variable to change at a time
+			Techniques include:
+			\begin{itemize}
+				\item Build a transition diagram based on a flow table where each is a transition and each node is a state. Embed the symbolic states into the coordinates of a n dimensional cube such that the path from stable state to another is:\\
+					- Along a single edge of a cube\\
+					- Through \textbf{}along edges of the cube
+				\item Replace a state with multiple equivalent states with equivalent outputs. That way, when building a transition diagram, there'll always be 1 of the 2 equivalent states directly adjacent to every other state
+				\item Using the idea of one-hot encoding, given n states, let 00..1..0 where 1 is the ith state. Each transition to a different state, we introduce an unstable state from i to j such that 00..$1_i$...$1_j$..00 
+			\end{itemize}
+	\section{Hazard and Output Glitches}
+		\subsection{Definition}
+			A \textbf{hazard} is a momentary unwanted switching transient at a logic function's output due to unequal propagation delays along different paths in a combinational circuit.\\
+			\\
+			There are 2 types of hazards:\textbf{static} and \textbf{dynamic}\\
+			For asynchronous circuits in particular, hazards can cause problems in addition to other issues like races and non-fundamental mode operation. Momentary false logic function values in an asynchronous circuit can cause a transition to an incorrect stable state.
+		\subsection{Static Hazards}
+			\textbf{Static-0}: Occurs when the output should remain 0 but temporarily switches to 1 due to a change in input.\\
+			\textbf{Static-1}: Occurs when the output should remain 1 ut temporarily switches to 0 due to a change in input.
+		\subsection{Dynamic Hazard}
+			Occurs when an input changes and a circuit output should change but temporarily flips between values. Ex: 0->1->0->1 or 1->0->1->0
+		\subsection{Fixing Hazards}
+			When circuits are implemented as 2 level SOP, we can detect hazards by inspecting K-Maps and adding redundant product terms. As an input changes, there's a possibility that we jump from one product term to another(one rectangle to another). If adjacent minterms are not covered by the same product term, then a \textbf{hazard exists}. To fix this, we add a redundant product term connecting both product terms.\\
+			\\
+			Fixing this guarantees that there will be no static or dynamic hazards. The same can be applied with POS by adding redundant sum terms
+		\subsection{Hazards in Asynchronous Circuits}
+			Draw a timing diagram to visualize the delay. To draw it, make vertical slices of width $\Delta t$ where $\Delta t$ is the delay for each gate and then trace through the whole circuit based on the input switch.\\
+			\\
+			To fix it, we can use latches. If we're trying to fix a static-1 hazard, we need to be able to tolerate momentary 0 $\Leftarrow$ Use a \textbf{SR Latch(NOR Latch)}\\
+			We can then draw the K-Maps for both S and R inputs for the circuit.\\
+			This is because:
+			\begin{itemize}
+				\item An SR(NOR) latch can tolerate momentary 0s appearing at its input(since we momentarily move from a set or reset to a hold and then back).
+				\item An S'R'(NAND) latch can tolerate momentary 1s appearing at its input(since we momentarily move from a set or reset to a hold and then back).
+			\end{itemize}
+		\subsection{Output Assignment in Asynchronous Circuits}
+			If a flow/transition table has unspecified entries for circuit outputs, it may be due to the fundamental mode assumption or unstable states(stable states always have specified outputs).\\
+			\\
+			Unspecified outputs can lead to don't care which helps during minimization of logic equations(we may pass through these values from state to state).\\
+			Our circuit may have glitches due to our derived equations however.\\
+			\\
+			To avoid output glitches, consider transitions between two states:
+			\begin{itemize}
+				\item If both stable states produce a 0 output, make output 0 instead of a don't care.
+				\item If both stable states produce a 1 output, make output 1 instead of a don't care.
+				\item If stable states produce different outputs, the output can remain a don't care and be used to find a smaller output circuit.
+			\end{itemize}
+\end{document}
