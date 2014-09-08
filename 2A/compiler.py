@@ -1,7 +1,7 @@
 # TODO make the directory if it doesn't exist
 import sys, os, re
 
-LATEX_REGEX = re.compile("^.*\.tex$")
+LATEX_REGEX = re.compile("^.(.*?)\.tex$")
 
 def build_file(header, body, debug=False):
     file_content = []

@@ -40,8 +40,8 @@ SE212:
 	@python compiler.py SE212 > SE212.tex
 	@latex SE212.tex
 	@dvipdfm SE212.dvi
-	@make clean
 	@open SE212.pdf
+	# @make clean
 
 STAT206:
 	@echo "Compiling STAT206"
@@ -52,12 +52,7 @@ STAT206:
 	@open STAT206.pdf
 
 clean:
-	rm partial.pdf
-	@find . -name "*.aux" -delete
-	@find . -name "*.log" -delete
-	@find . -name "*.toc" -delete
-	@find . -name "*.out" -delete
-	@find . -name "*.dvi" -delete
+	./clean.sh
 
 list:
 	@echo "CHE102\nECE222\nCS241\nECON102\nSE212\nSTAT206"
