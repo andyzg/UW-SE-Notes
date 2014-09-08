@@ -1,3 +1,4 @@
+#TODO fix this crappy code and make the code independent from course num
 .PHONY: all CHE102 ECE222 CS241 ECON102 SE212 STAT206
 
 all: CHE102 ECE222 CS241  ECON102 SE212 STAT206
