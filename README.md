@@ -3,20 +3,9 @@ University of Waterloo Software Engineering Notes
 A repository for notes written in LaTeX
 Compile using LaTeX
 
-Guideline for each chapter:
+1B stuff has no setup, notes are almost if not complete.
 
-- Chapter
-  - Concept[]
-    - Definitions[]
-      * A short formal definition 
-    - Examples[]
-      * Example question + How to approach
-  - Summary[]
-    * List all formulas or important concepts to retain
-  - FAQ
-    * List all of the frequently asked questions by students, ex: hard concept to grasp, tricks
-  - Potential Exam Questions
-    * Good exam questions pertaining to this chapter
+2A, run make to build all notes. To test, use `./test.sh COURSE_NAME CLASS_NUM`
 
 ##License
 Distributed under the MIT License.
