@@ -1,0 +1,52 @@
+\documentclass[12pt]{report}
+\usepackage[margin=2cm]{geometry}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+
+\title{ECE222}
+\author{{Andy Zhang}}
+\date{{Fall 2014}}
+\begin{document}
+\chapter{Electric Fields}
+	\section{Properties of an Electric Charge}
+		\begin{itemize}
+			\item Two types of charge: \textbf{Positive} and \textbf{Negative}
+			\item Charges of the same sign repel one another and charges with opposite signs attract one another.
+			\item Electric charge is always conserved.
+		\end{itemize}
+	\section{Charging Objects by Induction and Conduction}
+		\subsection{Insulators and Conductors}
+		\begin{itemize}
+			\item Conductors are a material where electrons not bound to atoms and are free to move through the material.
+			\item Insulators are materials in which all electrons are bound to atoms and cannot move freely through the material.
+		\end{itemize}
+		\subsection{Charging by Induction}
+			Using a charged object, charges in a conductor can be repulsed out of an object through ground. The objects do not have to touch for this to happen.
+		\subsection{Charging by Conduction}
+			Rub two objects so that charges on one rub off to the other.
+	\section{Coulomb's Law}
+		To generalize the properties of the electric force, we find that the magnitude of the electric force between two point charges is given by Coulomb's Law:\\
+		\centerline{$F_e = k_e \frac{|q_1||q_2|}{r^2}$}\\
+		where $k_e$ is known as Coulomb's constant and has the value:\\
+		\centerline{$k_e = 8.9876 \times 10^9 N \cdot m^2/C^2 = \frac{1}{4\pi \epsilon_0}$ }\\
+		Note that the force is a vector and with multiple charges, the force is equal to the sum of the vector forces. As mentioned previously, the direction depends on the two charges.
+	\section{Particle in an Electric Field}
+		An electric field is said to exist in the region of space around a charged object, the source charge. We define the electric field vector $\vec{E}$ at a point to be:\\
+		\centerline{$\vec{E} \equiv \frac{\vec{F}_e}{q_0} = k_e \frac{q}{r^2}\hat{r}$}\\
+		Like the force, an electric field at a certain point is the sum of all electric fields due to multiple point charges.
+	\section{Electric Field of a Continuous Charge Distribution}
+		When calculating the electric field at a point due to a continuous distribution of charge such as a surface, we can divide the charge distribution into many small charge $\Delta q$.\\
+		We then take the sum of all of these charges:\\
+		\centerline{$\vec{E} = k_e \int_{}^{} \frac{dq}{r^2} \hat{r}$} \\
+		Popular examples would include a uniform ring of charge where many of the forces would cancel out due to symmetry and you'd calculate the formula with a $\cos \theta$ to only get 1 component. This approach would be the same for a disk of uniform charge.
+	\section{Electric Field Lines}
+		The electric field vector $\vec{E}$ is tangent to the electric field line at each point. The denser the number of electric field lines, the stronger the field and vice versa.\\
+		For \textbf{positive charges} the field lines are directed radially outward.\\
+		For \textbf{negative charges} the field lines are directed radially inward.\\
+		The number of lines drawn leaving a charge is proportional to the \textbf{magnitude} of the charge.
+	\section{Motion of a Charged Particle in a Uniform Field}
+		Since the force is denoted as $\vec{F}_e = q\vec{E} = m\vec{a}$, then we can isolate $\vec{a}$ and determine the motion of the particle based on the acceleration. If the electric field is uniform, then we know the particle is under constant acceleration.
+
+\end{document}
