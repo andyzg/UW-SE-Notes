@@ -1,3 +1,4 @@
+# TODO make the directory if it doesn't exist
 import sys, os, re
 
 LATEX_REGEX = re.compile("^.*\.tex$")
