@@ -13,67 +13,6 @@
 \author{{Andy Zhang}}
 \date{{Fall 2014}}
 \begin{document}
-\maketitle
-\tableofcontents
-\chapter{Computers}
-  \section{Classes (1.1)}
-
-    \subsection{Personal}
-      \begin{itemize}
-        \item Desktop, laptop, tablet, smartphones
-        \item ~\%1 of all CPUs sold(10 billion in 2008)
-        \item Cost: \$20 - 200
-      \end{itemize}
-    \subsection{Embedded}
-      \begin{itemize}
-        \item Integrated into a larger device or system
-        \begin{itemize}
-          \item Automotive(airbags, ABS, ... )
-          \item Appliances: stove, microwave...
-          \item Airplanes
-        \end{itemize}
-        \item ~99\% of all CPUs
-        \item Cost: Microchip PIC12: \$0.41
-      \end{itemize}
-
-    \subsection{Servers}
-      \begin{itemize}
-        \item Provides service to many users
-        \begin{itemize}
-          \item Cloud computing (Amazon EC2, Azure ...)
-          \item Mainframes (IBM System Z) used by banks, universities,
-          governments due to high reliability
-          \item Supercomputers --- weather modelling, protein folding..
-        \end{itemize}
-        \item \textless 1\% of all CPUs sold
-        \item cost: ~\$2000 / chip
-      \end{itemize}
-
-  \section{Structure (1.2)}
-    \paragraph{Definition}: a computer is a `programmable device that can
-    store, retrieve and process data' \\ --- Merriam Webster
-    \\
-    \\
-    Computers of all classes can be decomposed into five types of functional
-    events
-    \begin{enumerate}
-      \item Input: Mouse, Punchard, Touch Screen, Camera
-      \item Output: Printer, Screems.
-      \item Storage: Data, instructions (binary)
-      \begin{itemize}
-        \item Memory is organized into a linear array of bytes
-      \end{itemize}
-      \item ALU: Arithmetic Logic Unit
-      \begin{itemize}
-        \item Performs operations on data stored in registers
-        \item Add, multiply, AND, NOT, ...
-      \end{itemize}
-      \item Control Unit
-      \begin{itemize}
-        \item Interpret instructions, fetch operands, control ALU
-      \end{itemize}
-    \end{enumerate}
-
 \chapter{Processors - September 11}
     % TODO: Get some class notes
   \section{Processor}
@@ -164,11 +103,26 @@
       \item Registers are named R0, R1, PC, IR
       \item [$x$] denotes contents of $x$
     \end{itemize}
-    \paragraph{E.g.} ~\\
-      [LOC] contents of memory at LOC
-      [R0] contents of register R0
-      [[R0]] contents of memory at the location specified by contents of R0
+    \paragraph{E.g.}
+    \begin{itemize}
+      \item [[LOC]] contents of memory at LOC
+      \item [[R0]] contents of register R0
+      \item [[[R0]]] contents of memory at the location specified by contents of R0
+    \end{itemize}
+    `,' denotes parallel\\
+    `;' dnotes sequential\\
 
+    \paragraph{E.g.}
+      \begin{lstlisting}
+        ADD R4, R2, R3
+        R4 <- [R2] + [R3]
+      \end{lstlisting}
+
+    \paragraph{E.g.} instruction fetch
+      \begin{lstlisting}
+        MAR <- [PC], R/W <- 1, PC <- [PC] + 4
+        IR <= [MOR]
+      \end{lstlisting}
 
 
 \end{document}
