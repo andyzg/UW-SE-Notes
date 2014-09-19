@@ -5,7 +5,7 @@ Compile using LaTeX
 
 1B stuff has no setup, notes are almost if not complete.
 
-2A, run make to build all notes. To test, use `./test.sh COURSE_NAME CLASS_NUM`
+2A, run `./make.sh` to build all notes. To test, use `./test.sh COURSE_NAME CLASS_NUM`
 
 ##License
 Distributed under the MIT License.
