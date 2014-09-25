@@ -7,6 +7,8 @@
 \usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{enumitem}
+\setlist{nolistsep}
 \usepackage[hidelinks]{hyperref}
 
 \title{ECE222}
@@ -74,47 +76,51 @@
       \end{itemize}
     \end{enumerate}
 
-\chapter{Processors - September 11}
-    % TODO: Get some class notes
+\chapter{Processors}
   \section{Processor}
     \paragraph{PC} program counter stores memory address of next instruction
     \paragraph{IR} instruction register stores instruction read from memory
-    \paragraph{MAR} memory adderss to register outputs address to memory
+    \paragraph{MAR} memory address to register outputs address to memory
     \paragraph{MDR} memory data register. Holds data/instructions from memory
     or going to memory
+
   \section{Instruction execution}
-    \subsection{Instruction Fetch(IF)}
+    \subsection{Instruction Fetch (IF)}
       \begin{itemize}
-        \item Copy PC contents to MAR and assert R/W control signal
+        \item Copy PC contents to MAR and assert R/$\bar{W}$ control signal
         \item Wait for response from memory and copy MDR contents to IR
         \item Increment PC
       \end{itemize}
-    \subsection{Instruction Decode(ID)}
+
+    \subsection{Instruction Decode (ID)}
       \begin{itemize}
         \item Interpret bits in IR
       \end{itemize}
-    \subsection{Operand Fetch(OF)}
+
+    \subsection{Operand Fetch (OF)}
       \begin{itemize}
         \item Read data from registers and/or extract constants from IR
       \end{itemize}
-    \subsection{Execute(EX)}
+
+    \subsection{Execute (EX)}
       \begin{itemize}
-        \item Use ALU or read memory(load) or write memory(store)
+        \item Use ALU or read memory (load) or write memory (store)
       \end{itemize}
-    \subsection{Writeback(WB)}
+
+    \subsection{Writeback (WB)}
       \paragraph{} Write result to a register
       \paragraph{Eg} Execute Load R2, LOC (memory address label)
       \begin{enumerate}
         \item Always same as above
-        \item Recognize "Load"
-        \item Etract LOC from IR
-        \item Copy LOC to MAR and assert R/W control signal
+        \item Recognize `Load'
+        \item Extract LOC from IR
+        \item Copy LOC to MAR and assert R/$\bar{W}$ control signal
         \item Copy MDR Contents to R2
       \end{enumerate}
 
     \subsection{Homework}
       \begin{lstlisting}
-        ADD R4, R2, R3 ($R4 <- [R2] + [R3]$)
+        ADD R4, R2, R3 (R4 <- [R2] + [R3])
         Store R4, LOC
       \end{lstlisting}
 
@@ -126,13 +132,13 @@
         \item Instructions are variable length
         \item Operands come from registers or memory
         \paragraph{E.g} \textit{M68K} ADD DO, LOC (mem[LOC] \textless- [DO] +
-        [mem[LOC])
+        [mem[LOC]])
         \item Complex addressing modes
         \paragraph{E.g.} (M68K) ADD DO, (A0)+
         \item Smaller object code
         \item Direct support of High Level Language constructs
         \item Ease of assembly language programming
-        \item Hardware is difficult to pipeline(speed up)
+        \item Hardware is difficult to pipeline (speed up)
       \end{itemize}
 
     \subsection{RISC}
@@ -151,7 +157,7 @@
         ldr r2=LOC
         str r1, [r2]
       \end{lstlisting}
-      \item Object code is larger (by ~\%30)
+      \item Object code is larger (by $\sim$\%30)
       \item Hardwire easier to pipeline
       \end{itemize}
 
@@ -159,16 +165,178 @@
     (no standard)
     \begin{itemize}
       \item Expresses the semantics of instruction execution as data transfers
-      and control flow(logic)
+      and control flow (logic)
       \item Memory locations are assigned labels e.g. LOC, A
       \item Registers are named R0, R1, PC, IR
       \item [$x$] denotes contents of $x$
     \end{itemize}
-    \paragraph{E.g.} ~\\
-      [LOC] contents of memory at LOC
-      [R0] contents of register R0
-      [[R0]] contents of memory at the location specified by contents of R0
+    \paragraph{E.g.}
+    \begin{itemize}
+      \item \lbrack{}LOC\rbrack{} contents of memory at LOC
+      \item \lbrack{}R0\rbrack{} contents of register R0
+      \item \lbrack\lbrack{}R0\rbrack\rbrack{} contents of memory at the location specified by contents of
+        R0
+    \end{itemize}
+    `,' denotes parallel\\
+    `;' dnotes sequential
 
+    \paragraph{E.g.} ADD R4, R2, R3
+      \begin{lstlisting}
+        R4 <- [R2] + [R3]
+      \end{lstlisting}
+
+    \paragraph{E.g.} instruction fetch
+      \begin{lstlisting}
+        MAR <- [PC], R/$\bar{W}$ <- 1, PC <- [PC] + 4
+        IR <= [MOR]
+      \end{lstlisting}
+
+  \section{Memory}
+    \begin{itemize}
+      \item A processor can access a finite amount of physical memory,
+      determined by the \# of address pins
+      \item Memory is measured in binary units but reported with S.I. prefixes
+      (e.g. 1kB = 1024 bytes)
+      \item Hard disks are measured in decimal units (e.g. 1kB = 1000 bytes)
+      \item IEC introduced binary units to eliminate confusion (e.g. 1kiB = 1024
+      bytes)
+    \end{itemize}
+    \paragraph{Endianness}
+    \begin{itemize}
+      \item Big endian: MSB (most sig.\ byte) is at low address, LSB at high
+      address
+      \item Little-endian: MSB at high address, LSB at low address
+    \end{itemize}
+    \paragraph{Ex:} \textbf{12}34AB\textbf{CO}
+    \begin{center}
+      \begin{tabular}{c c}
+        Big Endian &  \\
+        0 & 12 \\
+        1 & 34 \\
+        2 & AB \\
+        3 & CO \\
+      \end{tabular}
+      \begin{tabular}{c c}
+        Little Endian & \\
+        0 & CO \\
+        1 & AB \\
+        2 & 34 \\
+        3 & 12 \\
+      \end{tabular}
+    \end{center}
+\chapter{ARM}
+  \section{Background}
+    \begin{itemize}
+      \item Acon/Adoned RISC Machines
+      \item License designs to other companies to manufacture
+      \item Target low power/low cost
+    \end{itemize}
+
+  \section{Design Principles}
+    RISC but with some CISC characteristics\\
+    RISC\:
+    \begin{itemize}
+      \item Fixed instruction size
+      \item load/store architecture
+    \end{itemize}
+    CISC\:
+    \begin{itemize}
+      \item Autoincrement/decrement addressing modes
+      \item Move multiple values from registers to memory, in 1 instruction
+      \item Condition codes
+    \end{itemize}
+  \section{Memory}
+    \begin{itemize}
+      \item Data sizes:
+        \begin{itemize}
+          \item Word = 32 bits
+          \item Half word = 16 bits
+          \item Byte = 8 bits
+        \end{itemize}
+      \item Word addresses are `word aligned' (multiple of 4)
+      \item Little or big endian
+      \item Loads of half words or bytes at  200 extended or sign extended to
+        32 bits
+    \end{itemize}
+
+  \section{Registers}
+    Registers\:
+    \begin{itemize}
+      \item All registers are 32 bits
+      \item 13 General purpose registers\: R0-R12, and
+        \begin{itemize}
+          \item[R13] is the stack pointer (SP)
+          \item[R14] is the link register (LR)
+          \item[R15] is the program counter (PC)
+        \end{itemize}
+      \item Condition code flags\:
+        \begin{itemize}
+        \item[R28 (V)] Overflow
+        \item[R29 (C)] Carry out
+        \item[R30 (Z)] Zero
+        \item[R31 (N)] Negative
+        \end{itemize}
+      \item Program status register
+    \end{itemize}
+
+  \section{Instruction Set}
+    \subsection{Variations}
+    3 variations
+    \begin{itemize}
+      \item ARM --- 32 bit
+        Thumb --- 16 bit (compact, limited instructions, 8 operands)
+        Thumb 2 --- Mix of 16 and 32 bit, Cortex M3 in lab
+    \end{itemize}
+
+    \subsection{Data Processing Instructions}
+    Most have this format\\
+    \begin{lstlisting}
+      <op>{flags}{cond} Rd, Rn, Op2
+    \end{lstlisting}
+    \begin{itemize}
+      \item[Op2] Operand 2 (right operand)
+      \item[Rn] Source register (Left operand)
+      \item[Rd] Destination register
+      \item[\{cond\}] Execute if condition is true
+      \item[\{flags\}] E.g.\ S =\textgreater{} set condition code flags
+      \item[\textless{} op\textgreater] Operation meumonic
+    \end{itemize}
+    \paragraph{E.g.}
+    \begin{lstlisting}
+      ADDEQ R2, R0, #1
+      if Z==1, R2 <- [R0] + 1
+    \end{lstlisting}
+
+    Operand 2
+    \begin{itemize}
+      \item an 8 bit constant (optionally rotated)
+      \item Register value (Rm) optionally shifted
+      \begin{itemize}
+        \item[LSL] Logical Shift Left, shift all bits to the left with 0 as LSB
+          (multiply)
+        \item[LSR] Logical Shift Right, shift all bits to the right with 0 as
+          MSB (unsigned divide by two)
+        \item[ASR] Arithmetic Shfit Right, shift all bits to the right, MSB
+          becomes itself (signed divide by two)
+        \item[RDR] Rotate right
+        \item[RRX] Rotate right extend
+      \end{itemize}
+    \end{itemize}
+    \paragraph{E.g.}
+    \begin{lstlisting}
+      ADD r2, r0, r1, LSL #2
+      r2 <- [r0] + [r1] << 2
+      = r2 <- [r0] + 4*[r2]
+    \end{lstlisting}
+
+    \begin{itemize}
+      \item[Arithmetic] ADD, ADC (add with carry), SUB, SBC, RSB (reverse
+      subtract)
+      \item[Logical] (bitwise) AND, ORR, EOR, BIC (and not, bitwise clear), ORN
+    \end{itemize}
+    \begin{lstlisting}
+      (or not), (no NOT) --- EOR Rd, Rn \#0xffffff
+    \end{lstlisting}
 
 
 \end{document}

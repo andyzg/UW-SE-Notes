@@ -1,73 +1,3 @@
-\documentclass[12pt]{report}
-\usepackage{dcolumn}
-\usepackage{listings}
-\newcolumntype{d}[1]{D{.}{\cdot}{#1} }
-\usepackage[utf8]{inputenc}
-\usepackage[margin=2cm]{geometry}
-\usepackage{amsfonts}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{enumitem}
-\setlist{nolistsep}
-\usepackage[hidelinks]{hyperref}
-
-\title{SE212}
-\author{{Andy Zhang}}
-\date{{Fall 2014}}
-\begin{document}
-\maketitle
-\tableofcontents
-\chapter{Module 1 --- Sept 8}
-  \section{Logic and Computation, module 1}
-    \subsection{Contact}
-      Amirhossein Vakili, avakili@uwaterloo.ca\\
-      SE212 Mon/Wed 11:30 to 12:50 RCH 305\\
-      Office Hours: Tues 2:30 to 3:30 DC2551
-
-    \subsection{Course content}
-      How do you know what a program is supposed to do?
-      (specification/correctness)
-      \begin{itemize}
-        \item Inspection
-        \item Testing
-        \item \textbf{Formal verification}
-      \end{itemize}
-
-    \subsection{Logic}
-      \paragraph{Formal verification} \hspace{0pt}~\\
-      Logic is based on logical reasoning, also called `formal methods' or
-      `computer-aided verification'. It checks the correctness of a program
-      for all outputs. Since this takes a lot of effort, it is complementary to
-      testing and inspection.
-
-      \paragraph{Logic}  \hspace{0pt}~\\
-      A logic consists of:
-      \begin{itemize}
-        \item \textit{syntax} \: What is an acceptable sentence
-        \item \textit{semantics} \: What do the symbols and sentences in the
-          language mean?
-        \item \textit{proof theory} \: How do we construct valid proofs?
-      \end{itemize}
-      Logic provides a way to express knowledge precisely and to reason
-      consequences of that knowledge
-
-    \subsection{Course Outline}
-      Four main topics:
-      \begin{itemize}
-        \item Propositional logic
-        \item Predicate logic
-        \item Set Theory and Specification
-        \item Program correctness
-      \end{itemize}
-
-    \subsection{Marking Scheme}
-      \begin{itemize}
-        \item 20\% assignments (top 7 out of 8 assignments)
-        \item 25\% Midterm exam
-        \item 55\% Final exam
-      \end{itemize}
-
-
 \chapter{Module 2}
   \section{Definitions}
     \subsection{Elements of a logic}
@@ -268,6 +198,5 @@
           be proved (\textbf{completeness})
       \end{enumerate}
       Thus, transformational proof is sound and complete for propositional
-      logic, and we use this to show the logical equivalence of two formulas
-
-\end{document}
+      logic, and we use this to show the logical equivalence of two formulas.
+      This way os oftenless tedious than the truth tables

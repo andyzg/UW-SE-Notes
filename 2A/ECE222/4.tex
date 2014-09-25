@@ -1,0 +1,78 @@
+    \begin{lstlisting}
+      ADD R2, R0, #1
+      ADD R2, R0, R1, LSL, #2
+    \end{lstlisting}
+    \begin{itemize}
+      \item $R_d => R2$
+      \item $R_n => R0$
+      \item $op2 => \#1$ and $R1, LSL, \#2$
+    \end{itemize}
+
+  \section{D.P. Instructions}
+    \subsection{Data movement}
+      \begin{lstlisting}
+        MOV{S}{cond} Rd, Op2
+        MOV{cond}    Rd, #imm16 <---- zero extended to 32 bits
+        MVN{S}{cond} Rd, Op2   ; move not
+        MOVT{cond}   Rd, #imm16
+      \end{lstlisting}
+      \paragraph{E.g.} move $0xabcd1234$ into $R0$
+      \begin{lstlisting}
+        MOV R0, #0x1234
+        MOVT R0, #0xabcd
+      \end{lstlisting}
+      \paragraph{E.g.}
+      \begin{lstlisting}
+        MVN R0, #1
+        R0 <--- NOT 1
+        = R0 <--- 0xfffffffe
+      \end{lstlisting}
+
+    \subsection{Shift}
+      \begin{lstlisting}
+        format. <op>{S}{cond} Rd, Rm, <Rs|#n>
+        <op>: ASR, LSL, LSR, RGR, RRX
+      \end{lstlisting}
+      \paragraph{E.g.}
+      \begin{lstlisting}
+        LSL R1, R0, R2 <---- contain n
+        // R1 <- [R0] << n
+      \end{lstlisting}
+
+  \section{Memory Access Instructions}
+    \parapgraph{Format}
+    \begin{lstlisting}
+      <op>{size}{cond} Rd, <address>
+    \end{lstlisting}
+    \begin{itemize}
+      \item[address] Register indirect addressing
+      \item[Rd] Destination reg (loads), source reg (stores)
+      \item[cond] Only execute if true
+      \item[size] B = byte, H = halfword, SB = Signed byte, SH = Signed half
+      word (sign extended to 32 bits on load). Size defaults to word
+      \item[op] LDR (load register) or STR (store register)
+    \end{itemize}
+    With immediate offset:
+    \begin{lstlisting}
+      <address> = [Rn {, #offsets}]
+    \end{lstlisting}
+    \parapgraph{E.g.}
+    \begin{lstlisting}
+      LDR R1, [R0]
+      // r1 <- [[R0] + 0]
+    \end{lstlisting}
+    With register offset
+    \begin{lstlisting}
+      <address> = [Rn, Rm{, LSL #n}]
+    \end{lstlisting}
+    \paragraph{E.g.}
+    \begin{lstlisting}
+      LDR R1, [R0, -R2]
+      // R1 <- [[R0] - [R2]]
+      LDR R1, [R0, R2, LSL #2]
+      // R1 <- [[R0] + [R2] << 2]
+    \end{lstlisting}
+
+  \subsection{Sum Array}
+    See the demo0.s sheet.
+

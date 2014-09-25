@@ -1,44 +1,48 @@
-\chapter{Processors - September 11}
-    % TODO: Get some class notes
+\chapter{Processors}
   \section{Processor}
     \paragraph{PC} program counter stores memory address of next instruction
     \paragraph{IR} instruction register stores instruction read from memory
-    \paragraph{MAR} memory adderss to register outputs address to memory
+    \paragraph{MAR} memory address to register outputs address to memory
     \paragraph{MDR} memory data register. Holds data/instructions from memory
     or going to memory
+
   \section{Instruction execution}
-    \subsection{Instruction Fetch(IF)}
+    \subsection{Instruction Fetch (IF)}
       \begin{itemize}
-        \item Copy PC contents to MAR and assert R/W control signal
+        \item Copy PC contents to MAR and assert R/$\bar{W}$ control signal
         \item Wait for response from memory and copy MDR contents to IR
         \item Increment PC
       \end{itemize}
-    \subsection{Instruction Decode(ID)}
+
+    \subsection{Instruction Decode (ID)}
       \begin{itemize}
         \item Interpret bits in IR
       \end{itemize}
-    \subsection{Operand Fetch(OF)}
+
+    \subsection{Operand Fetch (OF)}
       \begin{itemize}
         \item Read data from registers and/or extract constants from IR
       \end{itemize}
-    \subsection{Execute(EX)}
+
+    \subsection{Execute (EX)}
       \begin{itemize}
-        \item Use ALU or read memory(load) or write memory(store)
+        \item Use ALU or read memory (load) or write memory (store)
       \end{itemize}
-    \subsection{Writeback(WB)}
+
+    \subsection{Writeback (WB)}
       \paragraph{} Write result to a register
       \paragraph{Eg} Execute Load R2, LOC (memory address label)
       \begin{enumerate}
         \item Always same as above
-        \item Recognize "Load"
-        \item Etract LOC from IR
-        \item Copy LOC to MAR and assert R/W control signal
+        \item Recognize `Load'
+        \item Extract LOC from IR
+        \item Copy LOC to MAR and assert R/$\bar{W}$ control signal
         \item Copy MDR Contents to R2
       \end{enumerate}
 
     \subsection{Homework}
       \begin{lstlisting}
-        ADD R4, R2, R3 ($R4 <- [R2] + [R3]$)
+        ADD R4, R2, R3 (R4 <- [R2] + [R3])
         Store R4, LOC
       \end{lstlisting}
 
@@ -50,13 +54,13 @@
         \item Instructions are variable length
         \item Operands come from registers or memory
         \paragraph{E.g} \textit{M68K} ADD DO, LOC (mem[LOC] \textless- [DO] +
-        [mem[LOC])
+        [mem[LOC]])
         \item Complex addressing modes
         \paragraph{E.g.} (M68K) ADD DO, (A0)+
         \item Smaller object code
         \item Direct support of High Level Language constructs
         \item Ease of assembly language programming
-        \item Hardware is difficult to pipeline(speed up)
+        \item Hardware is difficult to pipeline (speed up)
       \end{itemize}
 
     \subsection{RISC}
@@ -75,7 +79,7 @@
         ldr r2=LOC
         str r1, [r2]
       \end{lstlisting}
-      \item Object code is larger (by ~\%30)
+      \item Object code is larger (by $\sim$\%30)
       \item Hardwire easier to pipeline
       \end{itemize}
 
@@ -83,29 +87,28 @@
     (no standard)
     \begin{itemize}
       \item Expresses the semantics of instruction execution as data transfers
-      and control flow(logic)
+      and control flow (logic)
       \item Memory locations are assigned labels e.g. LOC, A
       \item Registers are named R0, R1, PC, IR
       \item [$x$] denotes contents of $x$
     \end{itemize}
     \paragraph{E.g.}
     \begin{itemize}
-      \item [[LOC]] contents of memory at LOC
-      \item [[R0]] contents of register R0
-      \item [[[R0]]] contents of memory at the location specified by contents of R0
+      \item \lbrack{}LOC\rbrack{} contents of memory at LOC
+      \item \lbrack{}R0\rbrack{} contents of register R0
+      \item \lbrack\lbrack{}R0\rbrack\rbrack{} contents of memory at the location specified by contents of
+        R0
     \end{itemize}
     `,' denotes parallel\\
-    `;' dnotes sequential\\
+    `;' dnotes sequential
 
-    \paragraph{E.g.}
+    \paragraph{E.g.} ADD R4, R2, R3
       \begin{lstlisting}
-        ADD R4, R2, R3
         R4 <- [R2] + [R3]
       \end{lstlisting}
 
     \paragraph{E.g.} instruction fetch
       \begin{lstlisting}
-        MAR <- [PC], R/W <- 1, PC <- [PC] + 4
+        MAR <- [PC], R/$\bar{W}$ <- 1, PC <- [PC] + 4
         IR <= [MOR]
       \end{lstlisting}
-
