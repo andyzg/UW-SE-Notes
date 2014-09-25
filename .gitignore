@@ -36,3 +36,4 @@ Session.vim
 *.vrb
 *.xdy
 *.tdo
+.DS_Store

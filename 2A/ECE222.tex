@@ -231,6 +231,8 @@
       \item License designs to other companies to manufacture
       \item Target low power/low cost
     \end{itemize}
+    Documentation:
+    \url{http://infocenter.arm.com/help/index.jsp}
 
   \section{Design Principles}
     RISC but with some CISC characteristics\\
@@ -338,5 +340,269 @@
       (or not), (no NOT) --- EOR Rd, Rn \#0xffffff
     \end{lstlisting}
 
+
+    \begin{lstlisting}
+      ADD R2, R0, #1
+      ADD R2, R0, R1, LSL, #2
+    \end{lstlisting}
+    \begin{itemize}
+      \item $R_d => R2$
+      \item $R_n => R0$
+      \item $op2 => \#1$ and $R1, LSL, \#2$
+    \end{itemize}
+
+  \section{D.P. Instructions}
+    \subsection{Data movement}
+      \begin{lstlisting}
+        MOV{S}{cond} Rd, Op2
+        MOV{cond}    Rd, #imm16 <---- zero extended to 32 bits
+        MVN{S}{cond} Rd, Op2   ; move not
+        MOVT{cond}   Rd, #imm16
+      \end{lstlisting}
+      \paragraph{E.g.} move $0xabcd1234$ into $R0$
+      \begin{lstlisting}
+        MOV R0, #0x1234
+        MOVT R0, #0xabcd
+      \end{lstlisting}
+      \paragraph{E.g.}
+      \begin{lstlisting}
+        MVN R0, #1
+        R0 <--- NOT 1
+        = R0 <--- 0xfffffffe
+      \end{lstlisting}
+
+    \subsection{Shift}
+      \begin{lstlisting}
+        format. <op>{S}{cond} Rd, Rm, <Rs|#n>
+        <op>: ASR, LSL, LSR, RGR, RRX
+      \end{lstlisting}
+      \paragraph{E.g.}
+      \begin{lstlisting}
+        LSL R1, R0, R2 <---- contain n
+        // R1 <- [R0] << n
+      \end{lstlisting}
+
+  \section{Memory Access Instructions}
+    \paragraph{Format}
+    \begin{lstlisting}
+      <op>{size}{cond} Rd, <address>
+    \end{lstlisting}
+    \begin{itemize}
+      \item[address] Register indirect addressing
+      \item[Rd] Destination reg (loads), source reg (stores)
+      \item[cond] Only execute if true
+      \item[size] B = byte, H = halfword, SB = Signed byte, SH = Signed half
+      word (sign extended to 32 bits on load). Size defaults to word
+      \item[op] LDR (load register) or STR (store register)
+    \end{itemize}
+    With immediate offset:
+    \begin{lstlisting}
+      <address> = [Rn {, #offsets}]
+    \end{lstlisting}
+    \paragraph{E.g.}
+    \begin{lstlisting}
+      LDR R1, [R0]
+      // r1 <- [[R0] + 0]
+    \end{lstlisting}
+    With register offset
+    \begin{lstlisting}
+      <address> = [Rn, Rm{, LSL #n}]
+    \end{lstlisting}
+    \paragraph{E.g.}
+    \begin{lstlisting}
+      LDR R1, [R0, -R2]
+      // R1 <- [[R0] - [R2]]
+      LDR R1, [R0, R2, LSL #2]
+      // R1 <- [[R0] + [R2] << 2]
+    \end{lstlisting}
+
+  \subsection{Sum Array}
+    See the demo0.s sheet.
+
+
+\section{Memory}
+  \subsection{Definitions}
+    \paragraph{DCD} = Declare Data
+    \begin{lstlisting}
+      DCD 5
+      DCB 1, 2, 3, 4, 5
+    \end{lstlisting}
+    This is very similar to declaring
+    \begin{lstlisting}
+      const int N = 5
+      const int ARRAY[] = [1, 2, 3, 4, 5]
+    \end{lstlisting}
+
+    \paragraph{ADR} = Put address in register
+    \begin{lstlisting}
+      int *ptr = ARRAY,
+      int total = ptr[0];
+      int a = ptr[1];
+      total += a;
+    \end{lstlisting}
+
+  \paragraph{Example} ~\\
+    pc relative: LDR\{size\}\{cond\} Rt, label
+    \begin{itemize}
+      \item label is translated into an offset from the instruction
+      \item data is loaded from \textless address\textgreater = PC + 4 + offset
+      \item offset $\in$ [[ pc, \#28 ]]
+    \end{itemize}
+
+  \paragraph{E.g.}
+  \begin{lstlisting}
+    LDR r1, DATA1 ; DATA 1 is 322 bytes after LDR
+    =>
+    LDR r1, [pc, #28] ; pc incremented by 4 during fetch
+    // r1 <- [[pc] + 28]
+  \end{lstlisting}
+
+  load address into register: ADR\{cond\} Rd, label
+  \paragraph{e.g.}
+  \begin{lstlisting}
+    ADR r1, DATA1
+    // r1 <- [pc] + 28
+  \end{lstlisting}
+
+\section{Pseudo Instructions}
+  \begin{itemize}
+    \item don't match an existing machine instruction
+    \item translated by the assembler into an appropriate instruction(s)
+    \paragraph{e.g.}
+    \begin{lstlisting}
+      LDR {cond} Rt = <expr> ; label or numeric expression at end
+    \end{lstlisting}
+    \item converted into
+    \begin{itemize}
+      \item MOV or MVN, if possible, or
+      \item adds the value to the literal pool (program contants, bottom of
+      file) and generates a LDR instruction with pc + relative addressing from
+      demo0.s file
+      \begin{lstlisting}
+        LDR r1 = SUM
+      \end{lstlisting}
+      \item couldn't use ADR because the distance from LDR (0x114) to sum (0x1000
+      0000) exceeds $\pm 4095$
+    \end{itemize}
+    \item Stores 0x1000 0000 at address 0x134 and replaces it with:
+    \begin{lstlisting}
+      LDR r1, [pc, #28]
+    \end{lstlisting}
+  \end{itemize}
+
+\section{Branch Instruction}
+  \begin{itemize}
+    \item Changes control flow by adding an offset to the PC
+    \item Format: B\{cond\} label
+    \begin{itemize}
+      \item[cond] only execute if condition is true
+      \item[label] assembler replaces with pc relative offset
+    \end{itemize}
+    \item condition code suffixes (SIGNED)
+    \begin{itemize}
+      \item[EQ] equal (to zero)
+      \item[NE] not equal
+      \item[GT] greater than
+      \item[GE] greater or equal
+      \item[LT] less than
+      \item[LE] less or equal
+      \item[PL] plus ($>= 0$) ignores overflow
+      \item[MI] minus ($<0$) ignores overflow
+    \end{itemize}
+    \item condition code suffixes (UNSIGNED)
+    \begin{itemize}
+      \item[VS] overflow set
+      \item[VC] overflow clear
+      \item[Al] always (default)
+    \end{itemize}
+
+    \paragraph{E.g.} SUBS r2, r2, \#1 // r2 <- [r2] - 1
+    \begin{lstlisting}
+  BGT LOOP
+    \end{lstlisting}
+  \end{itemize}
+
+
+\section{ARM}
+  \subsection{Pre and Post indexed Addressing}
+    \begin{itemize}
+      \item applies to LDR and STR
+      \item pre indexed: \textless op\textgreater \{size\}\{cond\} Rt, [[Rn,
+      \#offset]]
+      \begin{itemize}
+        \item the offset is added to the address in Rn, then the memory acess
+        is performed and Rn is updated
+      \end{itemize}
+
+      \paragraph{E.g.}
+      \begin{lstlisting}
+        LDR r1, [r0, #4]!
+        // r1 <- [[r0] + 4], r0 <- [r0] + 4
+      \end{lstlisting}
+
+      \item post indexed: \textless op\textgreater \{size\}\{cond\} Rt, [[Rn]],
+      \#offset
+      \begin{itemize}
+        \item the memory access is performed with the address in Rn, then Rn is
+        updated by adding the offset
+      \end{itemize}
+    \end{itemize}
+
+    \paragraph{E.g.}
+    \begin{lstlisting}
+      LDR r1, [r0], #4
+      // r1 <- [[r0]], r0 <- [r0] + 4
+    \end{lstlisting}
+
+\section{Compare Instructions}
+  \begin{itemize}
+    \item Compares two operands and sets the condition flags(N, Z, C, V) but does not
+    save to a destination register\\
+    \item CMP \{cond\} Rn, Operand2. Example:
+    \begin{lstlisting}
+      CMP r1, #1
+      // N, Z, C, V <= [r1] - 1
+      if r1 = 1, N <- O, Z <- 1, C <- 1, V <- 0
+        but r1 is not changed
+    \end{lstlisting}
+
+    \item CMN\{cond\} Rn, Operand2 // compare negative
+    \begin{itemize}
+      \item compares [[Rn]] and ---Operand2
+    \end{itemize}
+    \item test: TST\{cond\} Rn, Operand2
+    \begin{itemize}
+      \item perform bitwise AND and updates flags N, Z, C, V. E.g. :
+      \begin{lstlisting}
+        TST r1, #0x00008000
+        // N, Z, C, V <= [r1] * 2_0000 0000 0000 0000 1000 0000 0000 0000
+        if r1 = 0xF000 -> 0000 0000 0000 0000 1111 0000 0000 0000
+                          0000 .....     0000 1000 0000 0000 0000
+      \end{lstlisting}
+    \end{itemize}
+
+    \item test equal: TEQ\{cond\} Rn, Operand2
+    \begin{itemize}
+      \item performs bitwise EOR and updates flags
+    \end{itemize}
+    \item compare and branch: \textless op\textgreater Rn, label. For op:
+    \begin{itemize}
+      \item[CBZ] compare equal to zero
+      \item[CBNZ] compare not equal to zero
+    \end{itemize}
+    \item compares [[Rn]] with zero and decides on branch
+    \begin{itemize}
+      \item[CBZ] Rn, label =
+      \begin{itemize}
+        \item[CMP] Rn, \#0
+        \item[BEQ] label
+      \end{itemize}
+      \item[CBNZ] Rn, label =
+      \begin{itemize}
+        \item[CMP] Rn, \#0
+        \item[BNE] label
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
 
 \end{document}

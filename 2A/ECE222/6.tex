@@ -1,0 +1,81 @@
+\section{ARM}
+  \subsection{Pre and Post indexed Addressing}
+    \begin{itemize}
+      \item applies to LDR and STR
+      \item pre indexed: \textless op\textgreater \{size\}\{cond\} Rt, [[Rn,
+      \#offset]]
+      \begin{itemize}
+        \item the offset is added to the address in Rn, then the memory acess
+        is performed and Rn is updated
+      \end{itemize}
+
+      \paragraph{E.g.}
+      \begin{lstlisting}
+        LDR r1, [r0, #4]!
+        // r1 <- [[r0] + 4], r0 <- [r0] + 4
+      \end{lstlisting}
+
+      \item post indexed: \textless op\textgreater \{size\}\{cond\} Rt, [[Rn]],
+      \#offset
+      \begin{itemize}
+        \item the memory access is performed with the address in Rn, then Rn is
+        updated by adding the offset
+      \end{itemize}
+    \end{itemize}
+
+    \paragraph{E.g.}
+    \begin{lstlisting}
+      LDR r1, [r0], #4
+      // r1 <- [[r0]], r0 <- [r0] + 4
+    \end{lstlisting}
+
+\section{Compare Instructions}
+  \begin{itemize}
+    \item Compares two operands and sets the condition flags(N, Z, C, V) but does not
+    save to a destination register\\
+    \item CMP \{cond\} Rn, Operand2. Example:
+    \begin{lstlisting}
+      CMP r1, #1
+      // N, Z, C, V <= [r1] - 1
+      if r1 = 1, N <- O, Z <- 1, C <- 1, V <- 0
+        but r1 is not changed
+    \end{lstlisting}
+
+    \item CMN\{cond\} Rn, Operand2 // compare negative
+    \begin{itemize}
+      \item compares [[Rn]] and ---Operand2
+    \end{itemize}
+    \item test: TST\{cond\} Rn, Operand2
+    \begin{itemize}
+      \item perform bitwise AND and updates flags N, Z, C, V. E.g. :
+      \begin{lstlisting}
+        TST r1, #0x00008000
+        // N, Z, C, V <= [r1] * 2_0000 0000 0000 0000 1000 0000 0000 0000
+        if r1 = 0xF000 -> 0000 0000 0000 0000 1111 0000 0000 0000
+                          0000 .....     0000 1000 0000 0000 0000
+      \end{lstlisting}
+    \end{itemize}
+
+    \item test equal: TEQ\{cond\} Rn, Operand2
+    \begin{itemize}
+      \item performs bitwise EOR and updates flags
+    \end{itemize}
+    \item compare and branch: \textless op\textgreater Rn, label. For op:
+    \begin{itemize}
+      \item[CBZ] compare equal to zero
+      \item[CBNZ] compare not equal to zero
+    \end{itemize}
+    \item compares [[Rn]] with zero and decides on branch
+    \begin{itemize}
+      \item[CBZ] Rn, label =
+      \begin{itemize}
+        \item[CMP] Rn, \#0
+        \item[BEQ] label
+      \end{itemize}
+      \item[CBNZ] Rn, label =
+      \begin{itemize}
+        \item[CMP] Rn, \#0
+        \item[BNE] label
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}

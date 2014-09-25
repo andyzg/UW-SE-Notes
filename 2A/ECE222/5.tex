@@ -1,0 +1,107 @@
+\section{Memory}
+  \subsection{Definitions}
+    \paragraph{DCD} = Declare Data
+    \begin{lstlisting}
+      DCD 5
+      DCB 1, 2, 3, 4, 5
+    \end{lstlisting}
+    This is very similar to declaring
+    \begin{lstlisting}
+      const int N = 5
+      const int ARRAY[] = [1, 2, 3, 4, 5]
+    \end{lstlisting}
+
+    \paragraph{ADR} = Put address in register
+    \begin{lstlisting}
+      int *ptr = ARRAY,
+      int total = ptr[0];
+      int a = ptr[1];
+      total += a;
+    \end{lstlisting}
+
+  \paragraph{Example} ~\\
+    pc relative: LDR\{size\}\{cond\} Rt, label
+    \begin{itemize}
+      \item label is translated into an offset from the instruction
+      \item data is loaded from \textless address\textgreater = PC + 4 + offset
+      \item offset $\in$ [[ pc, \#28 ]]
+    \end{itemize}
+
+  \paragraph{E.g.}
+  \begin{lstlisting}
+    LDR r1, DATA1 ; DATA 1 is 322 bytes after LDR
+    =>
+    LDR r1, [pc, #28] ; pc incremented by 4 during fetch
+    // r1 <- [[pc] + 28]
+  \end{lstlisting}
+
+  load address into register: ADR\{cond\} Rd, label
+  \paragraph{e.g.}
+  \begin{lstlisting}
+    ADR r1, DATA1
+    // r1 <- [pc] + 28
+  \end{lstlisting}
+
+\section{Pseudo Instructions}
+  \begin{itemize}
+    \item don't match an existing machine instruction
+    \item translated by the assembler into an appropriate instruction(s)
+    \paragraph{e.g.}
+    \begin{lstlisting}
+      LDR {cond} Rt = <expr> ; label or numeric expression at end
+    \end{lstlisting}
+    \item converted into
+    \begin{itemize}
+      \item MOV or MVN, if possible, or
+      \item adds the value to the literal pool (program contants, bottom of
+      file) and generates a LDR instruction with pc + relative addressing from
+      demo0.s file
+      \begin{lstlisting}
+        LDR r1 = SUM
+      \end{lstlisting}
+      \item couldn't use ADR because the distance from LDR (0x114) to sum (0x1000
+      0000) exceeds $\pm 4095$
+    \end{itemize}
+    \item Stores 0x1000 0000 at address 0x134 and replaces it with:
+    \begin{lstlisting}
+      LDR r1, [pc, #28]
+    \end{lstlisting}
+  \end{itemize}
+
+\section{Branch Instruction}
+  \begin{itemize}
+    \item Changes control flow by adding an offset to the PC
+    \item Format: B\{cond\} label
+    \begin{itemize}
+      \item[cond] only execute if condition is true
+      \item[label] assembler replaces with pc relative offset
+    \end{itemize}
+    \item condition code suffixes (SIGNED)
+    \begin{itemize}
+      \item[EQ] equal (to zero)
+      \item[NE] not equal
+      \item[GT] greater than
+      \item[GE] greater or equal
+      \item[LT] less than
+      \item[LE] less or equal
+      \item[PL] plus ($>= 0$) ignores overflow
+      \item[MI] minus ($<0$) ignores overflow
+    \end{itemize}
+    \item condition code suffixes (UNSIGNED)
+    \begin{itemize}
+      \item[VS] overflow set
+      \item[VC] overflow clear
+      \item[Al] always (default)
+    \end{itemize}
+
+    \paragraph{E.g.} SUBS r2, r2, \#1 // r2 <- [r2] - 1
+    \begin{lstlisting}
+      BGT LOOP
+      do { int a = *ptr;
+           total += a;
+           ptr++;
+           counter--;
+         } while (counter > 0);} // demoX.s
+    \end{lstlisting}
+  \end{itemize}
+
