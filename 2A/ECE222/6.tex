@@ -49,10 +49,10 @@
     \begin{itemize}
       \item perform bitwise AND and updates flags N, Z, C, V. E.g. :
       \begin{lstlisting}
-        TST r1, #0x00008000
+        TST r1, \#0x00008000
         // N, Z, C, V <= [r1] * 2_0000 0000 0000 0000 1000 0000 0000 0000
         if r1 = 0xF000 -> 0000 0000 0000 0000 1111 0000 0000 0000
-                          0000 .....     0000 1000 0000 0000 0000
+                          0000 0000 0000 0000 1000 0000 0000 0000
       \end{lstlisting}
     \end{itemize}
 
@@ -79,3 +79,27 @@
       \end{itemize}
     \end{itemize}
   \end{itemize}
+
+\section{If Else}
+  \paragraph{E.g.}
+  \begin{lstlisting}
+    if (x == 0) // cond
+      y++; // stmt 1
+    else
+      y--; // stmt 2
+    x in r0, y is r1
+  \end{lstlisting}
+  This is equivalent to
+  \begin{lstlisting}
+        CBZ r0, ADD_ // cond
+        SUB r1, r1, #1 // stmt 2
+        B END
+ ADD_   ADD r1, r1, #1 // stmt 1
+ END_   // end code
+  \end{lstlisting}
+  Without branching:
+  \begin{lstlisting}
+    CMP r0, #0
+    ADDEQ r1, r1, #1
+    SUBNE r1, r1, #1
+  \end{lstlisting}

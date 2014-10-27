@@ -1,174 +1,89 @@
-\chapter{Module 2}
+\chapter{Module 2 - Propositional Logic}
   \section{Definitions}
-    \subsection{Elements of a logic}
-      Logic consists of \textbf{syntax}, \textbf{semantics} and \textbf{proof
-      theory}
-    \subsection{Syntax}
-      `well-formed formula' (wff), is a word that is a part of a formal
-      language
-    \subsection{Semantics}
-      $\vdash$ is entails. \\
-      Ex: `$\vdash p$' means the formula $p$ is valid, where $p$ is a wff in the
-      logic.\\
-      Ex: $p_1, p_2,\ldots,p_n \vdash q$ means from the premises ($p$'s), we
-      may conclude $q$ where they're all wff.
-    \subsection{Proof Theory}
-      Define `$\models$' as proves. It's a way to calculate $p_1,
-      p_2,\ldots,p_n \models q$, meaning there's a way to determine if $q$ is
-      true if $p_1, p_2,\ldots,p_n$ are true\\
-      There may be multiple proof theories indicated by a subscript e.g.
-      $\models_{ND}$ for natural deduction proof theory.
+    \paragraph{Proof Theory} are methods that manipulate strings of symbols
+    base on pattern matching. There may be multiple ways to prove a formula.
 
-      \paragraph{Proof Theory} are methods that manipulate strings of symbols
-      base on pattern matching. There may be multiple ways to prove a formula.
+    \paragraph{Sound} If $p_1, p_2,\ldots,p_n \models q$ (proof), then $p_1,
+    p_2,\ldots,p_n \vdash q$ (valid)
 
-      \paragraph{Sound} If $p_1, p_2,\ldots,p_n \models q$ (proof), then $p_1,
-      p_2,\ldots,p_n \vdash q$ (valid)
+    \paragraph{Complete} If $p_1, p_2,\ldots,p_n \vdash q$ (valid) then
+    $p_1,p_2,\ldots,p_n \models q$ (proof)
 
-      \paragraph{Complete} If $p_1, p_2,\ldots,p_n \vdash q$ (valid) then
-      $p_1,p_2,\ldots,p_n \models q$ (proof)
-  \section{Syntax}
-    \subsection{Composition}
-      A formula in propositional logic consists of constant symbols
-      (\textbf{true} and \textbf{false}), proposition letters, propositional
-      connectives ($\lnot, \land, \lor, \Rightarrow, \Leftrightarrow$), and
-      brackets
-
-    \subsection{Symbol Definitions}
+    \paragraph{Boolean Valuation} is a function $v$ from the set of
+    formulas in propositional logic to the set $T_r$. Boolean valuation is
+    also called a model or an interpretation.
+    \begin{itemize}
+      \item $v(false) = F, v(true) = T$
+      \item $v(\lnot p) = NOT (v(p))$
+      \item For the connectives:
       \begin{itemize}
-        \item[$\lnot$] Negation
-        \item[$\land$] And
-        \item[$\lor$] Or
-        \item[$\Rightarrow$] Implication
-        \item[$\Leftrightarrow$] Equivalent
+        \item $v(p\land q) = v(p) AND v(q)$
+        \item $v(p\lor q) = v(p) OR v(q)$
+        \item $v(p\Rightarrow q) = v(p) IMP v(q)$
+        \item $v(p\Leftrightarrow q) = v(p) IFF v(q)$
       \end{itemize}
+    \end{itemize}
 
-    \subsection{Rules and Definitions}
-      \begin{itemize}
-        \item Brackets around the outermost formula are usually omitted.
-          Priority is ($\lnot, \land, \lor, \Rightarrow, \Leftrightarrow$)
-        \item All binary logical connectives are \textbf{right associative}
-        \item $a\land b$ is \textbf{conjucts}, $a\lor b$ is \textbf{disjuncts}
-        \item Contrapositive of $a\Rightarrow b$ is $\lnot b\Rightarrow \lnot
-          a$
-        \item Prime propositions are declarative sentences i.e.\ sentences that
-          are true or false
-        \item Propositional letters are $a, b, p, q$
-        \item Prime compositions are indecomposable, compound composition are
-          decomposable
-        \item The connective `and' used in logic is commutative
-        \item Watch out for the false implies everything problem
+    \paragraph{Satisfiability} If a formula is \textbf{satisfiable}, then
+    there exists a Boolean valuation $v$ such that $v(p) = T$
 
-      \end{itemize}
-    \section{Semantics}
-      \subsection{Definition}
-      \paragraph{Semantics} means meaning, providing an interpretation/functions of
-        expressions in one world in terms of values in another world. Proof
-        theories transform wff in ways that respect semantics.\\
-        The syntax of the propositional logic is the \textbf{domain} of the
-        semantic function whereas the set of truth values is the \textbf{range}
+    \paragraph{Tautologies} A propositional formula $p$ is a
+    \textbf{tautology} or \textbf{valid} if $v(p) = T$ for all Boolean
+    valuations $v$. When a formula $q$ is a tautology, we write
+    \begin{center}
+       $\vdash q$
+    \end{center}
 
-        \paragraph{Boolean Valuation} is a function $v$ from the set of
-        formulas in propositional logic to the set $T_r$. Boolean valuation is
-        also called a model or an interpretation.
-        \begin{itemize}
-          \item $v(false) = F, v(true) = T$
-          \item $v(\lnot p) = NOT (v(p))$
-          \item For the connectives:
-          \begin{itemize}
-            \item $v(p\land q) = v(p) AND v(q)$
-            \item $v(p\lor q) = v(p) OR v(q)$
-            \item $v(p\Rightarrow q) = v(p) IMP v(q)$
-            \item $v(p\Leftrightarrow q) = v(p) IFF v(q)$
-          \end{itemize}
-        \end{itemize}
+    \paragraph{Logical Implication} A formula $p$ \textbf{logically
+    implies} a formula $q$ iff for all Boolean valuations $v$, if for all
+    premises $v(p_i) =
+    T$, then $v(q) = T$, meaning
+    \begin{center}
+      $p \vdash q$ which is equivalent to $\vdash p \Rightarrow q$
+    \end{center}
 
-      \subsection{Semantics of Propositional Logic}
-        \paragraph{NOT} takes a truth value and returns a truth value
-        \paragraph{AND, OR, IMP, IFF} take two truth values and return a truth
-        value that correspond to $\land, \lor, \Rightarrow, \Leftrightarrow$
+    \paragraph{Contradiction} A propositional formula $a$ is a
+    \textbf{contradiction} if $v(a) = F$ for all Boolean valuations $v$
 
-        \paragraph{Truth Tables} have a row for each possible boolean valuation,
-          a column for each subformula for the formula, and the formula itself,
-          and each cell contains the truth value given by the boolean valuation
-          of that row. We can use truth tables to determine if a formula is
-          satisfiable/tautology/contradiction/contingent
+    \paragraph{Contingent} A \textbf{contingent} is one that is neither a
+    \textbf{tautology} nor a \textbf{contradiction}
 
-        \paragraph{Satisfiability} If a formula is \textbf{satisfiable}, then
-        there exists a Boolean valuation $v$ such that $v(p) = T$
+    \paragraph{Logical Equivalence} Two formulas are \textbf{logically
+    equivalent} iff their equivalence is a tautology i.e. $v(p) = v(q)$ for
+    all $v$.
+    \begin{center}
+      $p\leftrightarrow q$ which also means $\vdash p \Leftrightarrow q$
+    \end{center}
+    \begin{itemize}
+      \item[$\leftrightarrow$] Logical equivalence
+      \item[$\Leftrightarrow$] Material equivalence
+    \end{itemize}
 
-        \paragraph{Tautologies} A propositional formula $p$ is a
-        \textbf{tautology} or \textbf{valid} if $v(p) = T$ for all Boolean
-        valuations $v$. When a formula $q$ is a tautology, we write
-        \begin{center}
-           $\vdash q$
-        \end{center}
+    \paragraph{Consistency} A collection of formulas is \textbf{consistent}
+    if there exists a boolean valuation where all the formulas can be true
+    simultaneously. If a set of formulas in the antecedent of an
+    implication, they can be used to prove a contradiction.
 
-        \paragraph{Logical Implication} A formula $p$ \textbf{logically
-        implies} a formula $q$ iff for all Boolean valuations $v$, if for all
-        premises $v(p_i) =
-        T$, then $v(q) = T$, meaning
-        \begin{center}
-          $p \vdash q$ which is equivalent to $\vdash p \Rightarrow q$
-        \end{center}
-
-        \paragraph{Contradiction} A propositional formula $a$ is a
-        \textbf{contradiction} if $v(a) = F$ for all Boolean valuations $v$
-
-        \paragraph{Contingent} A \textbf{contingent} is one that is neither a
-        \textbf{tautology} nor a \textbf{contradiction}
-
-        \paragraph{Logical Equivalence} Two formulas are \textbf{logically
-        equivalent} iff their equivalence is a tautology i.e. $v(p) = v(q)$ for
-        all $v$.
-        \begin{center}
-          $p\leftrightarrow q$ which also means $\vdash p \Leftrightarrow q$
-        \end{center}
-        \begin{itemize}
-          \item[$\leftrightarrow$] Logical equivalence
-          \item[$\Leftrightarrow$] Material equivalence
-        \end{itemize}
-
-        \paragraph{Consistency} A collection of formulas is \textbf{consistent}
-        if there exists a boolean valuation where all the formulas can be true
-        simultaneously. If a set of formulas in the antecedent of an
-        implication, they can be used to prove a contradiction.
-
-  \section{Proof Theories}
-    \subsection{Use Case}
-      Since truth tables grow exponentially, we can use a \textbf{proof theory}
-      instead to determine whether a formula is a tautology. As long as the
-      proof theory is \textbf{sound}, we can use proof theory in place of truth
-      tables to determine tautologies (and valid arguments).
-
-    \subsection{Transformational Proofs}
-      \paragraph{Transformational Proofs} is a means of determining that two
-      wff formulas of propositional logic $p$ and $q$ are logically equivalent
-      by the repeated exchange of subformulas of $p$ for logically equivalent
-      subformlas that result in $p$ being transformed into $q$. Each step must
-      follow a logical law expressed by $\Lleftarrow\Rrightarrow$.\\
-      $p\Lleftarrow^?\Rrightarrow q$ means `Show by transformational proof that
-      $p\Lleftarrow\Rrightarrow q''$'
-      \paragraph{Transformational Proof Rules}
-      \begin{itemize}
-        \item[Comm] $p\land q \Lleftarrow\Rrightarrow q\land p$
-        \item[Lem] $p\lor\lnot \Lleftarrow\Rrightarrow true$
-        \item[Contr] $p\land\lnot p\Lleftarrow\Rrightarrow false$
-        \item[Impl] $p \Rightarrow q\Lleftarrow\Rrightarrow \lnot p \lor q$
-        \item[Idemp] $p \land p\Lleftarrow\Rrightarrow p$
-        \item[Neg] $\lnot(\lnot p)\Lleftarrow\Rrightarrow p$
-        \item[Simp1] $p\land true\Lleftarrow\Rrightarrow p$
-        \item[Assoc] $p \land (q \land r)\Lleftarrow\Rrightarrow (p \land q)
-          \land r$
-        \item[Dm] $\lnot(p\land q)\Lleftarrow\Rrightarrow \lnot \lor \lnot q$
-        \item[Distr] $p \lor (q \land r)\Lleftarrow\Rrightarrow (p \lor q)
-          \land (p \lor r)$
-        \item[Contrapos] $p \Rightarrow q\Lleftarrow\Rrightarrow \lnot q
-          \Rightarrow \lnot p$
-        \item[Equiv] $p \Leftrightarrow q\Lleftarrow\Rrightarrow (p\Rightarrow
-          q) \land (q \Rightarrow p)$
-        \item[Simp2] $p \lor (p \land q)\Lleftarrow\Rrightarrow p$
-      \end{itemize}
+    \paragraph{Transformational Proof Rules}
+    \begin{itemize}
+      \item[Comm] $p\land q \Lleftarrow\Rrightarrow q\land p$
+      \item[Lem] $p\lor\lnot \Lleftarrow\Rrightarrow true$
+      \item[Contr] $p\land\lnot p\Lleftarrow\Rrightarrow false$
+      \item[Impl] $p \Rightarrow q\Lleftarrow\Rrightarrow \lnot p \lor q$
+      \item[Idemp] $p \land p\Lleftarrow\Rrightarrow p$
+      \item[Neg] $\lnot(\lnot p)\Lleftarrow\Rrightarrow p$
+      \item[Simp1] $p\land true\Lleftarrow\Rrightarrow p$
+      \item[Assoc] $p \land (q \land r)\Lleftarrow\Rrightarrow (p \land q)
+        \land r$
+      \item[Dm] $\lnot(p\land q)\Lleftarrow\Rrightarrow \lnot \lor \lnot q$
+      \item[Distr] $p \lor (q \land r)\Lleftarrow\Rrightarrow (p \lor q)
+        \land (p \lor r)$
+      \item[Contrapos] $p \Rightarrow q\Lleftarrow\Rrightarrow \lnot q
+        \Rightarrow \lnot p$
+      \item[Equiv] $p \Leftrightarrow q\Lleftarrow\Rrightarrow (p\Rightarrow
+        q) \land (q \Rightarrow p)$
+      \item[Simp2] $p \lor (p \land q)\Lleftarrow\Rrightarrow p$
+    \end{itemize}
 
     \paragraph{Rules}
       \begin{enumerate}
@@ -178,25 +93,71 @@
           $q\Lleftarrow\Rrightarrow r$, then $p\Lleftarrow\Rrightarrow r$
       \end{enumerate}
 
-      \paragraph{Rule of Thumb}
-      \begin{enumerate}
-        \item Eliminate implication ($\Rightarrow$) and
-          equivalence ($\Leftrightarrow$) using the law of implication, the law
-          of equivalence and the contrapositive law backwards
-        \item Simplify as soon as you can (simp 1, simp 2, idempotence,
-          negation, kaw of contradiction, law of excluded middle)
-        \item Sometimes use the various kinds of simplification backwards to
-          prepare for using distributivity
-      \end{enumerate}
+    \paragraph{Literal} is a propositional letter or the negation of a
+    proposition letter
 
-    \subsection{Semantics}
-      Transformational proof satisfies the following:
-      \begin{enumerate}
-        \item If $p\Lleftarrow\Rrightarrow q$ can be proved, then $p
-          \leftrightarrow q$ (\textbf{soundness})
-        \item If $p \leftrightarrow q$, then $p\Lleftarrow\Rrightarrow q$ can
-          be proved (\textbf{completeness})
-      \end{enumerate}
-      Thus, transformational proof is sound and complete for propositional
-      logic, and we use this to show the logical equivalence of two formulas.
-      This way os oftenless tedious than the truth tables
+    \paragraph{Conjunctive Normal Form} is a conjunction (AND) of clauses,
+    where a clause is a dusjunction (OR) of literal or a single literal
+
+    \paragraph{Disjunctive Normal Form} is a disjunction (OR) of clauses, where
+    a clause is a conjunction (AND) of literals or a single literal
+
+    \paragraph{Argument} is a collection of formulas, one of which reffered to
+    as the conclusion, is justified by the others, referred to as the premises.
+
+    \paragraph{Deductive} means the conclusion of an argument is wholly
+    justified by the premises
+
+    \paragraph{Inductive} arguments conclude more general new knowledge from a
+    small number of particular facts or observations.
+
+    \paragraph{Valid} means all Boolean valuations where the premises have the
+    value T, the conclusion has the truth value T
+
+    \paragraph{Invalid} means there is one Boolean valuation where premises is
+    true but the conclusion is false
+
+    \paragraph{Natural Deducation} is a collection of rules called inference
+    rules which allows us to infer new formulas from given formulas.
+
+    \paragraph{Inference rule} is a primitive valid argument form. Each
+    inference rule enables the elimination or the introduction of a logical
+    connective
+
+    \paragraph{Syllogism} is a kind of logical argument that applies deductive
+    reasoning to arrive at a conclusion based on two or more propositions that
+    are asserted or assumed to be true.
+
+    \paragraph{Summary of Natural Deduction Rules}
+      \begin{itemize}
+        \item $ p, q $ (and i) $ p \land q $
+        \item $ p \and q $ (and e) $ p $
+        \item $ p $ (or i) $ p \lor q $
+        \item $ p \lor r $ (cases) $ case p \{ ... q \} case r \{ ... q \} q $
+        \item  assume $ r $ \{ ... $ q $ \} (imp i) $ r \Rightarrow q $
+        \item $ p \Rightarrow q, p $ (imp e) $ q $
+        \item  disprove $r$ \{ ... false \} (raa) $ \lnot r $
+        \item $ p, \lnot p $ (not e) $ q $
+        \item $ p $ (not not i) $ \lnot \lnot p $
+        \item $ \lnot \lnot p $ (not not e) $ p $
+        \item $ p \Rightarrow q, q \Rightarrow p $ (iff i) $ p \Leftrightarrow
+          q $
+        \item $ p \Leftrightarrow q $ (iff e) $ p \Rightarrow q $
+        \item $ p \lor q $, $ \lnot p $ (or e) $ q $
+        \item (lem) $p \lor \lnot p$
+      \end{itemize}
+
+    \paragraph{Summary of Semantic Tableaux Rules}
+      \begin{itemize}
+        \item $ p \land q $ (and nb) $p$, $q$
+        \item $ \lnot ( p \land q ) $ (not and br) 1. $ \lnot p $ 2. $ \lnot q $
+        \item $ p \lor q $ (or br) 1. $p$ 2. $q$
+        \item $ \lnot ( p \lor q ) $ (not or nb) $ \lnot p $, $ \lnot q $
+        \item $ p \Rightarrow $ (imp br) 1. $ \lnot p $ 2. $ q $
+        \item $ \lnot ( p \Rightarrow q ) $ (not imp nb) $p$, $\lnot q$
+        \item $ \lnot \lnot p $ (not not nb) $ p $
+        \item $ p \Leftrightarrow q $ (iff br) 1. $ p \land q $ 2. $ \lnot p
+          \land \lnot q $
+        \item $ \lnot ( p \Leftrightarrow q ) $ (not iff br) 1. $ p \land
+          \lnot q $ 2. $ \lnot p \land q $
+      \end{itemize}

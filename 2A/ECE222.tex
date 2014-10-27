@@ -518,7 +518,12 @@
 
     \paragraph{E.g.} SUBS r2, r2, \#1 // r2 <- [r2] - 1
     \begin{lstlisting}
-  BGT LOOP
+      BGT LOOP
+      do { int a = *ptr;
+           total += a;
+           ptr++;
+           counter--;
+         } while (counter > 0);} // demoX.s
     \end{lstlisting}
   \end{itemize}
 
@@ -574,10 +579,10 @@
     \begin{itemize}
       \item perform bitwise AND and updates flags N, Z, C, V. E.g. :
       \begin{lstlisting}
-        TST r1, #0x00008000
+        TST r1, \#0x00008000
         // N, Z, C, V <= [r1] * 2_0000 0000 0000 0000 1000 0000 0000 0000
         if r1 = 0xF000 -> 0000 0000 0000 0000 1111 0000 0000 0000
-                          0000 .....     0000 1000 0000 0000 0000
+                          0000 0000 0000 0000 1000 0000 0000 0000
       \end{lstlisting}
     \end{itemize}
 
@@ -604,5 +609,124 @@
       \end{itemize}
     \end{itemize}
   \end{itemize}
+
+\section{If Else}
+  \paragraph{E.g.}
+  \begin{lstlisting}
+    if (x == 0) // cond
+      y++; // stmt 1
+    else
+      y--; // stmt 2
+    x in r0, y is r1
+  \end{lstlisting}
+  This is equivalent to
+  \begin{lstlisting}
+        CBZ r0, ADD_ // cond
+        SUB r1, r1, #1 // stmt 2
+        B END
+ ADD_   ADD r1, r1, #1 // stmt 1
+ END_   // end code
+  \end{lstlisting}
+  Without branching:
+  \begin{lstlisting}
+    CMP r0, #0
+    ADDEQ r1, r1, #1
+    SUBNE r1, r1, #1
+  \end{lstlisting}
+
+\section{Subroutines}
+  \subsection{The Stack}
+    \begin{itemize}
+      \item LIFO
+      \item Each thread/process has a call stack growing from high to low
+      memory address
+      \item Typical memory map (32 bit addressing)
+      \item r13(alias sp) is the stack pointer
+      \item Push[[r0]] onto the stack
+      \begin{lstlisting}
+        STR r0, [sp, #-4]! // \! == update/write, (pre-indexed)
+      \end{lstlisting}
+      \item Pop from stack into r0
+      \begin{lstlisting}
+        LDR r0, [sp], #4 // post indexed
+      \end{lstlisting}
+    \end{itemize}
+
+  \subsection{Calling}
+    \begin{itemize}
+      \item Branch to subroutine instructions store return address in the link
+      register r14 (alias lr)
+      \item Branch and link: BL\{cond\} label (invocation)
+      \begin{lstlisting}
+        // pc <- [pc] + offset // offset in [-16MB, 16MB]
+        r14 <- [return address] // pc of the next instruction
+      \end{lstlisting}
+      \item Branch, link and exchange: BLX {cond} Rn (invocation)
+      \begin{lstlisting}
+        eg: BLX r1
+        // pc <- [r1], r14 <- [pc]
+        // Greather range than BL [-2GB, 2GB]
+      \end{lstlisting}
+    \item Branch exchange: Bx {cond} Rn (return)
+      \begin{lstlisting}
+        e.g. Bx lr
+        // pc <- [r14]
+      \end{lstlisting}
+    \end{itemize}
+
+  \subsection{Load/Store Multiple}
+    \begin{itemize}
+      \item Push/pop multiple register values to/from stack
+      \item Syntax \textless{} op\textgreater{} \{mode\}\{cond\} Rn\{!\},
+      reglist
+      \begin{itemize}
+        \item[op] = LDM load muliple, or SDM store multiple
+        \item[mode] = IA increment after, or DB decrement before
+        \item[!] = writeback (update the stack pointer)
+        \item[reglist] = comma separated list of regs or reg ranges
+      \end{itemize}
+      \item STMFD is a synonym for STMDB (push)
+      \item LOMFD is a synonym for LDMIA
+      \begin{itemize}
+        \item[FD] = full descending stack
+      \end{itemize}
+      \begin{lstlisting}
+        e.g.\ push r4, r5, r6 and r14 onto the stack
+        STMFD sp!, [r4, r6, lr]
+        r4  | 0000 0004
+        r5  | 0000 0005
+        46  | 0000 0006
+        r13 | 1000 0200 <- sp
+        r14 | 0000 0100 <- lr
+        Memory after pushing
+        1000 01F0 | 0000 0004 <- sp
+        1000 01F4 | 0000 0005
+        1000 01F8 | 0000 0006
+        1000 01FC | 0000 0100
+        1000 0200 | prev valu <- previous sp
+
+        e.g.\ pop from stack into r4, r5, r6, pc
+        LDMFD sp! {r4---r6, pc}
+      \end{lstlisting}
+    \end{itemize}
+
+  \subsection{AAPCS (Arm Architecture Procedure Call Standard)}
+    \begin{tabular}{c c c c}
+      registers & synonyms & callee preserved & function\\
+      r0-r3 & a1-a4   &   no  & argument/result/scratch regs\\
+      r4-r1 & v1-v8   &   yes & local variable\\
+      r12   & p       &   no  & intro procedure/scracthing\\
+      r13   & sp      &   yes & stack pointer\\
+      r14   & lr      &   no  & link register\\
+      r15   & pc      &   no  & program counter
+    \end{tabular}
+    \paragraph{Guidelines}
+    \begin{itemize}
+      \item Preserve and restore v1 --- v8 (r4 --- r11) if you modify it
+      \item Anything pushed in the stack must be popped/removed
+      \item Return values are in r0 (and r1 --- r3 as needed)
+      \item Pass parameters via registers first (faster)
+      \item pass additional parameters via stack
+    \end{itemize}
 
 \end{document}

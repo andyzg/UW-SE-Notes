@@ -1,0 +1,59 @@
+\chapter{Module 5 - Sets}
+  \section{Definitions}
+    \paragraph{Set} is a collection of element or members
+
+    \paragraph{Set enumeration} List the item in the set
+
+    \paragraph{Set comprehension} Define a set by using a predicate
+
+    \paragraph{Z notation} $ \{ \langle term \rangle \bullet \langle signature
+    \rangle | \langle predicate \rangle \} $
+
+    \paragraph{Term} is a term in predicate logic i.e an expression using
+    variables and functions that returns an object. Term can be omitted if it
+    is just a variable and we have a signature
+
+    \paragraph{Signature} lists the variables used in term and their types. If
+    we are not using types, the signature can be omitted, but we need one of
+    the term or the signature
+
+    \paragraph{Predicate} is any wff formula in predicate logic with the
+    variables used in term as free variables in the formula. If no predicate is
+    needed, i.e the formula true would be used, then it can be omitted
+
+    \paragraph{Empty set} is written $\emptyset$
+
+    \paragraph{Universal Set} consists of all the objects of concern in any
+    discussion. Often, the universal set is an appropriate choice for a type.
+    It is denoted as $U$
+
+    \paragraph{Single set} is a set consisting of only one element
+
+    \paragraph{Power set} of a set is the set of all of its subsets. P is the
+    function that returns the power set of a set. Usually we leave off the
+    brackets around the argument of this function.
+
+    \paragraph{Set Theory Summary}
+    \begin{itemize}
+      \item Types as sets: $ forall x : B \bullet P(x) \Leftrightarrow forall x
+        \bullet x \in B \Rightarrow P(x) $
+      \item Set comprehension: $ x \in \{ y \bullet y : S | P(y) \}
+        \Leftrightarrow x \in S \land P(x) $
+      \item Empty set: $ \forall x \bullet \lnot ( x \in \emptyset ) $
+      \item Set equality: $ D == B \Leftrightarrow ( \forall x \bullet x \in D
+        \Leftrightarrow x \in B ) $
+      \item Subset: $ D \subseteq B \Leftrightarrow ( \forall x \bullet x \in D
+        \Rightarrow x \in B ) $
+      \item Proper Subset: $ D \subset B \Leftrightarrow D \subseteq B \land
+        \lnot ( D == B ) $
+      \item Power Set: $ PD == \{ B | B \subseteq D \} $
+      \item Set Union: $ D \cup B == \{ x | x \in D \lor x \in B \} $
+      \item Set intersection: $ D \cap B == \{ x | x \in D \land x \in B \} $
+      \item Absolute Complement: $D' == \{ x | x \in U \land \lnot ( x \in D )
+        \} $
+      \item Set difference: $ D - B == \{ x | x \in D \land \lnot ( x \in B )
+        \} $
+    \end{itemize}
+
+    \paragraph{Disjoint} Two sets D and B are disjoint if their intersection is
+    empty

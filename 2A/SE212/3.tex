@@ -1,0 +1,69 @@
+\chapter{Module 3 - Predicate Logic}
+  \section{Definitions}
+    \paragraph{Predicate} is a symbol denoting the meaning of an attribute of
+    an object or the meaning of a relationship between two or more objects
+
+    \paragraph{Unary, binary, N ary predicate} takes 1, 2 or n number of
+    objects as arguments
+
+    \paragraph{Constant} is a symbol denoting a particular object
+
+    \paragraph{Quantifiers}
+      \begin{itemize}
+        \item[forall] $ \forall $, predicate holds for all elements (every,
+        all, for all). The formula must be true for all substitutions of an
+        object in the domain for the quantified variable
+        \item[exists] $ \exists $, predicate holds for some element (at least
+        one, some, there exists). For an existentially quantified variable,
+        the formula must be true for some substitution of an object in the
+        domain for the quantified variable
+      \end{itemize}
+
+    \paragraph{Terms}
+      \begin{itemize}
+        \item Every constant is a term
+        \item Every variable is a term
+        \item If $t_1, t_2, t_3 ... t_n$ are terms and $f$ is an $n$ ary
+        function symbol, then $f(t_1, t_2, ... t_n)$
+        \item Nothing is a term
+        \item Terms describe objects
+      \end{itemize}
+
+    \paragraph{Scope of a quantifier} is a subformula over which the quantifier
+    applies in the given formula. Without brackets, we assume the scope of the
+    quantifier extends to the right end of the formula
+
+    \paragraph{Bound Variable} is an occurence of a variable that is within the
+    scope of a quantifier over that variable. A variable is bound to the
+    closest quantifier to the left of its name whose scope it is within. All
+    variable occurrences that are bound to the same quantifier represent the
+    same object
+
+    \paragraph{Free}, a variable is free if it does not fall within the scope of
+    a quantifier for that variable
+
+    \paragraph{Closed} A wff is closed if it contains no free variables (we
+    work with closed wff)
+
+    \paragraph{Type} is a set of objects describing the possible values of a
+    variable. These values are constant of that type. We assume types are non
+    empty, i.e. at least one element of any type exists. We won't need types
+    unless explicitly instructed.
+
+    \paragraph{Satisfiability} A predicate logic is satisfiable iff there
+    exists an interpretation I that satisfies the formula. An interpretation I
+    satisfies a predicate logic formula A iff $M[[A]] = T$ when evaluted I
+
+    \paragraph{Tautology} A predicate logic formula is a tautology iff every
+    interpretation satisfies the formula, $\vdash$ P
+
+    \paragraph{Variable capture} means a free variable becomes bound after the
+    substitution
+
+    \paragraph{Genuine varaible} is a free variable such that the universal
+    quantification of it yields a formula that is true. It represents any value
+
+    \paragraph{Unknown varaible} is a free variable such that the existential
+    quantification of it yields a formula that is true. It represents a
+    specific (but unknown) value
+
