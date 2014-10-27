@@ -5,7 +5,7 @@ all: CHE102 ECE222 CS241  ECON102 SE212 STAT206
 
 CHE102:
 	@echo "Compiling CHE102"
-	@python compiler.py CHE102 > CHE102.tex
+	@python bundler.py CHE102 > CHE102.tex
 	@latex CHE102.tex
 	@dvipdfm CHE102.dvi
 	@make clean
@@ -13,7 +13,7 @@ CHE102:
 
 ECE222:
 	@echo "Compiling ECE222"
-	@python compiler.py ECE222 > ECE222.tex
+	@python bundler.py ECE222 > ECE222.tex
 	@latex ECE222.tex
 	@dvipdfm ECE222.dvi
 	@make clean
@@ -21,7 +21,7 @@ ECE222:
 
 CS241:
 	@echo "Compiling CS241"
-	@python compiler.py CS241 > CS241.tex
+	@python bundler.py CS241 > CS241.tex
 	@latex CS241.tex
 	@dvipdfm CS241.dvi
 	@make clean
@@ -29,7 +29,7 @@ CS241:
 
 ECON102:
 	@echo "Compiling ECON102"
-	@python compiler.py ECON102 > ECON102.tex
+	@python bundler.py ECON102 > ECON102.tex
 	@latex ECON102.tex
 	@dvipdfm ECON102.dvi
 	@make clean
@@ -37,7 +37,7 @@ ECON102:
 
 SE212:
 	@echo "Compiling SE212"
-	@python compiler.py SE212 > SE212.tex
+	@python bundler.py SE212 > SE212.tex
 	@latex SE212.tex
 	@dvipdfm SE212.dvi
 	@open SE212.pdf
@@ -45,7 +45,7 @@ SE212:
 
 STAT206:
 	@echo "Compiling STAT206"
-	@python compiler.py STAT206 > STAT206.tex
+	@python bundler.py STAT206 > STAT206.tex
 	@latex STAT206.tex
 	@dvipdfm STAT206.dvi
 	@make clean
