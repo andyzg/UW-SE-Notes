@@ -250,6 +250,27 @@
     quantification of it yields a formula that is true. It represents a
     specific (but unknown) value
 
+    \paragraph{Summary of Natural Deduction for Predicate Logic}
+    \begin{itemize}
+      \item for every $x_g$ \{ ... $P[x_g / x]$ \} (forall i) $\forall x
+        \bullet P$
+      \item $\forall x \bullet P$ (forall e) $P[t/x]$
+      \item $P[t/x]$ (exists i) $\exists x \bullet P$
+      \item $\exists x \bullet P$, for some $x_u$ $P[x_u/x]$ \{ ... Q \}
+        (exists e) Q, $x_u$ does not appear in Q
+    \end{itemize}
+
+    \paragraph{Summary of Semantic Tableau for Predicate Logic}
+    \begin{itemize}
+      \item $\forall x \bullet P(x)$ (forall nb) $P(t)$, where $t$ is a term
+        that is a legal substitution
+      \item $\lnot(\forall x \bullet P(x))$ (not forall nb) $\exists x \bullet
+        \lnot P(x)$
+      \item $\exists x \bullet P(x)$ (exists nb) $P(y)$, where $y$ is a
+        variable that has not been used in the tableau so far
+      \item $\lnot(\exists x \bullet P(x))$ (not exists nb) $\forall x \bullet
+        \lnot P(x)$
+    \end{itemize}
 
 \chapter{Module 4 - Theories}
   \section{Definitions}
@@ -290,6 +311,33 @@
 
     \paragraph{Recursive function} is one that is defined in terms of itself
     and certain terminating clauses
+
+    \paragraph{Satisfiable Modulo Theories}
+      is a decision problem for logical formulas with respect to combinations
+      of background theories experessed in classical first order logic with
+      equality.
+
+    \paragraph{Rule of Thumb} when formalizing a set of sentences.
+    \begin{enumerate}
+      \item Identify all possible logical connectives. Recall the heuristic
+        from propositional logic: pick the smallest phrases without and or if
+        then etc.
+      \item Identify what might be quantified, implicit quantifiers, constants
+      \item Identify the possible predicates and functinos. The quantified
+        variables must be arguments to the predicates
+      \item Look for similar phrases to determine how much detail you need to
+        provide
+      \item Think of an outline of how your proof will proceed.
+    \end{enumerate}
+
+    \paragraph{Rule of Thumb} for types
+    \begin{enumerate}
+      \item If a unary predicate is used in all premises and conclusions as
+        part of the antecedent of a universally quantified formula, it is a
+        good candidate to make a type
+      \item If a unary predicate is used in all premises as one conjuct of an
+        existentially quantified formula, it is a good candidate to make a type
+    \end{enumerate}
 
 \chapter{Module 5 - Sets}
   \section{Definitions}

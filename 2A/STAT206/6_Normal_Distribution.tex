@@ -1,0 +1,55 @@
+\chapter{Normal Distribution}
+  \section{Definitions}
+    \paragraph{Normal Distribution} A continuous random variable X with range
+      $(-\infty, \infty)$ has a normal distribution denoted $X \sim N(\mu,
+      \sigma^2)$, if its pdf has the form $f(x) = \frac{1}{\sqrt{2\pi
+      \sigma^2}}e^{-\frac{1}{2}(\frac{x-\mu}{\sigma})^2}$, $x \in \mathbb{R}$\\
+      where the mean $\mu$ and variance $\sigma^2$ are parameters. \\
+      $E(X) = \mu$, $Var(X) = \sigma^2$
+
+    \paragraph{Properties}
+      Let $X_1 \sim N(\mu_1, \sigma^2_1)$ and $X_2 \sim N(\mu_2, \sigma^2_2)$
+      be independent\\
+      $Y = aX_1 + bX_2 + c \sim N(a\mu_1 + b\mu_2 + c, a^2\sigma_1^2 +
+      b^2\sigma^2_2)$\\
+      If $X \sim N(\mu, \sigma^2)$, then $Z = (\frac{1}{\sigma})X -
+      (\frac{\mu}{\sigma}) = \frac{X-\mu}{\sigma} \sim N(0, 1)$\\
+      We also have $P(Z > z) = P(Z < -z)$ for any $z \in \mathbb{R}$
+
+    \paragraph{Central Limit Theorem} : We use the normal distribution to
+    apporximate probabilities for non normal distributions. This is possible
+    because the normal distribution tends to approximate sums of randm
+    variable. Although this is a Theorem about limits, we will use it when $n$
+    is large, but finite to approximate the distribution of $\sum_i X_i$, or
+    $\bar{X}$ by a normal distribution
+
+    \paragraph{Independent} We say that X and Y are independent if, for all x
+    and y, we have \\
+    $f(x, y) = P(X = x \cap Y = y) = P(X = x)P(Y=y) = f_X(x)f_Y(y)$
+
+    \paragraph{Central Limit Theorem --- Sum} Let $X_1$, $X_2$, $X_3$,...$X_n$
+    be independent variables all having the same distribution with $E(X_i) =
+    \mu$ and $Var(X_i) = \sigma^2$\\
+    As $n \rightarrow \infty$, the cumulative distribution function of the
+    random variable $\sum_i X_i$ approaches the cumulative distribution
+    function for $N(n\mu, n\sigma^2)$\\
+    The cumulative distribution function of the random variable $\frac{\sum_i
+    X_i - n\mu}{\sigma \sqrt{n}}$ approaches the cumulative distribution
+    function for $N(0, 1)$
+
+
+    \paragraph{Central Limit Theorem --- Average} Let $X_1$, $X_2$, $X_3$,...$X_n$
+    be independent variables all having the same distribution with $E(X_i) =
+    \mu$ and $Var(X_i) = \sigma^2$\\
+    As $n \rightarrow \infty$, the cumulative distribution function of the
+    random variable $\bar{X}$ approaches the cumulative distribution
+    function for $N(\mu, \frac{\mu^2}{n})$\\
+    The cumulative distribution function of the random variable $\frac{\bar{X} -
+    \mu} {\frac{\sigma}{\sqrt{n}}}$ approaches the cumulative distribution
+    function for $N(0, 1)$
+
+    \paragraph{Continuity Correction} can improve the approximation to a sum or
+    average of discrete random variables using a normal random variable. We
+    think of the center of a bar with width 1 as an integer value and the bar
+    actually covering $(x - 0.5, x + 0.5)$. So instead of integrating from $(0,
+    5)$ for example, we integrarte on $(-0.5, 5.5)$

@@ -67,3 +67,24 @@
     quantification of it yields a formula that is true. It represents a
     specific (but unknown) value
 
+    \paragraph{Summary of Natural Deduction for Predicate Logic}
+    \begin{itemize}
+      \item for every $x_g$ \{ ... $P[x_g / x]$ \} (forall i) $\forall x
+        \bullet P$
+      \item $\forall x \bullet P$ (forall e) $P[t/x]$
+      \item $P[t/x]$ (exists i) $\exists x \bullet P$
+      \item $\exists x \bullet P$, for some $x_u$ $P[x_u/x]$ \{ ... Q \}
+        (exists e) Q, $x_u$ does not appear in Q
+    \end{itemize}
+
+    \paragraph{Summary of Semantic Tableau for Predicate Logic}
+    \begin{itemize}
+      \item $\forall x \bullet P(x)$ (forall nb) $P(t)$, where $t$ is a term
+        that is a legal substitution
+      \item $\lnot(\forall x \bullet P(x))$ (not forall nb) $\exists x \bullet
+        \lnot P(x)$
+      \item $\exists x \bullet P(x)$ (exists nb) $P(y)$, where $y$ is a
+        variable that has not been used in the tableau so far
+      \item $\lnot(\exists x \bullet P(x))$ (not exists nb) $\forall x \bullet
+        \lnot P(x)$
+    \end{itemize}

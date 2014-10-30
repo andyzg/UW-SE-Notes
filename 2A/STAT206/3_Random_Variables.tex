@@ -1,0 +1,38 @@
+\chapter{Random Variables}
+  \section{Definitions}
+    \paragraph{Random Variable} X is a function from the sample space S to the
+    real numbers $X : S \rightarrow \mathbb{R}$. Its range $R(X)$ is the set of
+    possible real values it can take. We use X to denote a random variable and
+    x to denote its observed value
+    \begin{itemize}
+      \item Discrete if takes on a countable number of possible values
+      \item Continuous if it takes on all values in some interval of the real
+      line
+    \end{itemize}
+
+    \paragraph{Indicator or binary} variables take values of 0 or 1
+
+    \paragraph{Probability Function (pf)} of X, denoted $f(x)$, denotes the
+    probability that X takes on the value x. $f(x) = P(X = x)$ defined for all
+    x in the range of X
+
+    \paragraph{Probability Distribution} The set of pairs $\{(x, f(x)) | x \in
+    R(X))\}$ is called the probability distribution of X
+    \begin{itemize}
+      \item $0 \leq f(x) \leq 1$ for any $x$
+      \item $\sum f(x) = 1$
+    \end{itemize}
+
+    \paragraph{Cumulaative distribution function (cdf)} of X, denoted $F(x)$
+    denotes the probability that X rtakes on a value $\leq x$: $F(x) = P(X
+    \leq x)$. Very useful for continuous random variables
+
+    \paragraph{Mean or Expected Value} of X is defined as $\mu = E(X) = \sum_x
+    xf(x)$. We can understand $E(X)$ as the average value that $X$ would assume
+    over a theoretically infinite number of trials. $E(X)$ is not a random
+    variable, it is a constant.\\
+    We also define the expected value as $E[g(X)] = \sum_x g(x)f(x)$
+
+    \paragraph{Variance} of a random variable X is the expected squared
+    difference from the mean, that is $Var(X) = E[(X - E(X))^2] = \sum_{all x}
+    f(x)(x-\mu)^2$. An alternative would be $Var(X) = E[X^2] - (E(X))^2$

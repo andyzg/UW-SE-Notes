@@ -1,0 +1,55 @@
+\chapter{Probability}
+  \section{Definitions}
+    \paragraph{Probability} measure the uncertainty associated with an event.
+    An event is something that might occur
+    \begin{itemize}
+      \item Classical: $\frac{Number of ways event can occur}{Total number of
+      equally likely outcomes}$
+      \item Relative Frequency: Proportion of times the event occurs, as the
+      number of trials approaches infinity
+      \item Subjective: Estimates of probability that the event occurs, based
+      on subjective opinion
+    \end{itemize}
+
+    \paragraph{Experiment} is a repeatable phenomenon or process
+    \paragraph{Trial} is a single repetition of an experiment
+    \paragraph{Sample Space}, S, is the set of distinct outcomes for an
+    experiment or process
+    \paragraph{Discrete} A sample space is discrete if it has a finite or
+    countably infinite number of simple events. Otherwise it is non discrete or
+    continuous
+
+    \paragraph{Mutually Exclusive} means two events never occur simultaneously
+
+    \paragraph{Complement} of an event and an event are always mutually
+    exclusive
+
+    \paragraph{Uniform distribution} The total probability is uniformly
+    distributed among all possible outcomes
+
+    \paragraph{Permutation} is the number of ways to arrange $r$ out of $n$
+    objects: $ n ^ {(r)} = \frac{n!}{(n-r)!} = n(n-1)(n-2) ... (n-r+1)$
+
+    \paragraph{Combinations} If we don't care about the order of objects, but
+    just which objects are chosen, the number of ways to choose $r$ out of $n$
+    items is $\binom{n}{r} = \frac{n!}{r!(n-r)!}$
+
+    \paragraph{Set Operations}
+    \begin{itemize}
+      \item $AB$ or $A\cap B$ is the intersection of two
+      events.
+      \item$A \cup B$ is the union of two events.
+      \item $\bar{A}$ is the complement of A, not event A
+    \end{itemize}
+
+    \paragraph{Conditional} The probability of event A, conditional on the
+    occurence of event B, denoted by $P(A|B)$ is $P(A|B) = \frac{P(A \cap
+    B)}{P(B)}$, $P(B) \neq 0$
+
+    \paragraph{Independent} Two events are said to be independent iff $P(A \cap
+    B) = P(A)P(B)$. This implies that $P(A|B) = P(A)$, $P(B|A) = P(B)$. In
+    other words, events A and B are independent if whether B occurs does not
+    influence whether A occurs, and vice versa
+
+    \paragraph{Bayes' Theorem} Suppose A and B are any two events in S, then
+    $P(B|A) = \frac{P(A|B)P(B)}{P(A|B)P(B) + P(A|\bar{B})P(\bar{B})}$

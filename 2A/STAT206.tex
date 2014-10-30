@@ -196,4 +196,409 @@
       \end{itemize}
       See more: \url{http://en.wikipedia.org/wiki/Box_plot}
 
+\chapter{Probability}
+  \section{Definitions}
+    \paragraph{Probability} measure the uncertainty associated with an event.
+    An event is something that might occur
+    \begin{itemize}
+      \item Classical: $\frac{Number of ways event can occur}{Total number of
+      equally likely outcomes}$
+      \item Relative Frequency: Proportion of times the event occurs, as the
+      number of trials approaches infinity
+      \item Subjective: Estimates of probability that the event occurs, based
+      on subjective opinion
+    \end{itemize}
+
+    \paragraph{Experiment} is a repeatable phenomenon or process
+    \paragraph{Trial} is a single repetition of an experiment
+    \paragraph{Sample Space}, S, is the set of distinct outcomes for an
+    experiment or process
+    \paragraph{Discrete} A sample space is discrete if it has a finite or
+    countably infinite number of simple events. Otherwise it is non discrete or
+    continuous
+
+    \paragraph{Mutually Exclusive} means two events never occur simultaneously
+
+    \paragraph{Complement} of an event and an event are always mutually
+    exclusive
+
+    \paragraph{Uniform distribution} The total probability is uniformly
+    distributed among all possible outcomes
+
+    \paragraph{Permutation} is the number of ways to arrange $r$ out of $n$
+    objects: $ n ^ {(r)} = \frac{n!}{(n-r)!} = n(n-1)(n-2) ... (n-r+1)$
+
+    \paragraph{Combinations} If we don't care about the order of objects, but
+    just which objects are chosen, the number of ways to choose $r$ out of $n$
+    items is $\binom{n}{r} = \frac{n!}{r!(n-r)!}$
+
+    \paragraph{Set Operations}
+    \begin{itemize}
+      \item $AB$ or $A\cap B$ is the intersection of two
+      events.
+      \item$A \cup B$ is the union of two events.
+      \item $\bar{A}$ is the complement of A, not event A
+    \end{itemize}
+
+    \paragraph{Conditional} The probability of event A, conditional on the
+    occurence of event B, denoted by $P(A|B)$ is $P(A|B) = \frac{P(A \cap
+    B)}{P(B)}$, $P(B) \neq 0$
+
+    \paragraph{Independent} Two events are said to be independent iff $P(A \cap
+    B) = P(A)P(B)$. This implies that $P(A|B) = P(A)$, $P(B|A) = P(B)$. In
+    other words, events A and B are independent if whether B occurs does not
+    influence whether A occurs, and vice versa
+
+    \paragraph{Bayes' Theorem} Suppose A and B are any two events in S, then
+    $P(B|A) = \frac{P(A|B)P(B)}{P(A|B)P(B) + P(A|\bar{B})P(\bar{B})}$
+
+\chapter{Random Variables}
+  \section{Definitions}
+    \paragraph{Random Variable} X is a function from the sample space S to the
+    real numbers $X : S \rightarrow \mathbb{R}$. Its range $R(X)$ is the set of
+    possible real values it can take. We use X to denote a random variable and
+    x to denote its observed value
+    \begin{itemize}
+      \item Discrete if takes on a countable number of possible values
+      \item Continuous if it takes on all values in some interval of the real
+      line
+    \end{itemize}
+
+    \paragraph{Indicator or binary} variables take values of 0 or 1
+
+    \paragraph{Probability Function (pf)} of X, denoted $f(x)$, denotes the
+    probability that X takes on the value x. $f(x) = P(X = x)$ defined for all
+    x in the range of X
+
+    \paragraph{Probability Distribution} The set of pairs $\{(x, f(x)) | x \in
+    R(X))\}$ is called the probability distribution of X
+    \begin{itemize}
+      \item $0 \leq f(x) \leq 1$ for any $x$
+      \item $\sum f(x) = 1$
+    \end{itemize}
+
+    \paragraph{Cumulaative distribution function (cdf)} of X, denoted $F(x)$
+    denotes the probability that X rtakes on a value $\leq x$: $F(x) = P(X
+    \leq x)$. Very useful for continuous random variables
+
+    \paragraph{Mean or Expected Value} of X is defined as $\mu = E(X) = \sum_x
+    xf(x)$. We can understand $E(X)$ as the average value that $X$ would assume
+    over a theoretically infinite number of trials. $E(X)$ is not a random
+    variable, it is a constant.\\
+    We also define the expected value as $E[g(X)] = \sum_x g(x)f(x)$
+
+    \paragraph{Variance} of a random variable X is the expected squared
+    difference from the mean, that is $Var(X) = E[(X - E(X))^2] = \sum_{all x}
+    f(x)(x-\mu)^2$. An alternative would be $Var(X) = E[X^2] - (E(X))^2$
+
+\chapter{Discrete Probability Distributions}
+  \section{Definitions}
+    \paragraph{Bernoulli Distribution} Repeated trials of an experiment
+    \begin{itemize}
+      \item Each trial can be a success or a failure
+      \item The probability of a success is the same for each trial
+      \item The outcomes of different trials are \textbf{independent}
+      \item Let X record success or failure
+    \end{itemize}
+    We say that X follows a \textbf{Bernoulli distributionS} ($X \sim
+    Bernoulli(p)$), where p is the probability of sucesss
+
+    \[ f(x) = \left\{
+      \begin{array}{l l}
+        p     & \quad \text{if $x = 1$}\\
+        (1-p) & \quad \text{if $x = 0$}
+      \end{array}
+      \right.  \]\\
+      $E(X) = p$\\
+      $Var(X) = E[X^2] - (E(X))^2 = p - p^2 = p(1-p)$
+
+    \paragraph{Binomial Distribution}
+      Physical setup: We perform a sequence of $n$ independent Bernoulli trials
+      \begin{itemize}
+        \item Each trial has two possible outcomes: success or failure
+        \item Trials are independent
+        \item Each trial has probability of success equal to $p$
+      \end{itemize}
+
+      $f(x) = \binom{n}{x} p^x(1-p)^{n-x}$, $x = 0, 1, 2, ... n$\\
+      $E(X) = np$\\
+      $Var(X) = np(1-p)$
+
+    \paragraph{Poisson Process}
+      Physical setup: Events occur randomly in time (or space) according to the
+      following conditions
+      \begin{itemize}
+        \item Independence: The number of occurrences in disjoint (non
+          overlapping) intervals are independent
+        \item Individuality: Events occur singly i.e $P($two or more events
+          occur simultaneously$) = 0$
+        \item Homogeneity: Events occur according to a uniform (constant) rate
+          or intensity ($\lambda$)
+      \end{itemize}
+      If events occur with an average rate of $\lambda$ per unit of time
+      and X is the number of events which occur in $t$ units of time, then $X
+      \sim Poisson(\lambda t)$\\
+      $f(x) = \frac{e^{\lambda t}(\lambda t)^x}{x!}$, $x = 0, 1, ...$\\
+      $E(X) = \lambda t$\\
+      $Var(X) = \lambda t$
+
+    \paragraph{Hypergeometric Distribution}
+      Physical setup: We have a collection of N objects which can be classified
+      into two distinct types, called success and failure. There are $r$ and $N
+      - r$ failures. A sample of $n$ objects is selected without replacement.\\
+      Let X be the number of successes selected, then X is said to follow a
+      hypergeometric distribution ($X \sim Hyper(N, r, n)$). To compute the
+      probability functino, note that, for X = x
+      \begin{itemize}
+        \item There are $\binom{N}{n}$ points in the sample space (if we do not
+          consider the order of selection)
+        \item There are $\binom{r}{x}$ ways too select the $x$ success objects
+          from the $r$ available
+        \item There are $\binom{N-r}{n-x}$ ways to select the remaining $n-x$
+          failure objects from the $N-r$ available
+      \end{itemize}
+      $f(x) = \frac{\binom{r}{x}\binom{N-r}{n-x}}{\binom{N}{n}}$, $x = 0, 1,
+      ... min(r, n)$\\
+      $E(X) = \frac{nr}{N}$\\
+      $Var(X) = \frac{nr(N-r)(N-n)}{N^2(N-1)}$
+
+      \paragraph{Geometric Distribution}
+        Physical Setup: Bernoulli Trials are repeated until the first success.
+        Let X be the number of independent Bernoulli (p) trials until the first
+        success (including the first success), then X follows a geometric
+        distribution, $X \sim Geom(p)$\\
+        $f(x) = p(1-p)^{x-1}$, $x = 1, 2 ...$\\
+        $E(X) = \frac{1}{p}$\\
+        $Var(X) = \frac{1-p}{p^2}$
+
+
+
+\chapter{Continuous Probability Distributions}
+  \section{Definitions}
+    \paragraph{Continuous Random Variable} X is a function from the sample
+    space to the real numbers: $X : S \rightarrow \mathbb{R}$\\
+    The range $R(X)$ is continuous. Individual points in $\mathbb{R}$ must have
+    a 0 probability since the interval length is 0\\
+
+    \paragraph{Probability Density Function (pdf)} of a continuous random
+    variable X, denoted $f(x)$ assigns a probability to an $x \in R(X)$. If we
+    have the probability density function for X, then we can define the
+    probability that X takes a value in an interval $(a, b) \subseteq R(X)$ as
+    $P(A < X < b) = \int_{a}^{b} f(x)dx, (a, b) \subseteq R(X)$\\
+    Properties of the probability density function:\\
+    $f(x) \geq 0$, $\forall x \in R(X)$\\
+    $\int_{x\in R(X)} f(x)dx = 1$
+
+    \paragraph{Cumulative Distribution Function} of a continuous brandom
+    variable X, denoted F(x), gives the probability that X takes on a value
+    less than or equal to x\\
+    $F(x) = P(X \leq x) = P(X < x)$\\
+    Properties
+    \begin{itemize}
+      \item $F(-\infty) = 0$
+      \item $F(\infty) = 1$
+      \item $F(x)$ is non decreasing
+    \end{itemize}
+
+    \paragraph{Continuous Uniform Distribution}
+      Physical setup: The probability of any subinterval of the range is
+      proportional to the length of the interval. For $a < b$, if X is
+      uniformly distributed on the interval $(a, b)$ then we write $X \sim U(a,
+      b)$\\
+      $f(x) = \frac{1}{b-a}$, $a \leq x \leq b$\\
+
+      \[ F(x) = \left\{
+        \begin{array}{l l}
+          0               & \quad \text{if $x < a$}\\
+          \frac{x-a}{b-a} & \quad \text{if $a \leq x \leq b$}\\
+          1               & \quad \text{if $b < x$}
+        \end{array}
+        \right.  \]\\
+
+    \paragraph{Mean or Expected Value} of a continuous random variable X is
+    defined as\\
+    $E(X) = \int_{x} xf(x) dx = \mu$\\
+    Properties:
+    \begin{itemize}
+      \item $E[g(X)] = \int_x g(x)f(x)dx$
+      \item $E[aX + bY] = aE(X) + bE(Y)$
+    \end{itemize}
+
+    \paragraph{Variance} is the expected squared difference from the mean, that
+    is $Var(X) = E[(X-E(X))^2]$.\\
+    If $X_1$ and $X_2$ are independent random variables, and $a, b \in
+    \mathbb{R}$, then $Var[aX_1 + bX_2] = a^2 Var(X_1) + b^2Var(X_2)$
+
+    \paragraph{Exponential Distribution}
+      Physical setup: Events occur according to a Poisson process, and we
+      measure the inter arrival times between events. If X is the amount of
+      time until the next event in a Poisson process, then $X \sim
+      Exp(\theta)$, where $\theta = \frac{1}{\lambda}$\\
+      $f(x) = (\frac{1}{\theta})e^{-\frac{x}{\theta}}$, $x > 0$\\
+      $F(x) = 1 - e^{-\frac{x}{\theta}}$, $x > 0$\\
+      $E(X) = \theta$\\
+      $Var(X) = \theta^2$
+
+    \paragraph{Simulation}
+      The most common use of the continuous uniform distribution to simulate
+      other random variables.\\
+      \textbf{Theorem}: If $F(x)$ is an arbitrary cdf, and $Y \sim U(0, 1)$,
+      then $X = F^{-1}(Y)$ has cdf $F(x)$.\\
+      We can use $Y$ to generate an observation of the random variable X:
+      \begin{itemize}
+        \item Generate an observation y from $Y \sim U(0, 1)$ using your
+          favourite software
+        \item Compute $x = F^{-1}(y)$
+      \end{itemize}
+
+
+\chapter{Normal Distribution}
+  \section{Definitions}
+    \paragraph{Normal Distribution} A continuous random variable X with range
+      $(-\infty, \infty)$ has a normal distribution denoted $X \sim N(\mu,
+      \sigma^2)$, if its pdf has the form $f(x) = \frac{1}{\sqrt{2\pi
+      \sigma^2}}e^{-\frac{1}{2}(\frac{x-\mu}{\sigma})^2}$, $x \in \mathbb{R}$\\
+      where the mean $\mu$ and variance $\sigma^2$ are parameters. \\
+      $E(X) = \mu$, $Var(X) = \sigma^2$
+
+    \paragraph{Properties}
+      Let $X_1 \sim N(\mu_1, \sigma^2_1)$ and $X_2 \sim N(\mu_2, \sigma^2_2)$
+      be independent\\
+      $Y = aX_1 + bX_2 + c \sim N(a\mu_1 + b\mu_2 + c, a^2\sigma_1^2 +
+      b^2\sigma^2_2)$\\
+      If $X \sim N(\mu, \sigma^2)$, then $Z = (\frac{1}{\sigma})X -
+      (\frac{\mu}{\sigma}) = \frac{X-\mu}{\sigma} \sim N(0, 1)$\\
+      We also have $P(Z > z) = P(Z < -z)$ for any $z \in \mathbb{R}$
+
+    \paragraph{Central Limit Theorem} : We use the normal distribution to
+    apporximate probabilities for non normal distributions. This is possible
+    because the normal distribution tends to approximate sums of randm
+    variable. Although this is a Theorem about limits, we will use it when $n$
+    is large, but finite to approximate the distribution of $\sum_i X_i$, or
+    $\bar{X}$ by a normal distribution
+
+    \paragraph{Independent} We say that X and Y are independent if, for all x
+    and y, we have \\
+    $f(x, y) = P(X = x \cap Y = y) = P(X = x)P(Y=y) = f_X(x)f_Y(y)$
+
+    \paragraph{Central Limit Theorem --- Sum} Let $X_1$, $X_2$, $X_3$,...$X_n$
+    be independent variables all having the same distribution with $E(X_i) =
+    \mu$ and $Var(X_i) = \sigma^2$\\
+    As $n \rightarrow \infty$, the cumulative distribution function of the
+    random variable $\sum_i X_i$ approaches the cumulative distribution
+    function for $N(n\mu, n\sigma^2)$\\
+    The cumulative distribution function of the random variable $\frac{\sum_i
+    X_i - n\mu}{\sigma \sqrt{n}}$ approaches the cumulative distribution
+    function for $N(0, 1)$
+
+
+    \paragraph{Central Limit Theorem --- Average} Let $X_1$, $X_2$, $X_3$,...$X_n$
+    be independent variables all having the same distribution with $E(X_i) =
+    \mu$ and $Var(X_i) = \sigma^2$\\
+    As $n \rightarrow \infty$, the cumulative distribution function of the
+    random variable $\bar{X}$ approaches the cumulative distribution
+    function for $N(\mu, \frac{\mu^2}{n})$\\
+    The cumulative distribution function of the random variable $\frac{\bar{X} -
+    \mu} {\frac{\sigma}{\sqrt{n}}}$ approaches the cumulative distribution
+    function for $N(0, 1)$
+
+    \paragraph{Continuity Correction} can improve the approximation to a sum or
+    average of discrete random variables using a normal random variable. We
+    think of the center of a bar with width 1 as an integer value and the bar
+    actually covering $(x - 0.5, x + 0.5)$. So instead of integrating from $(0,
+    5)$ for example, we integrarte on $(-0.5, 5.5)$
+
+\chapter{Confidence Intervals}
+  \section{Definitions}
+    \paragraph{Introduction to Estimation}
+      Suppose that a probability distribution which serves as a model for some
+      random process depends on an unknown parameter $\theta$. In order to use
+      the model we have to estimate or specify a value for $\theta$ using some
+      data sets collected for the random variable.\\
+
+    \paragraph{Estimate} of a parameter $\theta$ is the value of a function of
+    the observed data $y_1, y_2, ... , y_n$ and other known quantities such as
+    the sample size $n$.
+
+    \paragraph{Likelihood function} for $\theta$ is defined as $L(\theta) =
+    L(\theta ; y) = P(Y = y ; \theta )$ for $\theta \in \omega$\\
+    where the parameter space $\omega$ is the set of possible values for
+    $\theta$\\
+    \\
+    Suppose that $\theta$ is the success probability in a binomial model, so
+    that $Y \sim Bi(n, \theta )$. Suppose that we ran the experiment once and
+    recorded $y$ successes in $n$ trials. Then \\
+    $L(\theta ) = P(Y = y ; \theta ) = \binom{n}{y} \theta^y (1 - \theta) ^
+    {n-y}$\\
+    \begin{itemize}
+      \item Hold $y$ constant and vary $\theta$.
+      \item This makes $L(\theta)$ into a function of $\theta$.
+      \item Then we can use calculus to choose $\theta$ to maximize $L(\theta)$
+      \item This choice for $\theta$ is what we call $\hat{\theta}$, the
+        maximum likelihood estimate for $\theta$.
+      \item Here we would get $\hat{\theta} = \frac{y}{n}$ which agrees with
+        our intuition
+    \end{itemize}
+
+    \paragraph{Maximum Likelihood Estimate} The value of $\theta$ which
+    maximizes $L(\theta)$ for given data $y$ is called the maxmimum likelihood
+    estimate of $\theta$. It is denoted as $\hat{\theta}$.
+
+    \paragraph{Relative Likelihood Function} is defined as $R(\theta) =
+    \frac{L(\theta)}{L(\hat{\theta}}$ for $\theta \in \omega$.\\
+    Note that $0 \leq R(\theta) \leq 1$ for all $\theta \in \omega$
+
+    \paragraph{Log Likelihood Function} is $l(\theta) = \ln L(\theta)$ for
+      $\theta \in \omega$. Note that $\hat{\theta}$ maximizes $R(theta)$ and
+      $l(\theta)$
+
+    \paragraph{Estimator} We call $\tilde{\theta}$ the estimator of $\theta$
+    corresponding to $\hat{\theta}$. We will always use
+    \begin{itemize}
+      \item $\hat{\theta}$ to denote an estimate, that is, a numerical value
+      \item $\tilde{\theta}$ to denote the corresponding estimator
+    \end{itemize}
+    An estimator $\tilde{\theta}$ is a random variable which is a function
+    $\tilde{\theta} = g(Y_1, ... Y_n)$ of the random variables $Y_1, ... ,
+    Y_n$. The distribution of $\tilde{\theta}$ is called the sampling
+    distribution of the estimator.\\
+    List of estimators:
+    \begin{itemize}
+      \item $Y_i \sim Bernoulli(p)$, $\tilde{p} = \bar{Y}$
+      \item $Y_i \sim Poisson(\lambda)$, $\tilde{\lambda} = \bar{Y}$
+      \item $Y_i \sim Exponential(\theta)$, $\tilde{\theta} = \bar{Y}$
+      \item $Y_i \sim Normal(\mu, \sigma^2)$, $\tilde{\mu} = \bar{Y}$
+      \item $Y_i \sim Normal(\mu, \sigma^2)$, $\tilde{\sigma^2} = \bar{s^2}$
+    \end{itemize}
+
+    \paragraph{Unbiased} An estimator is said to be unbiased if its expected
+    value equals the parameter being estimated: $E(\tilde{\theta}) = \theta$.\\
+    The standard deviation of an estimator is called its standard error:
+    $SE(\tilde{\theta}) = \sqrt{Var(\tilde{\theta})}$\\
+    If we have two unbiased estimators for a parameter, the one with the
+    smaller standard error is preferred.
+
+    \paragraph{Interval Estimate} for $\theta$ based on observed data $y$ takes
+    the form $[L(y), U(y)]$. We assume that the probability model chosen is
+    correct and that $\theta$ is the true value of the parameter.
+
+    \paragraph{Coverage Probability} To quantify the uncertainty in the
+    interval estimate, we define the coverage probability for the interval
+    estimator $[L(Y), U(Y)]$ as \\
+    $C(\theta) = P(L(Y) \leq \theta \leq U(Y))$
+
+    \paragraph{Confidence Intervals} A 100p\% confidence interval for a
+    parameter $\theta$ is an interval estimate $[L(y), U(y)]$ for which\\
+    $P(L(Y) \leq \theta \leq U(Y)) = p$. We say that we are 100p\% confident
+    that the true parameter is in the interval
+
+    \paragraph{Pivotal Quantity} is a function of the data Y and the unknown
+    parameter $\theta$ such that the distribution of the random variable Q is
+    completely known.  We define it as: $Z = \frac{\bar{X} -
+    \mu}{\frac{\sigma}{\sqrt{n}}} \sim N(0, 1)$. \\
+    To compute a 100p\% confidence interval for $\mu$, determine the threshold
+    $c$ such that $P(Z \leq c) = 1 - (\frac{1-p}{2}) = \frac{p+1}{2}$, where $Z
+    \sim N(0, 1)$.\\
+    We then construct the interval $\bar{x} \pm c\frac{\sigma}{\sqrt{n}}$
+
 \end{document}

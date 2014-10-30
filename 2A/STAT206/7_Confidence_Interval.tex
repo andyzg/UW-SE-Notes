@@ -1,0 +1,92 @@
+\chapter{Confidence Intervals}
+  \section{Definitions}
+    \paragraph{Introduction to Estimation}
+      Suppose that a probability distribution which serves as a model for some
+      random process depends on an unknown parameter $\theta$. In order to use
+      the model we have to estimate or specify a value for $\theta$ using some
+      data sets collected for the random variable.\\
+
+    \paragraph{Estimate} of a parameter $\theta$ is the value of a function of
+    the observed data $y_1, y_2, ... , y_n$ and other known quantities such as
+    the sample size $n$.
+
+    \paragraph{Likelihood function} for $\theta$ is defined as $L(\theta) =
+    L(\theta ; y) = P(Y = y ; \theta )$ for $\theta \in \omega$\\
+    where the parameter space $\omega$ is the set of possible values for
+    $\theta$\\
+    \\
+    Suppose that $\theta$ is the success probability in a binomial model, so
+    that $Y \sim Bi(n, \theta )$. Suppose that we ran the experiment once and
+    recorded $y$ successes in $n$ trials. Then \\
+    $L(\theta ) = P(Y = y ; \theta ) = \binom{n}{y} \theta^y (1 - \theta) ^
+    {n-y}$\\
+    \begin{itemize}
+      \item Hold $y$ constant and vary $\theta$.
+      \item This makes $L(\theta)$ into a function of $\theta$.
+      \item Then we can use calculus to choose $\theta$ to maximize $L(\theta)$
+      \item This choice for $\theta$ is what we call $\hat{\theta}$, the
+        maximum likelihood estimate for $\theta$.
+      \item Here we would get $\hat{\theta} = \frac{y}{n}$ which agrees with
+        our intuition
+    \end{itemize}
+
+    \paragraph{Maximum Likelihood Estimate} The value of $\theta$ which
+    maximizes $L(\theta)$ for given data $y$ is called the maxmimum likelihood
+    estimate of $\theta$. It is denoted as $\hat{\theta}$.
+
+    \paragraph{Relative Likelihood Function} is defined as $R(\theta) =
+    \frac{L(\theta)}{L(\hat{\theta}}$ for $\theta \in \omega$.\\
+    Note that $0 \leq R(\theta) \leq 1$ for all $\theta \in \omega$
+
+    \paragraph{Log Likelihood Function} is $l(\theta) = \ln L(\theta)$ for
+      $\theta \in \omega$. Note that $\hat{\theta}$ maximizes $R(theta)$ and
+      $l(\theta)$
+
+    \paragraph{Estimator} We call $\tilde{\theta}$ the estimator of $\theta$
+    corresponding to $\hat{\theta}$. We will always use
+    \begin{itemize}
+      \item $\hat{\theta}$ to denote an estimate, that is, a numerical value
+      \item $\tilde{\theta}$ to denote the corresponding estimator
+    \end{itemize}
+    An estimator $\tilde{\theta}$ is a random variable which is a function
+    $\tilde{\theta} = g(Y_1, ... Y_n)$ of the random variables $Y_1, ... ,
+    Y_n$. The distribution of $\tilde{\theta}$ is called the sampling
+    distribution of the estimator.\\
+    List of estimators:
+    \begin{itemize}
+      \item $Y_i \sim Bernoulli(p)$, $\tilde{p} = \bar{Y}$
+      \item $Y_i \sim Poisson(\lambda)$, $\tilde{\lambda} = \bar{Y}$
+      \item $Y_i \sim Exponential(\theta)$, $\tilde{\theta} = \bar{Y}$
+      \item $Y_i \sim Normal(\mu, \sigma^2)$, $\tilde{\mu} = \bar{Y}$
+      \item $Y_i \sim Normal(\mu, \sigma^2)$, $\tilde{\sigma^2} = \bar{s^2}$
+    \end{itemize}
+
+    \paragraph{Unbiased} An estimator is said to be unbiased if its expected
+    value equals the parameter being estimated: $E(\tilde{\theta}) = \theta$.\\
+    The standard deviation of an estimator is called its standard error:
+    $SE(\tilde{\theta}) = \sqrt{Var(\tilde{\theta})}$\\
+    If we have two unbiased estimators for a parameter, the one with the
+    smaller standard error is preferred.
+
+    \paragraph{Interval Estimate} for $\theta$ based on observed data $y$ takes
+    the form $[L(y), U(y)]$. We assume that the probability model chosen is
+    correct and that $\theta$ is the true value of the parameter.
+
+    \paragraph{Coverage Probability} To quantify the uncertainty in the
+    interval estimate, we define the coverage probability for the interval
+    estimator $[L(Y), U(Y)]$ as \\
+    $C(\theta) = P(L(Y) \leq \theta \leq U(Y))$
+
+    \paragraph{Confidence Intervals} A 100p\% confidence interval for a
+    parameter $\theta$ is an interval estimate $[L(y), U(y)]$ for which\\
+    $P(L(Y) \leq \theta \leq U(Y)) = p$. We say that we are 100p\% confident
+    that the true parameter is in the interval
+
+    \paragraph{Pivotal Quantity} is a function of the data Y and the unknown
+    parameter $\theta$ such that the distribution of the random variable Q is
+    completely known.  We define it as: $Z = \frac{\bar{X} -
+    \mu}{\frac{\sigma}{\sqrt{n}}} \sim N(0, 1)$. \\
+    To compute a 100p\% confidence interval for $\mu$, determine the threshold
+    $c$ such that $P(Z \leq c) = 1 - (\frac{1-p}{2}) = \frac{p+1}{2}$, where $Z
+    \sim N(0, 1)$.\\
+    We then construct the interval $\bar{x} \pm c\frac{\sigma}{\sqrt{n}}$

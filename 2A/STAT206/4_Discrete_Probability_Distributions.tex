@@ -1,0 +1,81 @@
+\chapter{Discrete Probability Distributions}
+  \section{Definitions}
+    \paragraph{Bernoulli Distribution} Repeated trials of an experiment
+    \begin{itemize}
+      \item Each trial can be a success or a failure
+      \item The probability of a success is the same for each trial
+      \item The outcomes of different trials are \textbf{independent}
+      \item Let X record success or failure
+    \end{itemize}
+    We say that X follows a \textbf{Bernoulli distributionS} ($X \sim
+    Bernoulli(p)$), where p is the probability of sucesss
+
+    \[ f(x) = \left\{
+      \begin{array}{l l}
+        p     & \quad \text{if $x = 1$}\\
+        (1-p) & \quad \text{if $x = 0$}
+      \end{array}
+      \right.  \]\\
+      $E(X) = p$\\
+      $Var(X) = E[X^2] - (E(X))^2 = p - p^2 = p(1-p)$
+
+    \paragraph{Binomial Distribution}
+      Physical setup: We perform a sequence of $n$ independent Bernoulli trials
+      \begin{itemize}
+        \item Each trial has two possible outcomes: success or failure
+        \item Trials are independent
+        \item Each trial has probability of success equal to $p$
+      \end{itemize}
+
+      $f(x) = \binom{n}{x} p^x(1-p)^{n-x}$, $x = 0, 1, 2, ... n$\\
+      $E(X) = np$\\
+      $Var(X) = np(1-p)$
+
+    \paragraph{Poisson Process}
+      Physical setup: Events occur randomly in time (or space) according to the
+      following conditions
+      \begin{itemize}
+        \item Independence: The number of occurrences in disjoint (non
+          overlapping) intervals are independent
+        \item Individuality: Events occur singly i.e $P($two or more events
+          occur simultaneously$) = 0$
+        \item Homogeneity: Events occur according to a uniform (constant) rate
+          or intensity ($\lambda$)
+      \end{itemize}
+      If events occur with an average rate of $\lambda$ per unit of time
+      and X is the number of events which occur in $t$ units of time, then $X
+      \sim Poisson(\lambda t)$\\
+      $f(x) = \frac{e^{\lambda t}(\lambda t)^x}{x!}$, $x = 0, 1, ...$\\
+      $E(X) = \lambda t$\\
+      $Var(X) = \lambda t$
+
+    \paragraph{Hypergeometric Distribution}
+      Physical setup: We have a collection of N objects which can be classified
+      into two distinct types, called success and failure. There are $r$ and $N
+      - r$ failures. A sample of $n$ objects is selected without replacement.\\
+      Let X be the number of successes selected, then X is said to follow a
+      hypergeometric distribution ($X \sim Hyper(N, r, n)$). To compute the
+      probability functino, note that, for X = x
+      \begin{itemize}
+        \item There are $\binom{N}{n}$ points in the sample space (if we do not
+          consider the order of selection)
+        \item There are $\binom{r}{x}$ ways too select the $x$ success objects
+          from the $r$ available
+        \item There are $\binom{N-r}{n-x}$ ways to select the remaining $n-x$
+          failure objects from the $N-r$ available
+      \end{itemize}
+      $f(x) = \frac{\binom{r}{x}\binom{N-r}{n-x}}{\binom{N}{n}}$, $x = 0, 1,
+      ... min(r, n)$\\
+      $E(X) = \frac{nr}{N}$\\
+      $Var(X) = \frac{nr(N-r)(N-n)}{N^2(N-1)}$
+
+      \paragraph{Geometric Distribution}
+        Physical Setup: Bernoulli Trials are repeated until the first success.
+        Let X be the number of independent Bernoulli (p) trials until the first
+        success (including the first success), then X follows a geometric
+        distribution, $X \sim Geom(p)$\\
+        $f(x) = p(1-p)^{x-1}$, $x = 1, 2 ...$\\
+        $E(X) = \frac{1}{p}$\\
+        $Var(X) = \frac{1-p}{p^2}$
+
+

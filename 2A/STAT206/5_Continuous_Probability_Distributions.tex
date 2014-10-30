@@ -1,0 +1,78 @@
+\chapter{Continuous Probability Distributions}
+  \section{Definitions}
+    \paragraph{Continuous Random Variable} X is a function from the sample
+    space to the real numbers: $X : S \rightarrow \mathbb{R}$\\
+    The range $R(X)$ is continuous. Individual points in $\mathbb{R}$ must have
+    a 0 probability since the interval length is 0\\
+
+    \paragraph{Probability Density Function (pdf)} of a continuous random
+    variable X, denoted $f(x)$ assigns a probability to an $x \in R(X)$. If we
+    have the probability density function for X, then we can define the
+    probability that X takes a value in an interval $(a, b) \subseteq R(X)$ as
+    $P(A < X < b) = \int_{a}^{b} f(x)dx, (a, b) \subseteq R(X)$\\
+    Properties of the probability density function:\\
+    $f(x) \geq 0$, $\forall x \in R(X)$\\
+    $\int_{x\in R(X)} f(x)dx = 1$
+
+    \paragraph{Cumulative Distribution Function} of a continuous brandom
+    variable X, denoted F(x), gives the probability that X takes on a value
+    less than or equal to x\\
+    $F(x) = P(X \leq x) = P(X < x)$\\
+    Properties
+    \begin{itemize}
+      \item $F(-\infty) = 0$
+      \item $F(\infty) = 1$
+      \item $F(x)$ is non decreasing
+    \end{itemize}
+
+    \paragraph{Continuous Uniform Distribution}
+      Physical setup: The probability of any subinterval of the range is
+      proportional to the length of the interval. For $a < b$, if X is
+      uniformly distributed on the interval $(a, b)$ then we write $X \sim U(a,
+      b)$\\
+      $f(x) = \frac{1}{b-a}$, $a \leq x \leq b$\\
+
+      \[ F(x) = \left\{
+        \begin{array}{l l}
+          0               & \quad \text{if $x < a$}\\
+          \frac{x-a}{b-a} & \quad \text{if $a \leq x \leq b$}\\
+          1               & \quad \text{if $b < x$}
+        \end{array}
+        \right.  \]\\
+
+    \paragraph{Mean or Expected Value} of a continuous random variable X is
+    defined as\\
+    $E(X) = \int_{x} xf(x) dx = \mu$\\
+    Properties:
+    \begin{itemize}
+      \item $E[g(X)] = \int_x g(x)f(x)dx$
+      \item $E[aX + bY] = aE(X) + bE(Y)$
+    \end{itemize}
+
+    \paragraph{Variance} is the expected squared difference from the mean, that
+    is $Var(X) = E[(X-E(X))^2]$.\\
+    If $X_1$ and $X_2$ are independent random variables, and $a, b \in
+    \mathbb{R}$, then $Var[aX_1 + bX_2] = a^2 Var(X_1) + b^2Var(X_2)$
+
+    \paragraph{Exponential Distribution}
+      Physical setup: Events occur according to a Poisson process, and we
+      measure the inter arrival times between events. If X is the amount of
+      time until the next event in a Poisson process, then $X \sim
+      Exp(\theta)$, where $\theta = \frac{1}{\lambda}$\\
+      $f(x) = (\frac{1}{\theta})e^{-\frac{x}{\theta}}$, $x > 0$\\
+      $F(x) = 1 - e^{-\frac{x}{\theta}}$, $x > 0$\\
+      $E(X) = \theta$\\
+      $Var(X) = \theta^2$
+
+    \paragraph{Simulation}
+      The most common use of the continuous uniform distribution to simulate
+      other random variables.\\
+      \textbf{Theorem}: If $F(x)$ is an arbitrary cdf, and $Y \sim U(0, 1)$,
+      then $X = F^{-1}(Y)$ has cdf $F(x)$.\\
+      We can use $Y$ to generate an observation of the random variable X:
+      \begin{itemize}
+        \item Generate an observation y from $Y \sim U(0, 1)$ using your
+          favourite software
+        \item Compute $x = F^{-1}(y)$
+      \end{itemize}
+
