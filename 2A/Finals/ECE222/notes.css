@@ -1,0 +1,95 @@
+html{
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-color:rgba(33, 78, 103, 0.8);
+	/*background: -webkit-linear-gradient(60deg,rgba(103, 124, 145, 0.9), transparent),/*bottom left darck blue*/ -webkit-radial-gradient(91% 89%, ellipse closest-corner,rgba(27,3,16,.4), transparent 280%),/*bottom right*/ -webkit-radial-gradient(left center,ellipse farthest-side,rgba(63, 143, 221, 0.8) 0%, transparent 100%), -webkit-radial-gradient(10% 90%,ellipse closest-corner,rgba(153, 171, 242, 0.8) 0%, transparent 100%),/**/ -webkit-radial-gradient(center right, ellipse cover,rgba(114, 105, 169, 0.9), transparent),/*main color*/ -webkit-radial-gradient(10% 10%, circle farthest-side,rgba(108, 196, 176, 0.5), transparent),/*left top blue color*/ -webkit-linear-gradient(140deg, rgba(0,0,0,.3), transparent),/*bottom right black color*/ -webkit-radial-gradient(rgba(242,242,242,.9), transparent)/*center color*/;*/
+color: rgba(255,255,255,0.8);
+
+}
+
+body{
+	max-width: 870px;
+	padding: 30px;
+	background-color: rgba(255,255,255,0.8);
+	margin: 0 auto;
+	color: rgba(82, 81, 84, 0.9);
+	font-family: 'Open Sans';
+}
+
+img{
+	max-width: 400px;
+	margin:20px;
+	border:solid 3px rgba(0,0,0,0.2);
+	margin: 0 auto;
+	clear:both;
+}
+
+h1{
+	margin: 0 auto;
+	color: rgba(52, 71, 121, 1);
+}
+
+h2{
+	color: rgba(52, 71, 121, 0.8);
+}
+
+h3{
+	color: rgba(52, 71, 121, 0.7);
+}
+
+li{
+	/*color: rgba(28, 35, 110, 0.9);*/
+	color: rgba(89, 91, 110, 0.9);
+}
+
+ul{
+	background-color: rgba(193, 213, 231, 0.3);
+	padding: 30px;
+}
+
+blockquote{
+	background-color: rgba(255,255,255,0.7);
+	padding: 15px;
+}
+
+a{
+	color: rgba(228, 97, 74, 0.8);
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+td,
+th {
+  padding: 0;
+}
+
+table {
+  display: block;
+  width: 100%;
+  overflow: auto;
+  word-break: normal;
+  word-break: keep-all;
+}
+
+table th {
+  font-weight: bold;
+}
+
+table th,
+table td {
+  padding: 6px 13px;
+  border: 1px solid #ddd;
+}
+
+table tr {
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}

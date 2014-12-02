@@ -1,0 +1,174 @@
+<!doctype html>
+<head>
+	<link rel="stylesheet" href="./notes.css">
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+</head><h1>Cache</h1>
+<h2>Memory Hierarchy Concept</h2>
+<p><img alt="Memory hierarchy" src="./img/memory_hierarchy.png" /></p>
+<ul>
+<li>ideal: infinitely large, infinitely fast</li>
+<li>mimicked imperfectly via hierarchy</li>
+</ul>
+<p><img alt="i5" src="./img/i5_core.png" /></p>
+<h2>Cache Memory</h2>
+<ul>
+<li>based on the idea that if you want a piece of data from memory</li>
+<li>you'll want it again soon (temporal locality)</li>
+<li>you'll want other data from nearby(spatial locality)</li>
+<li>operation</li>
+<li>Saves data that has been recently used</li>
+<li>moves data from memory in lines(blocks)<ul>
+<li>higher bandwidth</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>e.g. ARM Cortex A9</p>
+<blockquote>
+<p>line length = 8 words
+4-way set associative
+critical word first
+size = 16, 32 or 64 kB</p>
+</blockquote>
+<p>e.g</p>
+<blockquote>
+<ol>
+<li>cache starts empty</li>
+<li>read at $24</li>
+<li>cache miss</li>
+<li>all of B1 copied to cache L0</li>
+<li>word 1 passed to proc</li>
+<li>read at $28</li>
+<li>cache hit in L0</li>
+<li>word 2 passed to proc</li>
+</ol>
+</blockquote>
+</blockquote>
+<p><img alt="Cache example" src="./img/cache_eg_1.png" /></p>
+<h2>Performance</h2>
+<ul>
+<li>Average access time:</li>
+<li>t<sub>avg</sub> = hC + (1 - h)M</li>
+<li>h = hit rate, (1 - h) = miss rate, C = cache hit time, M = miss penalty to load missing block</li>
+</ul>
+<blockquote>
+<p>e.g.</p>
+<blockquote>
+<p>h = 90%, C = 1 cycle, M = 10 cycles</p>
+<p>t<sub>avg</sub> = 0.9 x 1 + (1 - 0.9) 10 = 1.9 cycles</p>
+</blockquote>
+</blockquote>
+<ul>
+<li>improving t<sub>avg</sub></li>
+<li>Increasing h:<ul>
+<li>keep the right blocks(mapping scheme)</li>
+<li>prefetch: load lines before requested(h/w prediction or s/w instruction)</li>
+<li>bigger cache</li>
+</ul>
+</li>
+<li>Decrease C:<ul>
+<li>small cache size</li>
+<li>multiple banks</li>
+</ul>
+</li>
+<li>Decrease M<ul>
+<li>load-through: give data to proc while line still loading</li>
+<li>critical word first: memory sends block starting with requested data and wrapping</li>
+</ul>
+</li>
+</ul>
+<h2>Store Instructions</h2>
+<ul>
+<li>if block missing: write miss</li>
+<li>load-block</li>
+<li>modify cache line</li>
+</ul>
+<p><img alt="Store Instruction" src="./img/store_instruction.png" /></p>
+<p>Write policy:</p>
+<ul>
+<li>Write through:<ul>
+<li>modify mem at same time(poor performance)</li>
+</ul>
+</li>
+<li>Write back<ul>
+<li>mark line dirty</li>
+<li>write line to mem on eviction</li>
+<li>cache cherncy problem: different caches with different copies of same block</li>
+</ul>
+</li>
+</ul>
+<h2>Mapping Schemes</h2>
+<p><img alt="Fully associative mapping scheme" src="./img/fully_associative.png" />
+<img alt="Direct associative mapping scheme" src="./img/direct_associative.png" />
+<img alt="Set associative mapping scheme" src="./img/set_associative.png" /></p>
+<h2>Eviction Policy</h2>
+<ul>
+<li>if cache full(fully associative) or set full(set associative), which line should be replaced by new block(read/write miss)?</li>
+<li>Least recently used(LRU)</li>
+<li>better than FIFO or random</li>
+</ul>
+<h2>Address decomposition</h2>
+<p><img alt="Address decomposition" src="./img/address_decomposition.png" /></p>
+<blockquote>
+<p>e.g. line size = 32 bytes, #lines = 64, # address bits = 16</p>
+<blockquote>
+<p>addresses 0 - 31   B0    0000 0000 000X XXXX</p>
+<pre><code>      32- 63   B0    0000 0000 001X XXXX
+
+      64- 95   B0    0000 0000 010X XXXX
+</code></pre>
+<p>address 0x1234 =&gt; 0001 0010 0011 0100</p>
+<p>Fully associative:
+<strong>0001 0010 001</strong> tag, <strong>1 0100</strong> offset</p>
+<p>4 way set associative:
+<strong>0001 001</strong> tag, <strong>0 001</strong> index, <strong>1 0100</strong> offset<br>
+#sets = 64 / 4 = 16, index bits = log<sub>2</sub>16 = 4</p>
+<p>Direct mapped:
+<strong>0001 0</strong> tag, <strong>010 001</strong> index, <strong>1 0100</strong> offset<br>
+index bits = log<sub>2</sub>64 = 6</p>
+</blockquote>
+</blockquote>
+<h2>Virtual Memory</h2>
+<ul>
+<li>each process sees its own virtual address space 0 - 2<sup>n</sup> - 1</li>
+<li>virtual memory pages are mapped to physical (main) memory pages</li>
+<li>overflow(pages that exceed pysical memory capacity) are swapped to hard disk</li>
+<li><a href="./docs/cache_vm.pdf">handout</a>: v.m. for 2 processes</li>
+<li>(page size ~ 4kB: need large transfers to achieve good b/w due to high latenecy of HDD)</li>
+</ul>
+<h2>Page Table</h2>
+<ul>
+<li>one per process</li>
+<li>list of mappings of virtual pages to physical pages(page frames)</li>
+<li>Memory Management Unit(MMU) translates virtual addresses into physical</li>
+<li><a href="./docs/cache_vm.pdf">handout</a>: v.m. address translation</li>
+</ul>
+<h2>Translation Lookaside Buffer</h2>
+<ul>
+<li>caches recent v.p-to-p.f.(???) translation</li>
+<li>fully associative</li>
+<li>without TLB, every LD, ST or instr. fetch requires 2 mem accesses(1 for translation and 1 for data)</li>
+<li><a href="./docs/cache_vm.pdf">handout</a>: v.m. associative mapped TLB</li>
+</ul>
+<h2>Page Faults</h2>
+<ul>
+<li>on address translation if no matching page frame, MMU raises exception</li>
+<li>page fault handler</li>
+<li>creates or swaps pages from HDD</li>
+<li>updates page table(s)</li>
+<li>returns and excepting instruction restarted</li>
+<li>page frames chosen for replacement via LRU</li>
+</ul>
+<h2>Hard Disk Drives</h2>
+<p><img alt="Hard disk drive" src="./img/hard_disk.png" /> <br></p>
+<ul>
+<li>data stored on magnetized platters spinning at 5000 - 10 000 rpm</li>
+<li>data stored using transitions in polarity</li>
+<li>platter surface<br></li>
+</ul>
+<p><img alt="Platter surface" src="./img/platter_surface.png" /></p>
+<ul>
+<li>access time = seek time(to move heads) + rotational delay(for sector to spin under head)</li>
+</ul>
+<p>See next <a href="./7_processor.html">chapter</a>
+<!-- IDs for images --></p>
