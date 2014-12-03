@@ -2,4 +2,200 @@
 <head>
 	<link rel="stylesheet" href="./notes.css">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
-</head>
+</head><h1>Pipelining</h1>
+<h2>Datapath</h2>
+<ul>
+<li>
+<p><a href="./docs/processor.pdf">Handout</a>: pipelined processor datapath, second page</p>
+</li>
+<li>
+<p>stages operate concurrently</p>
+</li>
+<li>
+<p>instruction execution overlapped
+  <img alt="Instruction execution" src="./img/instruction_execution.png" /></p>
+</li>
+<li>
+<p>output of stage 1 is buffered in B1-2 for use by stage 2 in next cycle(B2-3, B3-4, B4-5 similar)</p>
+</li>
+<li>includes info needed for control signals</li>
+<li>I-cache allows instruction fetch every cycle</li>
+<li>D-cache allows load/sore every cycle</li>
+<li>1 instruction finishes per cycle(in steady state)</li>
+</ul>
+<h2>Hazards</h2>
+<ul>
+<li>conditions that stall the pipeline</li>
+</ul>
+<blockquote>
+<p>e.g. miss in I-cache (2 extra cycles)
+<img alt="Hazard example" src="./img/hazard_example.png" /></p>
+</blockquote>
+<ul>
+<li>types: data, control, structural, 2 cycles stall</li>
+</ul>
+<h2>Data Hazards</h2>
+<blockquote>
+<p>e.g.</p>
+<blockquote>
+<p>ADD r2, r0, r1</p>
+<p>ADD r3, r2, #1</p>
+</blockquote>
+</blockquote>
+<p><img alt="data hazard example" src="./img/data_hazard_example.png" /></p>
+<ul>
+<li>value [r0] + [r1] in pipeline after compute in clock cycle 3</li>
+<li>forward it</li>
+</ul>
+<blockquote>
+<p>e.g.</p>
+<blockquote>
+<p>ADD r2, r0, r1</p>
+<p>ADD r3, r2, #1</p>
+</blockquote>
+</blockquote>
+<p><img alt="data hazard example 1" src="./img/data_hazard_example_1.png" /></p>
+<h3>Data Forwarding</h3>
+<p><img alt="data forwarding" src="./img/data_forwarding.png" /></p>
+<p>A<sub>sel</sub> = { PC + 4, A, Z }
+B<sub>sel</sub> = { B, offset, Z }</p>
+<ul>
+<li>Also need forwarding paths from stage 5 and to stage 2</li>
+</ul>
+<blockquote>
+<p>e.g.</p>
+<blockquote>
+<p><img alt="data forwarding example" src="./img/data_forwarding_example.png" /></p>
+</blockquote>
+</blockquote>
+<h2>Load Hazard</h2>
+<ul>
+<li>a dependent instruction following a load must delay 1 cycle</li>
+</ul>
+<blockquote>
+<p>e.g.</p>
+<blockquote>
+<p><img alt="load hazard example 1" src="./img/load_hazard_example_1.png" /></p>
+</blockquote>
+</blockquote>
+<ul>
+<li>load delay slot is instruction following load</li>
+<li>can avoid hazard by filling with independent instruction</li>
+</ul>
+<blockquote>
+<p>e.g.</p>
+<blockquote>
+<p><img alt="load hazard example 2" src="./img/load_hazard_example_2.png" /></p>
+</blockquote>
+</blockquote>
+<h2>Control Hazards</h2>
+<ul>
+<li>hazard on PC(caused by branches)</li>
+</ul>
+<blockquote>
+<p>e.g.</p>
+<blockquote>
+<p><img alt="control hazard example" src="./img/control_hazard.png" /></p>
+</blockquote>
+</blockquote>
+<ul>
+<li>~20% dynamic instruction mix are branches</li>
+<li>reduce penalty to 1 cycle with dedicated branch adder in decode stage</li>
+</ul>
+<h2>Branch Delay Slot</h2>
+<ul>
+<li>"feature" instruction after branch always executed (i.e dont squash it)</li>
+</ul>
+<blockquote>
+<p>e.g.</p>
+<blockquote>
+<p><img alt="branch delay slot" src="./img/branch_delay_slot.png" /></p>
+</blockquote>
+</blockquote>
+<h2>Speculative Execution</h2>
+<ul>
+<li>predict branch direction(taken, not taken) and start fetching</li>
+<li>resolve branch(execute it)</li>
+<li>if prediction correct, then<ul>
+<li>penalty avoided</li>
+</ul>
+</li>
+<li>else<ul>
+<li>squash speculative instructions</li>
+</ul>
+</li>
+<li>branch history table</li>
+</ul>
+<p><img alt="Speculative execution" src="./img/speculative_execution.png" /></p>
+<ul>
+<li>BNT updated on branch resolution with BTA and branch behaviour(BT = branch taken, BNT not taken)</li>
+</ul>
+<h3>1 bit predictor</h3>
+<ul>
+<li>states:</li>
+<li>0 = Likely not taken(LNT)</li>
+<li>1 = Likely taken(LT)</li>
+<li>problem: always mispredicts first and last loop iterations</li>
+</ul>
+<p><img alt="1 bit predictor" src="./img/1_bit_predictor.png" /></p>
+<h3>2 bit</h3>
+<ul>
+<li>states:</li>
+<li>00 = Strongly not taken(SNT)</li>
+<li>01 = Likely not taken(LNT)</li>
+<li>10 = Likely taken(LT)</li>
+<li>11 = Strongly taken(ST)</li>
+</ul>
+<p><img alt="2 bit predictor" src="./img/2_bit_predictor.png" /></p>
+<blockquote>
+<p>e.g.</p>
+<blockquote>
+<p>on BNT miss, guess LNT</p>
+</blockquote>
+</blockquote>
+<p><code>i = 0;
+  do {
+    ...
+    i++;
+  } while (i &lt; 3); // B1</code></p>
+<blockquote>
+<blockquote>
+<p><img alt="B1 prediction" src="./img/branch_taken_example.png" /></p>
+</blockquote>
+</blockquote>
+<h2>Structural Hazards</h2>
+<ul>
+<li>insufficient resources</li>
+</ul>
+<blockquote>
+<p>e.g. cache too small =&gt; less hit rate</p>
+<p>e.g. unified L1 =&gt; cannot fetch and ld/st in same cycle</p>
+</blockquote>
+<h2>Performance</h2>
+<ul>
+<li>execution time : T = n x CPI / r where</li>
+<li>n = dynamic instruction count</li>
+<li>CPI average cycles instruction</li>
+<li>r = clock rate(frequency)</li>
+<li>ideal CPI = 1</li>
+<li>increased by hazards</li>
+</ul>
+<blockquote>
+<p>e.g.</p>
+<blockquote>
+<p><img alt="Performance example" src="./img/performance.png" /></p>
+</blockquote>
+</blockquote>
+<p><code>CPI = 1.0 + B + L
+= 1.0 + 0.15 x 0.2 x 2 + 0.2 x 0.4 x 1
+= 1.14</code></p>
+<ul>
+<li>throughput</li>
+<li>P = 1 / T</li>
+<li>speedup of processor r2 over processor 1</li>
+<li>S = P <sub>2</sub> / P <sub>1</sub> = T <sub>1</sub> / T <sub>2</sub> = (n <sub>1</sub> x CPI <sub>1</sub> / r) / (n <sub>2</sub> x CPI <sub>2</sub> / r <sub>2</sub>)</li>
+</ul>
+<p>if n <sub>1</sub> = n <sub>2</sub> and r <sub>1</sub> = r <sub>2</sub> , S = CPI <sub>1</sub> / CPI <sub>2</sub></p>
+<p>See <a href="./7_processor.html">previous chapter</a>
+See <a href="./9_arithmetic.html">next chapter</a>
+<!-- IDs --></p>

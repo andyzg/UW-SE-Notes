@@ -132,6 +132,7 @@ Control
 >> WMFC = read + write
 
 See [next chapter][8_pipelining]
+See [previous chapter][6_cache]
 <!-- IDs of images -->
 [stage_1_datapath]: ./img/stage_1_datapath.png
 [stage_2_datapath]: ./img/stage_2_datapath.png
@@ -142,3 +143,4 @@ See [next chapter][8_pipelining]
 
 [datapath_handout]: ./docs/processor.pdf
 [8_pipelining]: ./8_pipelining.html
+[6_cache]: ./6_cache.html

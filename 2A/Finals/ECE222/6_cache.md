@@ -170,6 +170,7 @@ Hard Disk Drives
 * access time = seek time(to move heads) + rotational delay(for sector to spin under head)
 
 See next [chapter][7_processor]
+See previous [chapter][5_memory]
 <!-- IDs for images -->
 [memory_hierarchy]: ./img/memory_hierarchy.png
 [i5_core]: ./img/i5_core.png
@@ -182,5 +183,6 @@ See next [chapter][7_processor]
 [hard_disk]: ./img/hard_disk.png
 [platter_surface]: ./img/platter_surface.png
 [7_processor]: ./7_processor.html
+[5_memory]: ./5_memory.html
 
 [cache_vm]: ./docs/cache_vm.pdf

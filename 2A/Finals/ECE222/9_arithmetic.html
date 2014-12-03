@@ -1,0 +1,275 @@
+<!doctype html>
+<head>
+	<link rel="stylesheet" href="./notes.css">
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+</head><h1>Arithmetic</h1>
+<h2>Floating Point Respresentation ( IEEE754 )</h2>
+<blockquote>
+<p>e.g. F = &plusmn; 1.xxx * 2<sup>E</sup></p>
+<blockquote>
+<p><img alt="floating point" src="./img/floating_point.png" /></p>
+</blockquote>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">"precision"</th>
+<th align="center">S</th>
+<th align="center">E'</th>
+<th align="center">f</th>
+<th align="center">total</th>
+<th align="center">magnitude</th>
+<th align="center">precision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">4 byte single</td>
+<td align="center">1</td>
+<td align="center">8</td>
+<td align="center">23</td>
+<td align="center">32</td>
+<td align="center">[2 x 10 <sup>-38</sup>, 2 x 10 <sup>38</sup>]</td>
+<td align="center">7 decimal places</td>
+</tr>
+<tr>
+<td align="center">8 byte double</td>
+<td align="center">1</td>
+<td align="center">11</td>
+<td align="center">52</td>
+<td align="center">64</td>
+<td align="center">[2 x 10 <sup>-308</sup> , 2 x 10 <sup>308</sup> ]</td>
+<td align="center">15 decimal places</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>S : 0 = positive, 1 = negative</li>
+<li>E' : biased exponent, E' = E + bias, bias = 127 for s.p, 1023 for d.p</li>
+<li>
+<p>s.p.</p>
+<ul>
+<li>E' <sub>min</sub> = 0000 0001 ; E <sub>min</sub> = 1 - 127 = -126</li>
+<li>E' <sub>max</sub> = 1111 1110 ; E <sub>max</sub> = 254 - 127 = +127</li>
+<li>E' always positive, facilitates comparing f.p numbers with integer ALU</li>
+</ul>
+</li>
+<li>
+<p>f : doesn't encode leading one</p>
+</li>
+<li>F = (-1) <sup>s</sup> * 1.f * 2 <sup>E'-bias</sup></li>
+</ul>
+<blockquote>
+<p>e.g. represent 0.75 <sub>10</sub> in s.p. format  </p>
+<blockquote>
+<p>0.75 x 2 = 1.5<br />
+0.75 <sub>10</sub> = 0.11 <sub>2</sub> = 1.1 x 2 <sup>-1</sup> (normalized)  </p>
+<blockquote>
+<p>S = 0, f = 1, E' = -1 + 127 = 126 = 0111 1110
+<img alt="floating point example" src="./img/floating_point_example.png" /></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>E' reserved values: 0000 0000, 1111 1111</p>
+<table>
+<thead>
+<tr>
+<th align="center">E'</th>
+<th align="center">f</th>
+<th align="center">value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">0000 0000</td>
+<td align="center">zero</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">0000 0000</td>
+<td align="center">non-zero</td>
+<td align="center">denormalized, very small results</td>
+</tr>
+<tr>
+<td align="center">1111 1111</td>
+<td align="center">zero</td>
+<td align="center">infinity</td>
+</tr>
+<tr>
+<td align="center">1111 1111</td>
+<td align="center">non-zero</td>
+<td align="center">NaN</td>
+</tr>
+</tbody>
+</table>
+<p>denormalized representation (s.p):
+F = (-1) <sub>s</sub> x 0.f x 2 <sup>-126</sup></p>
+<h2>Addition/Subtraction</h2>
+<blockquote>
+<p>e.g. 1 x 2 <sup>-1</sup> - 1.11 x 2 <sup>-2</sup> using 4 sig dis</p>
+<blockquote>
+<p><img alt="subtraction" src="./img/addition_subtraction.png" /></p>
+</blockquote>
+</blockquote>
+<h2>Multiplication/Division</h2>
+<ol>
+<li>if multiplying, add exponents and subtract bias<br />
+E' <sub>3</sub> = E' <sub>1</sub> + E' <sub>2</sub> - bias<br />
+= (E <sup>true</sup> <sub>1</sub> + bias) + (E <sup>true</sup> <sub>2</sub> + bias) - bias<br />
+= E <sup>true</sup> <sub>1</sub> + E <sup>true</sup> <sub>2</sub> + bias<br />
+= E <sup>true</sup> <sub>3</sub> + bias</li>
+</ol>
+<p>if dividing, subtract exponents and add bias</p>
+<ol>
+<li>multiply/divide significands</li>
+<li>normalize</li>
+<li>round and repeat 3 if necessary</li>
+</ol>
+<h2>Rounding</h2>
+<p>IEEE543: intermediate results keep 3 extra bits<br />
+x = 1.b<sub>-1</sub>b<sub>-2</sub>...b<sub>-23</sub>b<sub>-24</sub>b<sub>-25</sub>b<sub>-26</sub></p>
+<p>rounding schemes: truncation, Von Neumann, round-to-nearest-even
+error &equiv; round(x) - x</p>
+<h3>Truncation</h3>
+<table>
+<thead>
+<tr>
+<th align="center">b<sub>-24</sub>b<sub>-25</sub>b<sub>-26</sub></th>
+<th align="center">x</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">000 - 111</td>
+<td align="center">1.b<sub>-1</sub>b<sub>-2</sub>...b<sub>-23</sub></td>
+</tr>
+<tr>
+<td align="center">error accumulates with successive operations</td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<h3>Von Neumann</h3>
+<table>
+<thead>
+<tr>
+<th align="center">b<sub>-24</sub>b<sub>-25</sub>b<sub>-26</sub></th>
+<th align="center">x</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">000</td>
+<td align="center">1.b<sub>-1</sub>b<sub>-2</sub>...b<sub>-23</sub> -&gt;</td>
+</tr>
+<tr>
+<td align="center">001 - 111</td>
+<td align="center">1.b<sub>-1</sub>b<sub>-2</sub>...b<sub>-22</sub>1</td>
+</tr>
+<tr>
+<td align="center">error tends to cancel out with successive operations</td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<h3>Round-to-nearest-even</h3>
+<table>
+<thead>
+<tr>
+<th align="center">b<sub>-24</sub>b<sub>-25</sub>b<sub>-26</sub></th>
+<th align="center">x</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">000 - 011</td>
+<td align="center">1.b<sub>-1</sub>b<sub>-2</sub>...b<sub>-23</sub></td>
+</tr>
+<tr>
+<td align="center">100</td>
+<td align="center">1.b<sub>-1</sub>b<sub>-2</sub>...b<sub>-23</sub>(b<sub>-23</sub> == 0)</td>
+</tr>
+<tr>
+<td align="center">100</td>
+<td align="center">1.b<sub>-1</sub>b<sub>-2</sub>...b<sub>-23</sub> + 2<sup>-23</sup>(b<sub>-23</sub> == 1)</td>
+</tr>
+<tr>
+<td align="center">101 - 111</td>
+<td align="center">1.b<sub>-1</sub>b<sub>-2</sub>...b<sub>-23</sub> + 2<sup>-23</sup></td>
+</tr>
+<tr>
+<td align="center">error w.r.t. b<sub>-23</sub> &isin; [-.100, +.100]</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">error tends to cancel out and has smaller range</td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<h2>Unsigned Multiplication</h2>
+<blockquote>
+<p>e.g.</p>
+<blockquote>
+<p><img alt="Unsigned multiplication" src="./img/unsigned_multiplication.png" /></p>
+</blockquote>
+</blockquote>
+<h3>Sequential Multiplier</h3>
+<p><img alt="sequential multiplier" src="./img/sequential_multiplier.png" /></p>
+<ol>
+<li>Initialize: C | A &lt;- 0, Q &lt;- multiplier, M &lt;- Multiplicand</li>
+<li>Repeat n times</li>
+<li>C | A &lt;- (q <sub>0</sub> == 1) ? A + M : A + 0</li>
+<li>C | A | Q &gt;&gt; 1</li>
+<li>product in A | Q
+Each iteration P grows 1 bit, Q shrinks 1 bit</li>
+</ol>
+<blockquote>
+<p>e.g. iteration</p>
+<blockquote>
+<p><img alt="sequential multiplier example" src="./img/sequential_multiplier_example.png" /></p>
+</blockquote>
+</blockquote>
+<h2>Signed Multiplication</h2>
+<blockquote>
+<p>e.g.</p>
+<blockquote>
+<p>![signed multiplication][signed_multiplication]</p>
+</blockquote>
+</blockquote>
+<h3>Booth's Algorithm</h3>
+<p>Recode Q as B
+| Q"i" | Q"i-1" | B"i" |
+|:-:|:-:|:-:|
+| 0 | 0 | 0 |
+| 0 | 1 | +1|
+| 1 | 0 | -1|
+| 1 | 1 | 0 |
+Q"-1" &equiv; 0</p>
+<blockquote>
+<p>e.g. </p>
+<blockquote>
+<p><img alt="booths algorithm" src="./img/booths_algorithm_1.png" /></p>
+</blockquote>
+<p>e.g. </p>
+<blockquote>
+<p><img alt="booths algorithm" src="./img/booths_algorithm_2.png" /></p>
+</blockquote>
+</blockquote>
+<h3>Bit-Pair Recoding</h3>
+<ul>
+<li>precode B as R</li>
+<li>pairs of Booth's bits B"i+1" B"i" replaced by R"i" = 2B"i+1" + B"i"</li>
+</ul>
+<blockquote>
+<p>e.g.</p>
+<blockquote>
+<p><img alt="bit pair recoding" src="./img/bit_pair_recoding.png" /></p>
+</blockquote>
+<p>e.g.</p>
+<blockquote>
+<p><img alt="bit pair recoding" src="./img/bit_pair_recoding_1.png" /></p>
+</blockquote>
+</blockquote>
+<p>See <a href="./8_pipelining.html">previous chapter</a>
+<!-- IDs down here --></p>

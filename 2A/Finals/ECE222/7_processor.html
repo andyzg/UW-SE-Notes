@@ -2,4 +2,345 @@
 <head>
 	<link rel="stylesheet" href="./notes.css">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
-</head>
+</head><h1>Processor Design</h1>
+<h2>Execution Stages</h2>
+<table>
+<thead>
+<tr>
+<th>Store/type</th>
+<th>Data Processing</th>
+<th>Load</th>
+<th>Store</th>
+<th>Branch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 - fetch</td>
+<td>ADD r2, r0, r1</td>
+<td>LDR r1, [r0, #4]</td>
+<td>STR r1, [r0, #4]</td>
+<td>BEQ [PC, #16]</td>
+</tr>
+<tr>
+<td>2 - reg read</td>
+<td>r0, r1</td>
+<td>r0</td>
+<td>r0, r1</td>
+<td>PC</td>
+</tr>
+<tr>
+<td>3 - use ALU</td>
+<td>[r0] + [r1]</td>
+<td>[r0] + 4</td>
+<td>[r0] + 4</td>
+<td>[PC] + 16</td>
+</tr>
+<tr>
+<td>4 - use mem</td>
+<td>-</td>
+<td>read</td>
+<td>write</td>
+<td>-</td>
+</tr>
+<tr>
+<td>5 - reg write</td>
+<td>r2&lt;-</td>
+<td>r1&lt;-</td>
+<td>-</td>
+<td>if z == 1 PC &lt;-</td>
+</tr>
+</tbody>
+</table>
+<h2>Datapath</h2>
+<h3>Stage 1</h3>
+<p><img alt="Data path stage 1" src="./img/stage_1_datapath.png" /></p>
+<h3>Stage 2</h3>
+<p><img alt="Data path stage 2" src="./img/stage_2_datapath.png" /></p>
+<h3>Stage 3</h3>
+<p><img alt="Data path stage 3" src="./img/stage_3_datapath.png" /></p>
+<h3>Stage 4</h3>
+<p><img alt="Data path stage 4" src="./img/stage_4_datapath.png" /></p>
+<h3>Stage 5</h3>
+<p><img alt="Data path stage 5" src="./img/stage_5_datapath.png" /></p>
+<h3>Combined 6</h3>
+<p>See <a href="./docs/processor.pdf">handout</a></p>
+<h2>Control</h2>
+<ul>
+<li>registers are clocked, output always on</li>
+<li>data flow controlled by asserting register input and mux select signals (if not listed, control sig deasserted if listed, asserted)</li>
+</ul>
+<h4>Data processing instructions</h4>
+<blockquote>
+<p>e.g. ADD r2, r0, r1</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Action</th>
+<th>Control Signals Asserted</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 - fetch</td>
+<td>MAR &lt;- [PC]</td>
+<td>MAR in, MAR<sub>sel</sub> = PC</td>
+</tr>
+<tr>
+<td></td>
+<td>read memory</td>
+<td>read</td>
+</tr>
+<tr>
+<td></td>
+<td>IR &lt;- mem data in</td>
+<td>IR<sub>in</sub>, MDR<sub>sel</sub> = mem</td>
+</tr>
+<tr>
+<td></td>
+<td>PC &lt;- [PC] + 4</td>
+<td>PC<sub>sel</sub> = inc, PC<sub>in</sub></td>
+</tr>
+<tr>
+<td>2 - reg read</td>
+<td>RA &lt;- [r0], RA &lt;- [r1]</td>
+<td>rd A = 0, RA<sub>in</sub>, rd B = 1, RB<sub>in</sub></td>
+</tr>
+<tr>
+<td>3 - ALU</td>
+<td>RZ &lt;- [RA] + [RB]</td>
+<td>A<sub>sel</sub> = A, B<sub>sel</sub> = B, ALU<sub>op</sub> = add, Z<sub>in</sub></td>
+</tr>
+<tr>
+<td>4 - mem</td>
+<td>RY &lt;- [RZ]</td>
+<td>Y<sub>sel</sub> = Z, RY<sub>in</sub></td>
+</tr>
+<tr>
+<td>5 - reg wr</td>
+<td>r2 &lt;- [RY]</td>
+<td>wrC = 2, wrEn</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>e.g. LDR r1, [r0, #4]</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Action</th>
+<th>Control Signals Asserted</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 - fetch</td>
+<td>MAR &lt;- [PC]</td>
+<td>MAR in, MAR<sub>sel</sub> = PC</td>
+</tr>
+<tr>
+<td></td>
+<td>read memory</td>
+<td>read</td>
+</tr>
+<tr>
+<td></td>
+<td>IR &lt;- mem data in</td>
+<td>IR<sub>in</sub>, MDR<sub>sel</sub> = mem</td>
+</tr>
+<tr>
+<td></td>
+<td>PC &lt;- [PC] + 4</td>
+<td>PC<sub>sel</sub> = inc, PC<sub>in</sub></td>
+</tr>
+<tr>
+<td>2 - reg read</td>
+<td>RA &lt;- [r0]</td>
+<td>rd A = 0, RA<sub>in</sub></td>
+</tr>
+<tr>
+<td>3 - ALU</td>
+<td>RZ &lt;- [RA] + 4</td>
+<td>A<sub>sel</sub> = A, B<sub>sel</sub> = offset, ALU<sub>op</sub> = add, Z<sub>in</sub></td>
+</tr>
+<tr>
+<td>4 - mem</td>
+<td>MAR &lt;- [RZ]</td>
+<td>MAR<sub>sel</sub> = Z, MAR<sub>in</sub></td>
+</tr>
+<tr>
+<td></td>
+<td>read memory</td>
+<td>read</td>
+</tr>
+<tr>
+<td></td>
+<td>RY &lt;- mem data in</td>
+<td>Y<sub>sel</sub> = mem, RY<sub>in</sub></td>
+</tr>
+<tr>
+<td>5 - reg wr</td>
+<td>r2 &lt;- [RY]</td>
+<td>wrC = 1, wrEn</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>e.g. STR r1, [r0, #4]</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Action</th>
+<th>Control Signals Asserted</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 - fetch</td>
+<td>MAR &lt;- [PC]</td>
+<td>MAR in, MAR<sub>sel</sub> = PC</td>
+</tr>
+<tr>
+<td></td>
+<td>read memory</td>
+<td>read</td>
+</tr>
+<tr>
+<td></td>
+<td>IR &lt;- mem data in</td>
+<td>IR<sub>in</sub>, MDR<sub>sel</sub> = mem</td>
+</tr>
+<tr>
+<td></td>
+<td>PC &lt;- [PC] + 4</td>
+<td>PC<sub>sel</sub> = inc, PC<sub>in</sub></td>
+</tr>
+<tr>
+<td>2 - reg read</td>
+<td>RA &lt;- [r0]</td>
+<td>rd A = 0, RA<sub>in</sub></td>
+</tr>
+<tr>
+<td></td>
+<td>RB &lt;- [r1]</td>
+<td>rd B = 1, RB<sub>in</sub></td>
+</tr>
+<tr>
+<td>3 - ALU</td>
+<td>RZ &lt;- [RA] + 4</td>
+<td>A<sub>sel</sub> = A, B<sub>sel</sub> = offset, ALU<sub>op</sub> = add, Z<sub>in</sub></td>
+</tr>
+<tr>
+<td>4 - mem</td>
+<td>MAR &lt;- [RZ]</td>
+<td>MAR<sub>sel</sub> = Z, MAR<sub>in</sub></td>
+</tr>
+<tr>
+<td></td>
+<td>MDR &lt;- [RB]</td>
+<td>MDR<sub>in</sub></td>
+</tr>
+<tr>
+<td></td>
+<td>write memory</td>
+<td>write</td>
+</tr>
+<tr>
+<td></td>
+<td>RY &lt;- mem data in</td>
+<td>Y<sub>sel</sub> = mem, RY<sub>in</sub></td>
+</tr>
+<tr>
+<td>5 - reg wr</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>e.g. BEQ [PC, #16]</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Action</th>
+<th>Control Signals Asserted</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 - fetch</td>
+<td>MAR &lt;- [PC]</td>
+<td>MAR in, MAR<sub>sel</sub> = PC</td>
+</tr>
+<tr>
+<td></td>
+<td>read memory</td>
+<td>read</td>
+</tr>
+<tr>
+<td></td>
+<td>IR &lt;- mem data in</td>
+<td>IR<sub>in</sub>, MDR<sub>sel</sub> = mem</td>
+</tr>
+<tr>
+<td></td>
+<td>PC &lt;- [PC] + 4</td>
+<td>PC<sub>sel</sub> = inc, PC<sub>in</sub></td>
+</tr>
+<tr>
+<td>2 - reg read</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>3 - ALU</td>
+<td>RZ &lt;- [PC] + 16</td>
+<td>A<sub>sel</sub> = A, B<sub>sel</sub> = offset, ALU<sub>op</sub> = add, Z<sub>in</sub></td>
+</tr>
+<tr>
+<td>4 - mem</td>
+<td>RY &lt;- [RZ]</td>
+<td>Y<sub>sel</sub> = Z, RY<sub>in</sub></td>
+</tr>
+<tr>
+<td>5 - reg wr</td>
+<td>if (z == 1), PC &lt;- [RY]</td>
+<td>PC<sub>sel</sub> = Y, PC<sub>in</sub> = (Z == 1)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>could finish in stage 3 by routing ALU output to PC max</li>
+</ul>
+<h3>Control Logic</h3>
+<p><img alt="Control Logic" src="./img/control_logic.png" /></p>
+<ul>
+<li>WMFC = wait for memory function complete</li>
+<li>MFC = memory function complete(from memory)</li>
+<li>asserting WMFC with read or write control signal stalls step counter until memory asserts MFC(i.e. waits for read/write to finish)</li>
+<li>Combinational logic</li>
+<li>inputs: control step, instruction, condition flags</li>
+<li>outputs: all control signals</li>
+</ul>
+<blockquote>
+<p>e.g. IR<sub>in</sub> = T1</p>
+<blockquote>
+<p>PC<sub>in</sub> = T1 + T5 (Z flag == 1) BEQ</p>
+<p>PC<sub>sel</sub> = T1</p>
+<p>PC <sub>sel</sub> = T5</p>
+<p>read = T1 + T4 LDR
+write = T4 STR</p>
+<p>WMFC = read + write</p>
+</blockquote>
+</blockquote>
+<p>See <a href="./8_pipelining.html">next chapter</a>
+See <a href="./6_cache.html">previous chapter</a>
+<!-- IDs of images --></p>
