@@ -105,7 +105,7 @@
 </tr>
 <tr>
 <td>2 - reg read</td>
-<td>RA &lt;- [r0], RA &lt;- [r1]</td>
+<td>RA &lt;- [r0], RB &lt;- [r1]</td>
 <td>rd A = 0, RA<sub>in</sub>, rd B = 1, RB<sub>in</sub></td>
 </tr>
 <tr>
@@ -184,7 +184,7 @@
 </tr>
 <tr>
 <td>5 - reg wr</td>
-<td>r2 &lt;- [RY]</td>
+<td>r1 &lt;- [RY]</td>
 <td>wrC = 1, wrEn</td>
 </tr>
 </tbody>
@@ -250,11 +250,6 @@
 <td></td>
 <td>write memory</td>
 <td>write</td>
-</tr>
-<tr>
-<td></td>
-<td>RY &lt;- mem data in</td>
-<td>Y<sub>sel</sub> = mem, RY<sub>in</sub></td>
 </tr>
 <tr>
 <td>5 - reg wr</td>
@@ -333,14 +328,23 @@
 <blockquote>
 <p>e.g. IR<sub>in</sub> = T1</p>
 <blockquote>
-<p>PC<sub>in</sub> = T1 + T5 (Z flag == 1) BEQ</p>
-<p>PC<sub>sel</sub> = T1</p>
-<p>PC <sub>sel</sub> = T5</p>
-<p>read = T1 + T4 LDR
-write = T4 STR</p>
-<p>WMFC = read + write</p>
+<p>PC<sub>in</sub> = T1 + T5 (Z flag == 1) BEQ<br />
+PC<sub>sel</sub>: inc = T1<br />
+PC <sub>sel</sub>: Y = T5<br />
+read = T1 + T4 LDR<br />
+write = T4 STR<br />
+WMFC = read + write</p>
 </blockquote>
 </blockquote>
 <p>See <a href="./8_pipelining.html">next chapter</a>
 See <a href="./6_cache.html">previous chapter</a>
-<!-- IDs of images --></p>
+<!-- IDs of images --></p><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-47938100-3', 'auto');
+  ga('send', 'pageview');
+
+</script>

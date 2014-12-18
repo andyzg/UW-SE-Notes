@@ -1,0 +1,59 @@
+\chapter{Simple Linear Regression}
+  \section{Regression}
+    \textbf{Goal}: Look for a relationship between paired random varaibles $(x, Y)$.
+    \begin{itemize}
+      \item $Y$ is the \textbf{dependent} random variable
+      \item $x$ is the \textbf{independent} random variable, considered known
+    \end{itemize}
+    Simple Linear Regression: Quantify the linear relationship between $Y$ and $x$
+  \section{Formulas}
+    $ S_{xx} = (\sum_{i=1}^{n} x^2_i) - n\bar{x}^2 $
+    $ S_{xy} = (\sum_{i=1}^{n} x_iy_i) - n\bar{x}\bar{y} $
+    $ S_{yy} = (\sum_{i=1}^{n} y^2_i) - n\bar{y}^2 $
+
+    Sample correlation coefficient between two random samples $x_i$ and $y_i$:
+    \begin{center}$ p = \frac{ S_{xy} }{ \sqrt{S_{xx}S_{yy}} } $\end{center}
+    Correlation measures the strength of the linear relationship between $x$ and $Y$
+    \begin{itemize}
+      \item A value $p = 1$ indicates that $x$ and $Y$ vary linearly in the same direction
+      \item A value $p = -1$ indicates that $x$ and $Y$ vary linearly in the opposite directions
+      \item If $p = 0$ then $x$ and $Y$ are said to be uncorrelated
+    \end{itemize}
+
+    Regression equation:
+    \begin{center}$ Y_i = \alpha + \beta x_i + \epsilon_i, \epsilon_i \sim N(0, \sigma^2_e)$\end{center}
+    Assumptions:
+    \begin{itemize}
+      \item  Linear relationship between $x$ and $Y$
+      \item The model errors are i.i.d $\epsilon_i \sim N(0, \sigma^2_e)$
+      \begin{itemize}
+        \item Independent
+        \item Normally distributed
+        \item Constant variance $\sigma^2_e$
+      \end{itemize}
+    \end{itemize}
+
+    We define $\hat{\alpha}$ and $\hat{\beta}$ as
+    \begin{center}$ \hat{\alpha} = \bar{y} - \hat{\beta} \bar{x} $\end{center}
+    \begin{center}$ \hat{\beta} = \frac{S_{xy}}{S_{xx}} $\end{center}
+
+  \section{Sampling Distributions}
+    Distribution for $\widetilde{\beta}$
+    \begin{center}$ \widetilde{\beta} \sim N(\beta, \frac{\sigma^2_e}{S_{xx}} $\end{center}
+    Distribution for $\widetilde{\alpha}$
+    \begin{center}$ \widetilde{\alpha} \sim N(\alpha, \sigma^2_e (\frac{1}{n} + \frac{\bar{x}^2}{S_{xx}})$\end{center}
+    \subsection{Variance of the residuals:}
+    \begin{center}$s^2_e = \frac{S_{yy} - \hat{\beta} S_{xy}}{n-2}$\end{center}
+    \subsection{Distribution:}
+    \begin{center}$ \frac{(n-2)S^2_e}{\sigma^2_e} \sim x^2_{n-2} $\end{center}
+
+    \subsection{Confidence Interval for $\beta$}
+    \begin{center}$\hat{\beta} \pm c\frac{s_e}{\sqrt{S_{xx}}}$\end{center}
+    where $c$ satisfies $P(-c \leq t_{n-2} \leq c) = p$
+
+    \subsection{Confidence Interval for $\alpha$}
+    \begin{center}$\hat{\alpha} \pm cs_e \sqrt{ \frac{1}{n} + \frac{\bar{x}^2}{S_{xx}}}$\end{center}
+    where $c$ satisfies $P(-c \leq t_{n-2} \leq c) = p$
+
+    \subsection{Hypothesis test}
+    $|T| = \frac{ | \widetilde{\beta} - 0 | }{ \frac{S_e}{\sqrt{S_{xx}}} } $, $T \sim t_{n-2}$

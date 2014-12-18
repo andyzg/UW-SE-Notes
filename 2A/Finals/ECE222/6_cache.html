@@ -93,7 +93,7 @@ size = 16, 32 or 64 kB</p>
 <li>Write back<ul>
 <li>mark line dirty</li>
 <li>write line to mem on eviction</li>
-<li>cache cherncy problem: different caches with different copies of same block</li>
+<li>cache coherency problem: different caches with different copies of same block</li>
 </ul>
 </li>
 </ul>
@@ -112,11 +112,10 @@ size = 16, 32 or 64 kB</p>
 <blockquote>
 <p>e.g. line size = 32 bytes, #lines = 64, # address bits = 16</p>
 <blockquote>
-<p>addresses 0 - 31   B0    0000 0000 000X XXXX</p>
-<pre><code>      32- 63   B0    0000 0000 001X XXXX
-
-      64- 95   B0    0000 0000 010X XXXX
-</code></pre>
+<p>addresses<br />
+          0 - 31   B0    0000 0000 000X XXXX<br />
+          32- 63   B1    0000 0000 001X XXXX<br />
+          64- 95   B2    0000 0000 010X XXXX  </p>
 <p>address 0x1234 =&gt; 0001 0010 0011 0100</p>
 <p>Fully associative:
 <strong>0001 0010 001</strong> tag, <strong>1 0100</strong> offset</p>
@@ -132,7 +131,7 @@ index bits = log<sub>2</sub>64 = 6</p>
 <ul>
 <li>each process sees its own virtual address space 0 - 2<sup>n</sup> - 1</li>
 <li>virtual memory pages are mapped to physical (main) memory pages</li>
-<li>overflow(pages that exceed pysical memory capacity) are swapped to hard disk</li>
+<li>overflow(pages that exceed physical memory capacity) are swapped to hard disk</li>
 <li><a href="./docs/cache_vm.pdf">handout</a>: v.m. for 2 processes</li>
 <li>(page size ~ 4kB: need large transfers to achieve good b/w due to high latenecy of HDD)</li>
 </ul>
@@ -145,7 +144,7 @@ index bits = log<sub>2</sub>64 = 6</p>
 </ul>
 <h2>Translation Lookaside Buffer</h2>
 <ul>
-<li>caches recent v.p-to-p.f.(???) translation</li>
+<li>caches recent virtual page to page frame translation</li>
 <li>fully associative</li>
 <li>without TLB, every LD, ST or instr. fetch requires 2 mem accesses(1 for translation and 1 for data)</li>
 <li><a href="./docs/cache_vm.pdf">handout</a>: v.m. associative mapped TLB</li>

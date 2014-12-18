@@ -124,24 +124,24 @@ Decoder asserts a word line to enable a raw</p>
 <h2>Large Memory Chips</h2>
 <p>e.g. 2M word x 8 bit (2<sup>21</sup> words)</p>
 <blockquote>
-<p>requires 21 x 2097152 decoder(slow!)</p>
-<p>instead, arrange bit cells in symmetric array</p>
+<p>requires 21 x 2097152 decoder(slow!)<br />
+instead, arrange bit cells in symmetric array  </p>
 <blockquote>
-<p>2<sup>21</sup> words x 2<sup>3</sup> bits/word</p>
-<p>= 2<sup>24</sup> bits(16M)</p>
-<p>= 2<sup>12</sup> x 2<sup>12</sup> bits</p>
-<p>= 4096 x 4096 bits</p>
+<p>2<sup>21</sup> words x 2<sup>3</sup> bits/word<br />
+   = 2<sup>24</sup> bits(16M)<br />
+   = 2<sup>12</sup> x 2<sup>12</sup> bits<br />
+   = 4096 x 4096 bits  </p>
 </blockquote>
-<p>see <a href="./docs/memory_chip.pdf">handout</a></p>
-<p>decoder us 12 x 4096</p>
-<p>each raw contains 4096/8 = 512 words</p>
+<p>see <a href="./docs/memory_chip.pdf">handout</a><br />
+decoder is 12 x 4096</p>
+<p>each row contains 4096/8 = 512 words  </p>
 <blockquote>
-<p>need 212:1 max to select word</p>
-</blockquote>
-<p>put address bits A20 - A9 on pins and assert Row Address Strobe(RAS) to select row</p>
-<p>next put A8 - A0 on pins and assert Column Address Strobe(CAS) to select word</p>
-<p>timing diagram: async DRAM read(2 words)<br>
+<p>need 512:1 mux to select word<br />
+put address bits A20 - A9 on pins and assert Row Address Strobe(RAS) to select row<br />
+next put A8 - A0 on pins and assert Column Address Strobe(CAS) to select word<br />
+timing diagram: async DRAM read(2 words)<br>
 <img alt="address_strobe" src="./img/address_strobe.png" /></p>
+</blockquote>
 </blockquote>
 <h2>Fast Page Mode</h2>
 <ul>
@@ -179,7 +179,7 @@ Decoder asserts a word line to enable a raw</p>
 <li>naming convention: PC{2, 3, 4} - b/w    b/w = #MB/s</li>
 </ul>
 <blockquote>
-<p>e.g. PC3-12800 - 800MHz clock</p>
+<p>e.g. PC3-12800 - 800MHz clock  </p>
 <blockquote>
 <p>=&gt; 1600MT/s x 8 bytes/transfer = 12 800MB/s</p>
 </blockquote>
@@ -190,11 +190,11 @@ Decoder asserts a word line to enable a raw</p>
 <li>bandwidth: volume of data per unit time<blockquote>
 <p>e.g. word size = 8 bytes, clock speed = 200MHz, 2 word read</p>
 <blockquote>
-<p>Hz = cycle / s</p>
-<p>Async: 2 words x 8 bytes / word x 200 MHz / 12 cycles = 267 MB/s</p>
-<p>FPM: 16 bytes x 200MHz / 9 cycles = 356 MBs</p>
-<p>SDRAM: 16 bytes x 200MHz / 7 cycles = 457 MB/s</p>
-<p>DDR: 16 bytes x 200MHz / 6 cycles = 533 MB/s</p>
+<p>Hz = cycle / s<br />
+ Async: 2 words x 8 bytes / word x 200 MHz / 12 cycles = 267 MB/s<br />
+ FPM: 16 bytes x 200MHz / 9 cycles = 356 MBs<br />
+ SDRAM: 16 bytes x 200MHz / 7 cycles = 457 MB/s<br />
+ DDR: 16 bytes x 200MHz / 6 cycles = 533 MB/s  </p>
 </blockquote>
 </blockquote>
 </li>

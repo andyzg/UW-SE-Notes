@@ -79,7 +79,7 @@ Write policy:
   * Write back
     * mark line dirty
     * write line to mem on eviction
-    * cache cherncy problem: different caches with different copies of same block
+    * cache coherency problem: different caches with different copies of same block
 
 Mapping Schemes
 --------------------
@@ -102,11 +102,10 @@ Address decomposition
 
 > e.g. line size = 32 bytes, #lines = 64, # address bits = 16
 >>
->> addresses 0 - 31   B0    0000 0000 000X XXXX
->>
->>           32- 63   B0    0000 0000 001X XXXX
->>
->>           64- 95   B0    0000 0000 010X XXXX
+>> addresses  
+>>           0 - 31   B0    0000 0000 000X XXXX  
+>>           32- 63   B1    0000 0000 001X XXXX  
+>>           64- 95   B2    0000 0000 010X XXXX  
 >>
 >> address 0x1234 => 0001 0010 0011 0100
 >>
@@ -126,7 +125,7 @@ Virtual Memory
 
 * each process sees its own virtual address space 0 - 2<sup>n</sup> - 1
 * virtual memory pages are mapped to physical (main) memory pages
-* overflow(pages that exceed pysical memory capacity) are swapped to hard disk
+* overflow(pages that exceed physical memory capacity) are swapped to hard disk
 * [handout][cache_vm]: v.m. for 2 processes
 * (page size ~ 4kB: need large transfers to achieve good b/w due to high latenecy of HDD)
 
@@ -141,7 +140,7 @@ Page Table
 Translation Lookaside Buffer
 --------------------------
 
-* caches recent v.p-to-p.f.(???) translation
+* caches recent virtual page to page frame translation
 * fully associative
 * without TLB, every LD, ST or instr. fetch requires 2 mem accesses(1 for translation and 1 for data)
 * [handout][cache_vm]: v.m. associative mapped TLB

@@ -1,0 +1,42 @@
+\chapter{Hypothesis Testing}
+  \section{Steps}
+    \begin{itemize}
+      \item Define a null hypothesis and alternative hypothesis
+      \item Define a test statistic which is used as evidence against the null hypothesis
+      \item Calculate the $p-$ value from the test statistic, with a given threshold($\alpha$)
+      \item If the $p-$value is less than the threshold, then we reject the null hypothesis
+      \item Always state conclusions in the language of the original problem
+    \end{itemize}
+
+  \section{Difference between One sided and Two sided}
+    For a null hypothesis, $H_0: \mu = \mu_0$, we consider two types of alternative hypothesis
+    \begin{itemize}
+      \item One sided: $H_a : \mu > \mu_0$ or $H_a : \mu < \mu_0$
+      \item Two sided: $H_a : \mu \neq \mu_0$
+    \end{itemize}
+    Which altenrative hypothesis is appropriate depends on the context of the problem
+
+  \section{Formulas}
+    For $\mu \neq \mu_0$:
+    \begin{center}$ |T| = \frac{|\bar{D}|}{\frac{S_D}{\sqrt{n}}} \sim |t_{n-1}| $\end{center}
+    \begin{center}$ |Z| \sim |N(0, 1)| $\end{center}
+
+    For $\mu > \mu_0$:
+    \begin{center}$ T = \frac{\bar{D}}{\frac{S_D}{\sqrt{n}}} \sim t_{n-1} $\end{center}
+    \begin{center}$ Z \sim N(0, 1) $\end{center}
+
+    For $\mu < \mu_0$:
+    \begin{center}$ -T = -\frac{\bar{D}}{\frac{S_D}{\sqrt{n}}} \sim -t_{n-1} $\end{center}
+    \begin{center}$ -Z \sim -N(0, 1) $\end{center}
+
+
+  \section{Contingency tables}
+    \begin{itemize}
+      \item Contingency tables contain the observed counts between two random variables
+      \item Test $H_0$ : The variables are independent
+      \item If $r_i$ and $c_j$ are the row and column totals, then the expected counts are
+        \begin{center}$e_{ij} = \frac{r_ic_j}{n}$\end{center}
+      \item Test statistic: Under $H_0$, when $n$ is large, the pivotal quantity
+        \begin{center}$\bigwedge = 2 \sum_{i=1}^a \sum_{j=1}^{b} Y_{ij} \ln{(\frac{Y_{ij}}{E_{ij}})}$\end{center}
+          has a $x^2_{(a-1)(b-1)}$ distribution
+    \end{itemize}

@@ -90,30 +90,20 @@ Large Memory Chips
 ------------------
 
 e.g. 2M word x 8 bit (2<sup>21</sup> words)
-> requires 21 x 2097152 decoder(slow!)
->
-> instead, arrange bit cells in symmetric array
->>
->>    2<sup>21</sup> words x 2<sup>3</sup> bits/word
->>
->>    = 2<sup>24</sup> bits(16M)
->>
->>    = 2<sup>12</sup> x 2<sup>12</sup> bits
->>
->>    = 4096 x 4096 bits
->
-> see [handout][memory_chip_handout]
->
-> decoder us 12 x 4096
->
-> each raw contains 4096/8 = 512 words
->>
->> need 212:1 max to select word
->
-> put address bits A20 - A9 on pins and assert Row Address Strobe(RAS) to select row
->
-> next put A8 - A0 on pins and assert Column Address Strobe(CAS) to select word
->
+> requires 21 x 2097152 decoder(slow!)  
+> instead, arrange bit cells in symmetric array  
+>>    2<sup>21</sup> words x 2<sup>3</sup> bits/word  
+>>    = 2<sup>24</sup> bits(16M)  
+>>    = 2<sup>12</sup> x 2<sup>12</sup> bits  
+>>    = 4096 x 4096 bits  
+
+> see [handout][memory_chip_handout]  
+> decoder is 12 x 4096
+
+> each row contains 4096/8 = 512 words  
+>> need 512:1 mux to select word  
+> put address bits A20 - A9 on pins and assert Row Address Strobe(RAS) to select row  
+> next put A8 - A0 on pins and assert Column Address Strobe(CAS) to select word  
 > timing diagram: async DRAM read(2 words)<br>
 ![address_strobe][address_strobe]
 
@@ -149,8 +139,7 @@ Double Data Rate(DDR) SDRAM
   * same principle just faster circuitry
 * naming convention: PC{2, 3, 4} - b/w    b/w = #MB/s
 
-> e.g. PC3-12800 - 800MHz clock
->>
+> e.g. PC3-12800 - 800MHz clock  
 >> => 1600MT/s x 8 bytes/transfer = 12 800MB/s
 
 Metrics
@@ -159,16 +148,11 @@ Metrics
 * latency: delay from start until first word produced(e.g. 5 cycles)
 * bandwidth: volume of data per unit time
 > e.g. word size = 8 bytes, clock speed = 200MHz, 2 word read
->>
->>  Hz = cycle / s
->>
->>  Async: 2 words x 8 bytes / word x 200 MHz / 12 cycles = 267 MB/s
->>
->>  FPM: 16 bytes x 200MHz / 9 cycles = 356 MBs
->>
->>  SDRAM: 16 bytes x 200MHz / 7 cycles = 457 MB/s
->>
->>  DDR: 16 bytes x 200MHz / 6 cycles = 533 MB/s
+>>  Hz = cycle / s  
+>>  Async: 2 words x 8 bytes / word x 200 MHz / 12 cycles = 267 MB/s  
+>>  FPM: 16 bytes x 200MHz / 9 cycles = 356 MBs  
+>>  SDRAM: 16 bytes x 200MHz / 7 cycles = 457 MB/s  
+>>  DDR: 16 bytes x 200MHz / 6 cycles = 533 MB/s  
 
 Modules
 -------------------

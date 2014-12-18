@@ -13,7 +13,7 @@ Datapath
 * output of stage 1 is buffered in B1-2 for use by stage 2 in next cycle(B2-3, B3-4, B4-5 similar)
   * includes info needed for control signals
 * I-cache allows instruction fetch every cycle
-* D-cache allows load/sore every cycle
+* D-cache allows load/store every cycle
 * 1 instruction finishes per cycle(in steady state)
 
 Hazards
@@ -30,9 +30,7 @@ Data Hazards
 -------------------
 
 > e.g.
->>
->> ADD r2, r0, r1
->>
+>> ADD r2, r0, r1  
 >> ADD r3, r2, #1
 
 ![data hazard example][data_hazard_example]
@@ -41,9 +39,7 @@ Data Hazards
 * forward it
 
 > e.g.
->>
->> ADD r2, r0, r1
->>
+>> ADD r2, r0, r1  
 >> ADD r3, r2, #1
 
 ![data hazard example 1][data_hazard_example_1]

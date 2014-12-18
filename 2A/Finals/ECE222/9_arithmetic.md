@@ -25,6 +25,7 @@ Floating Point Respresentation ( IEEE754 )
 
 > e.g. represent 0.75 <sub>10</sub> in s.p. format  
 >> 0.75 x 2 = 1.5  
+>> 0.5 x 2 = 1.0  
 >> 0.75 <sub>10</sub> = 0.11 <sub>2</sub> = 1.1 x 2 <sup>-1</sup> (normalized)  
 >>> S = 0, f = 1, E' = -1 + 127 = 126 = 0111 1110
 >> ![floating point example][floating_point_example]
@@ -123,13 +124,15 @@ Signed Multiplication
 
 ### Booth's Algorithm
 Recode Q as B
-| Q"i" | Q"i-1" | B"i" |
+
+| Q<sub>i</sub> | Q<sub>i-1</sub> | B<sub>i</sub> |
 |:-:|:-:|:-:|
 | 0 | 0 | 0 |
 | 0 | 1 | +1|
 | 1 | 0 | -1|
 | 1 | 1 | 0 |
-Q"-1" &equiv; 0
+
+Q<sub>-1</sub> &equiv; 0
 
 > e.g. 
 >> ![booths algorithm][booths_algorithm_1]
@@ -139,7 +142,7 @@ Q"-1" &equiv; 0
 
 ### Bit-Pair Recoding
 * precode B as R
-* pairs of Booth's bits B"i+1" B"i" replaced by R"i" = 2B"i+1" + B"i"
+* pairs of Booth's bits B<sub>i+1</sub> B<sub>i</sub> replaced by R<sub>i</sub> = 2B<sub>i+1</sub> + B<sub>i</sub>
 
 > e.g.
 >> ![bit pair recoding][bit_pair_recoding]
@@ -159,5 +162,6 @@ See [previous chapter][8_pipelining]
 [booths_algorithm_2]: ./img/booths_algorithm_2.png
 [bit_pair_recoding]: ./img/bit_pair_recoding.png
 [bit_pair_recoding_1]: ./img/bit_pair_recoding_1.png
+[signed_multiplication]: ./img/signed_multiplication.png
 
 [8_pipelining]: ./8_pipelining.html

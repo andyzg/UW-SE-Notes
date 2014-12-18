@@ -55,7 +55,7 @@ Control
 |              | read memory            | read                                 |
 |              | IR <- mem data in      | IR<sub>in</sub>, MDR<sub>sel</sub> = mem                   |
 |              | PC <- [PC] + 4         | PC<sub>sel</sub> = inc, PC<sub>in</sub>                    |
-| 2 - reg read | RA <- [r0], RA <- [r1] | rd A = 0, RA<sub>in</sub>, rd B = 1, RB<sub>in</sub>       |
+| 2 - reg read | RA <- [r0], RB <- [r1] | rd A = 0, RA<sub>in</sub>, rd B = 1, RB<sub>in</sub>       |
 | 3 - ALU      | RZ <- [RA] + [RB]      | A<sub>sel</sub> = A, B<sub>sel</sub> = B, ALU<sub>op</sub> = add, Z<sub>in</sub> |
 | 4 - mem      | RY <- [RZ]             | Y<sub>sel</sub> = Z, RY<sub>in</sub>                       |
 | 5 - reg wr   | r2 <- [RY]             |  wrC = 2, wrEn                       |
@@ -73,7 +73,7 @@ Control
 | 4 - mem      | MAR <- [RZ]            | MAR<sub>sel</sub> = Z, MAR<sub>in</sub>|
 |              | read memory            | read                                  |
 |              | RY <- mem data in      | Y<sub>sel</sub> = mem, RY<sub>in</sub>|
-| 5 - reg wr   | r2 <- [RY]             | wrC = 1, wrEn                                      |
+| 5 - reg wr   | r1 <- [RY]             | wrC = 1, wrEn                                      |
 
 > e.g. STR r1, [r0, #4]
 
@@ -89,7 +89,6 @@ Control
 | 4 - mem      | MAR <- [RZ]            | MAR<sub>sel</sub> = Z, MAR<sub>in</sub>|
 |              | MDR <- [RB]            | MDR<sub>in</sub>                     |
 |              | write memory           | write                                |
-|              | RY <- mem data in      | Y<sub>sel</sub> = mem, RY<sub>in</sub>|
 | 5 - reg wr   | -                      | -                                     |
 
 > e.g. BEQ [PC, #16]
@@ -120,15 +119,11 @@ Control
 
 > e.g. IR<sub>in</sub> = T1
 >>
->>  PC<sub>in</sub> = T1 + T5 (Z flag == 1) BEQ
->>
->> PC<sub>sel</sub> = T1
->>
->> PC <sub>sel</sub> = T5
->>
->> read = T1 + T4 LDR
->> write = T4 STR
->>
+>> PC<sub>in</sub> = T1 + T5 (Z flag == 1) BEQ  
+>> PC<sub>sel</sub>: inc = T1  
+>> PC <sub>sel</sub>: Y = T5  
+>> read = T1 + T4 LDR  
+>> write = T4 STR  
 >> WMFC = read + write
 
 See [next chapter][8_pipelining]

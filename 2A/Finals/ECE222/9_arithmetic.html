@@ -63,6 +63,7 @@
 <p>e.g. represent 0.75 <sub>10</sub> in s.p. format  </p>
 <blockquote>
 <p>0.75 x 2 = 1.5<br />
+0.5 x 2 = 1.0<br />
 0.75 <sub>10</sub> = 0.11 <sub>2</sub> = 1.1 x 2 <sup>-1</sup> (normalized)  </p>
 <blockquote>
 <p>S = 0, f = 1, E' = -1 + 127 = 126 = 0111 1110
@@ -234,18 +235,43 @@ Each iteration P grows 1 bit, Q shrinks 1 bit</li>
 <blockquote>
 <p>e.g.</p>
 <blockquote>
-<p>![signed multiplication][signed_multiplication]</p>
+<p><img alt="signed multiplication" src="./img/signed_multiplication.png" /></p>
 </blockquote>
 </blockquote>
 <h3>Booth's Algorithm</h3>
-<p>Recode Q as B
-| Q"i" | Q"i-1" | B"i" |
-|:-:|:-:|:-:|
-| 0 | 0 | 0 |
-| 0 | 1 | +1|
-| 1 | 0 | -1|
-| 1 | 1 | 0 |
-Q"-1" &equiv; 0</p>
+<p>Recode Q as B</p>
+<table>
+<thead>
+<tr>
+<th align="center">Q<sub>i</sub></th>
+<th align="center">Q<sub>i-1</sub></th>
+<th align="center">B<sub>i</sub></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">+1</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">-1</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<p>Q<sub>-1</sub> &equiv; 0</p>
 <blockquote>
 <p>e.g. </p>
 <blockquote>
@@ -259,7 +285,7 @@ Q"-1" &equiv; 0</p>
 <h3>Bit-Pair Recoding</h3>
 <ul>
 <li>precode B as R</li>
-<li>pairs of Booth's bits B"i+1" B"i" replaced by R"i" = 2B"i+1" + B"i"</li>
+<li>pairs of Booth's bits B<sub>i+1</sub> B<sub>i</sub> replaced by R<sub>i</sub> = 2B<sub>i+1</sub> + B<sub>i</sub></li>
 </ul>
 <blockquote>
 <p>e.g.</p>

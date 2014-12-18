@@ -1,0 +1,80 @@
+\chapter{Confidence Interval II}
+  \section{Definitions}
+    \subsection{Words}
+      \paragraph{Treatment} procedure, machine or process being compared by our experiment
+      \paragraph{Unit} object being studied by our experiment
+      \paragraph{Response variable} a variable of interest whose value we measure during our experiment
+      \paragraph{Explanatory Variable} a variable which influences the value of the response variate
+
+    \subsection{Methods}
+      \paragraph{Independent Sampling} Independent samples are those samples selected from the same population, or different populations, which have no effect on one another. That is, no correlation exists between the samples.
+      \paragraph{Matched Pair Samples} Matched samples can arise in the following situations:\\
+
+        Two samples in which the members are clearly paired, or are matched explicitly by the researcher. For example, IQ measurements on pairs of identical twins. \\
+
+        Those samples in which the same attribute, or variable, is measured twice on each subject, under different circumstances. Commonly called repeated measures. Examples include the times of a group of athletes for 1500m before and after a week of special training; or the milk yields of cows before and after being fed a particular diet.\\
+
+        Sometimes, the difference in the value of the measurement of interest for each matched pair is calculated, for example, the difference between before and after measurements, and these figures then form a single sample for an appropriate statistical analysis.
+
+  \section{Confidence Intervals}
+    \subsection{Difference of Means for large samples}
+      Suppose $X_i$ and $Y_j$ are independent normally distributed samples of size $n_X$ and $n_Y$ respectively:
+      \begin{center}
+        $X_i \sim N(\mu_X, \sigma^2_X)$
+      \end{center}
+      \begin{center}
+        $X_i \sim N(\mu_X, \sigma^2_X)$
+      \end{center}
+      For large values of $n_X$ and $n_Y$, by CLT, the random variable:
+      \begin{center}
+        $\frac{(\bar{X} - \bar{Y}) - (\mu_X - \mu_Y)}{\sqrt{\frac{\sigma_X^2}{n_X} + \frac{\sigma^2_Y}{n_Y}}} \sim N(0, 1)$
+      \end{center}
+
+      An approximate $100p\%$ confidence interval for $\mu_x - \mu_y$ is given by
+      \begin{center}
+        $ (\bar{x} - \bar{y}) \pm c \sqrt{ \frac{s^2_X}{n_X} + \frac{s^2_Y}{n_Y} } $
+      \end{center}
+      where $s_X$ and $s_Y$ are the \textbf{sample} standard deviations. For $Z \sim N(0, 1)$, we choose $c$ to satisfy
+      \begin{center}$P(-c \le Z \le c) = p$\end{center}
+
+    \subsection{Difference of Means for small samples}
+      Keep the basic setup from earlier, except now with smaller sample sizes. Suppose that $X_i$ and $Y_i$ are independent samples of sizes $n_X$ and $n_Y$ respectively. For \textbf{small} values of $n_X$ and $n_Y$, the random variable
+      $\frac{(\bar{X} - \bar{Y}) - (\mu_X - \mu_Y)}{S_p\sqrt{\frac{1}{n_X} + \frac{1}{n_Y}}} \sim t_{n_X + n_Y - 2}$
+      Explanation for $S^2_p$:
+      \begin{center}$S^2_p = \frac{(n_X - 1) S^2_X + (n_Y - 1) S^2_Y}{n_X + n_Y - 2}$\end{center}
+      \begin{center}$S^2_X = \frac{\sum_{i=i}^{n_X} (X_i - \bar{X})^2}{n_X - 1}$\end{center}
+      \begin{center}$S^2_Y = \frac{\sum_{i=i}^{n_Y} (Y_i - \bar{Y})^2}{n_Y - 1}$\end{center}
+
+        We use the unbiased estimater $S^2_p$ for $sigma^2$ rather than the maximum likelihood estimater $\widetilde{\sigma}$
+
+        An approximate $100p\%$ confidence interval for $\mu_x - \mu_y$ is given by
+        \begin{center}$(\bar{x} - \bar{y}) \pm cs_p\sqrt{\frac{1}{n_X} + \frac{1}{n_Y}}$\end{center}
+          where $c$ is chosen to satisfy $P(-c \leq t_{n_X + n_Y - 2} \leq c) = p$
+
+    \subsection{Difference of means, not independent}
+    Suppose we have paired observations $(x_i, y_i)$, where $X_i \sim N(\mu_X, \sigma^2)$ and $Y_i \sim N(\mu_Y, \sigma^2)$ are two random variables measured from the same unit of the population\\
+
+    Define new variables $D_i = X_i - Y_i \sim N(\mu_D, \sigma^2_D)$ with observations
+    \begin{center}$d_i = x_i - y_i$\end{center}
+
+    We have the pivotal quantity $\frac{\bar{D} - \mu_D}{\frac{S_D}{\sqrt{n}}} \sim t_{n-1}$
+    where $P(-c \leq t_{n-1} \leq c) = p$ and $s^2_D = \frac{\sum_{i=1}^{n}(d_i - \bar{d})^2}{n-1}$\\
+
+    The $100p\%$ confidence interval for $\mu_X - \mu_Y$ is
+    \begin{center}$(\bar{x} - \bar{y}) \pm c\frac{s_D}{\sqrt{n}}$\end{center}
+      where $P(-c \leq T \leq c) = p$ and $T \sim t_{n-1}$
+
+    \subsection{Exact Confidence Intervals}
+      $X_i \sim N(\mu, \sigma^2)$\\
+      A $100p\%$ confidence for $\mu$ where $\sigma$ is unknown) is given by
+      \begin{center}$\bar{x} \pm c\frac{s}{\sqrt{n}}$\end{center}
+      where $P(-c \leq T \leq c) = p$ and $T \sim t_{n-1}$\\
+
+      A $100p\%$ confidence interval for $\sigma$ is given by
+      \begin{center}$[ \sqrt{\frac{(n-1)s^2}{b}}, \sqrt{\frac{(n-1)s^2}{a}} ]$\end{center}
+        where $P(a \leq X \leq b) = p$ and $X \sim x^2_{n-1}$
+
+    \subsection{Approximate Confidence Intervals}
+      An approximate $100p\%$ confidence interval for $\theta$ (Binomial success probability) is given by
+      \begin{center}$\hat{\theta} \pm c\sqrt{\frac{\hat{\theta} (1 - \hat{\theta})}{n}}$\end{center}
+      where $P(-c \leq Z \leq c) = p$ and $Z \sim N(0, 1)$
